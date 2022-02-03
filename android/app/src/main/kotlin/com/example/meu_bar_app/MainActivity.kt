@@ -1,4 +1,4 @@
-package com.example.flutter_project_base
+package com.example.meu_bar_app
 
 import io.flutter.embedding.android.FlutterActivity
 
