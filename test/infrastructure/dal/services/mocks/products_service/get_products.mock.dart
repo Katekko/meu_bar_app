@@ -1,6 +1,7 @@
 import 'package:ekko/domain/core/abstractions/infrastructure/response.model.dart';
-
-import '../../products_service_test.dart';
+import 'package:ekko/infrastructure/dal/services/data/category.data.dart';
+import 'package:ekko/infrastructure/dal/services/data/product.data.dart';
+import 'package:ekko/infrastructure/dal/services/products/dto/get_products.response.dart';
 
 const listCategories = [
   CategoryData(id: 1, name: 'Bebidas'),
@@ -27,9 +28,5 @@ final listProducts = [
 
 final getProductsWithSuccessResponse = Response(
   statusCode: 200,
-  payload: GetProductsResponse(
-    success: true,
-    data: listProducts,
-    errors: null,
-  ),
+  payload: GetProductsResponse(success: true, data: listProducts, errors: null),
 );
