@@ -8,11 +8,28 @@ const listCategories = [
   CategoryData(id: 2, name: 'Outros'),
 ];
 
-const getProductsWithSuccessResponse = Response(
+final listProducts = [
+  ProductData(
+    id: 1,
+    name: 'Amstel 600',
+    category: listCategories.first,
+    urlImage: null,
+    value: 10,
+  ),
+  ProductData(
+    id: 2,
+    name: 'Petra 600',
+    category: listCategories.first,
+    urlImage: null,
+    value: 12,
+  ),
+];
+
+final getProductsWithSuccessResponse = Response(
   statusCode: 200,
   payload: GetProductsResponse(
     success: true,
-    data: listCategories,
+    data: listProducts,
     errors: null,
   ),
 );

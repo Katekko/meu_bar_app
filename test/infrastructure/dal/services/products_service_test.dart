@@ -6,18 +6,45 @@ import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 import '../../../mocks.dart';
-import 'mocks/products_service/get_categories.mock.dart';
+import 'mocks/products_service/get_products.mock.dart';
 
+part 'products_service_test.g.dart';
+
+@JsonSerializable()
 class CategoryData {
   final int id;
   final String name;
   const CategoryData({required this.id, required this.name});
+
+  factory CategoryData.fromJson(json) => _$CategoryDataFromJson(json);
+  Map<String, dynamic> toJson() => _$CategoryDataToJson(this);
+}
+
+@JsonSerializable()
+class ProductData {
+  final int id;
+  final String name;
+  final double value;
+  final CategoryData category;
+
+  final String? urlImage;
+
+  const ProductData({
+    required this.id,
+    required this.name,
+    required this.value,
+    required this.category,
+    required this.urlImage,
+  });
+
+  factory ProductData.fromJson(json) => _$ProductDataFromJson(json);
+  Map<String, dynamic> toJson() => _$ProductDataToJson(this);
 }
 
 @JsonSerializable(createToJson: false)
 class GetProductsResponse {
   final bool success;
-  final List<CategoryData>? data;
+  final List<ProductData>? data;
   final List<ErrorData>? errors;
 
   const GetProductsResponse({
@@ -31,7 +58,7 @@ class GetProductsResponse {
 }
 
 abstract class IProductsService {
-  Future<List<CategoryData>> getProducts({String? filter});
+  Future<List<ProductData>> getProducts({String? filter});
 }
 
 class ProductsService implements IProductsService {
@@ -41,7 +68,7 @@ class ProductsService implements IProductsService {
   final _prefix = 'products';
 
   @override
-  Future<List<CategoryData>> getProducts({String? filter}) async {
+  Future<List<ProductData>> getProducts({String? filter}) async {
     final url = filter != null ? '$_prefix?filter=$filter' : _prefix;
 
     final response = await _connect.get(
@@ -70,16 +97,34 @@ void main() {
     productsService = ProductsService(connect);
   });
 
-  test(
-    'Should get all products with success',
-    () async {
-      when(
-        () => connect.get('products', decoder: any(named: 'decoder')),
-      ).thenAnswer((_) async => getProductsWithSuccessResponse);
+  group('Get products', () {
+    test(
+      'Should get all products with success',
+      () async {
+        when(
+          () => connect.get('products', decoder: any(named: 'decoder')),
+        ).thenAnswer((_) async => getProductsWithSuccessResponse);
 
-      final response = await productsService.getProducts();
+        final response = await productsService.getProducts();
 
-      expect(response, listCategories);
-    },
-  );
+        expect(response, listProducts);
+      },
+    );
+
+    test(
+      'Should get products passing filter with success',
+      () async {
+        when(
+          () => connect.get(
+            'products?filter=cer',
+            decoder: any(named: 'decoder'),
+          ),
+        ).thenAnswer((_) async => getProductsWithSuccessResponse);
+
+        final response = await productsService.getProducts(filter: 'cer');
+
+        expect(response, listProducts);
+      },
+    );
+  });
 }
