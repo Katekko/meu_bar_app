@@ -9,13 +9,13 @@ part of 'error.response.dart';
 ErrorResponse _$ErrorResponseFromJson(Map<String, dynamic> json) =>
     ErrorResponse(
       success: json['success'] as bool,
-      error: json['error'] == null
-          ? null
-          : ErrorData.fromJson(json['error'] as Map<String, dynamic>),
+      errors: (json['errors'] as List<dynamic>?)
+          ?.map((e) => ErrorData.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$ErrorResponseToJson(ErrorResponse instance) =>
     <String, dynamic>{
       'success': instance.success,
-      'error': instance.error,
+      'errors': instance.errors,
     };

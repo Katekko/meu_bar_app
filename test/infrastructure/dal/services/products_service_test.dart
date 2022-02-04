@@ -1,10 +1,13 @@
 import 'package:ekko/domain/core/abstractions/infrastructure/http_connect.interface.dart';
 import 'package:ekko/domain/core/abstractions/infrastructure/services/products_service.interface.dart';
+import 'package:ekko/infrastructure/dal/services/data/category.data.dart';
+import 'package:ekko/infrastructure/dal/services/data/product.data.dart';
 import 'package:ekko/infrastructure/dal/services/products/products.service.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 import '../../../mocks.dart';
+import 'mocks/products_service/create_product.mock.dart';
 import 'mocks/products_service/get_products.mock.dart';
 
 void main() {
@@ -45,5 +48,36 @@ void main() {
         expect(response, listProducts);
       },
     );
+  });
+
+  group('Create product', () {
+    test('with success', () async {
+      const url = 'products';
+
+      const body = ProductData(
+        id: -1,
+        name: 'Petra 600',
+        value: 12.20,
+        category: CategoryData(id: 1, name: 'Cerveja'),
+      );
+
+      when(
+        () => connect.post(
+          url,
+          body.toJson(),
+          decoder: any(named: 'decoder'),
+        ),
+      ).thenAnswer((_) async => createProductWithSuccess);
+
+      await productsService.createProduct(body);
+
+      verify(
+        () => connect.post(
+          url,
+          body.toJson(),
+          decoder: any(named: 'decoder'),
+        ),
+      );
+    });
   });
 }

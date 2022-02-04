@@ -1,6 +1,7 @@
 import 'package:ekko/domain/core/abstractions/infrastructure/http_connect.interface.dart';
 import 'package:ekko/domain/core/abstractions/infrastructure/services/products_service.interface.dart';
 import 'package:ekko/domain/core/exceptions/default.exception.dart';
+import 'package:ekko/infrastructure/dal/services/data/error.response.dart';
 import 'package:ekko/infrastructure/dal/services/data/product.data.dart';
 
 import 'dto/get_products.response.dart';
@@ -32,9 +33,20 @@ class ProductsService implements IProductsService {
   }
 
   @override
-  Future<void> createProduct(ProductData body) {
-    // TODO: implement createProduct
-    throw UnimplementedError();
+  Future<void> createProduct(ProductData body) async {
+    final response = await _connect.post(
+      _prefix,
+      body.toJson(),
+      decoder: ErrorResponse.fromJson,
+    );
+
+    if (!response.success) {
+      final error = response.payload!.errors!.first;
+      switch (error.id) {
+        default:
+          throw DefaultException(message: error.desc);
+      }
+    }
   }
 
   @override

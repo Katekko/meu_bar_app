@@ -18,7 +18,7 @@ class ProductData {
     required this.name,
     required this.value,
     required this.category,
-    required this.urlImage,
+    this.urlImage,
   });
 
   factory ProductData.fromJson(json) => _$ProductDataFromJson(json);
