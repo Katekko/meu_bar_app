@@ -30,4 +30,28 @@ class ProductsService implements IProductsService {
       }
     }
   }
+
+  @override
+  Future<void> createProduct(ProductData body) {
+    // TODO: implement createProduct
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> deleteProduct(ProductData body) {
+    // TODO: implement deleteProduct
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ProductData> getProductById() {
+    // TODO: implement getProductById
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> updateProduct(ProductData body) {
+    // TODO: implement updateProduct
+    throw UnimplementedError();
+  }
 }
