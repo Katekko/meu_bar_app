@@ -27,7 +27,7 @@ class AuthService implements IAuthService {
     } else {
       final error = response.payload!.errors!.first;
       switch (error.id) {
-        case '1':
+        case 1:
           throw UserOrPasswordWrongException(message: error.desc);
         default:
           throw DefaultException(message: error.desc);

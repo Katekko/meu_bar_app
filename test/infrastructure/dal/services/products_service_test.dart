@@ -1,5 +1,6 @@
 import 'package:ekko/domain/core/abstractions/infrastructure/http_connect.interface.dart';
 import 'package:ekko/domain/core/abstractions/infrastructure/services/products_service.interface.dart';
+import 'package:ekko/domain/core/exceptions/default.exception.dart';
 import 'package:ekko/infrastructure/dal/services/data/category.data.dart';
 import 'package:ekko/infrastructure/dal/services/data/product.data.dart';
 import 'package:ekko/infrastructure/dal/services/products/products.service.dart';
@@ -78,6 +79,37 @@ void main() {
           decoder: any(named: 'decoder'),
         ),
       );
+    });
+
+    test('should throw DefaultException', () async {
+      const url = 'products';
+
+      const body = ProductData(
+        id: -1,
+        name: 'Petra 600',
+        value: 12.20,
+        category: CategoryData(id: 1, name: 'Cerveja'),
+      );
+
+      when(
+        () => connect.post(
+          url,
+          body.toJson(),
+          decoder: any(named: 'decoder'),
+        ),
+      ).thenAnswer((_) async => createProductWithDefaultError);
+
+      final future = productsService.createProduct(body);
+
+      verify(
+        () => connect.post(
+          url,
+          body.toJson(),
+          decoder: any(named: 'decoder'),
+        ),
+      );
+
+      expect(future, throwsA(isA<DefaultException>()));
     });
   });
 }

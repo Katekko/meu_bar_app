@@ -23,7 +23,7 @@ const userOrPasswordExceptionResponse = Response(
   statusCode: 400,
   payload: AuthenticateUserResponse(
     success: false,
-    errors: [ErrorData(id: '1', desc: 'User or password wrong')],
+    errors: [ErrorData(id: 1, desc: 'User or password wrong')],
     data: null,
   ),
 );
@@ -32,7 +32,7 @@ const defaultExceptionResponse = Response(
   statusCode: 400,
   payload: AuthenticateUserResponse(
     success: false,
-    errors: [ErrorData(id: '', desc: 'Unknow error')],
+    errors: [ErrorData(id: 0, desc: 'Unknow error')],
     data: null,
   ),
 );
