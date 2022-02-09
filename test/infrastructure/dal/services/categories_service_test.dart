@@ -64,6 +64,8 @@ void main() {
   late ICategoriesService categoriesService;
   late IHttpConnect connect;
 
+  const urlBase = 'categories';
+
   setUpAll(() {
     connect = ConnectMock();
     categoriesService = CategoriesService(connect);
@@ -74,7 +76,7 @@ void main() {
       'Should get all categories with success',
       () async {
         when(
-          () => connect.get('categories', decoder: any(named: 'decoder')),
+          () => connect.get(urlBase, decoder: any(named: 'decoder')),
         ).thenAnswer((_) async => getCategoriesWithSuccessResponse);
 
         final response = await categoriesService.getCategories();
@@ -88,7 +90,7 @@ void main() {
       () async {
         when(
           () => connect.get(
-            'categories?filter=cer',
+            '$urlBase?filter=cer',
             decoder: any(named: 'decoder'),
           ),
         ).thenAnswer((_) async => getCategoriesWithSuccessResponse);
@@ -113,67 +115,58 @@ void main() {
     );
   });
 
-  // group('Create product', () {
-  //   test('with success', () async {
-  //     const url = 'categories';
+  group('Create product', () {
+    test('with success', () async {
+      when(
+        () => connect.post(
+          urlBase,
+          categoryData1.toJson(),
+          decoder: any(named: 'decoder'),
+        ),
+      ).thenAnswer((_) async => createProductWithSuccess);
 
-  //     const body = ProductData(
-  //       id: -1,
-  //       name: 'Petra 600',
-  //       price: 12.20,
-  //       category: CategoryData(id: 1, name: 'Cerveja'),
-  //     );
+      await categoriesService.createCategory(categoryData1);
 
-  //     when(
-  //       () => connect.post(
-  //         url,
-  //         body.toJson(),
-  //         decoder: any(named: 'decoder'),
-  //       ),
-  //     ).thenAnswer((_) async => createProductWithSuccess);
+      verify(
+        () => connect.post(
+          urlBase,
+          categoryData1.toJson(),
+          decoder: any(named: 'decoder'),
+        ),
+      );
+    });
 
-  //     await categoriesService.createProduct(body);
+    // test('should throw DefaultException', () async {
+    //   const url = 'categories';
 
-  //     verify(
-  //       () => connect.post(
-  //         url,
-  //         body.toJson(),
-  //         decoder: any(named: 'decoder'),
-  //       ),
-  //     );
-  //   });
+    //   const body = ProductData(
+    //     id: -1,
+    //     name: 'Petra 600',
+    //     price: 12.20,
+    //     category: CategoryData(id: 1, name: 'Cerveja'),
+    //   );
 
-  //   test('should throw DefaultException', () async {
-  //     const url = 'categories';
+    //   when(
+    //     () => connect.post(
+    //       url,
+    //       body.toJson(),
+    //       decoder: any(named: 'decoder'),
+    //     ),
+    //   ).thenAnswer((_) async => createProductWithDefaultError);
 
-  //     const body = ProductData(
-  //       id: -1,
-  //       name: 'Petra 600',
-  //       price: 12.20,
-  //       category: CategoryData(id: 1, name: 'Cerveja'),
-  //     );
+    //   final future = categoriesService.createProduct(body);
 
-  //     when(
-  //       () => connect.post(
-  //         url,
-  //         body.toJson(),
-  //         decoder: any(named: 'decoder'),
-  //       ),
-  //     ).thenAnswer((_) async => createProductWithDefaultError);
+    //   verify(
+    //     () => connect.post(
+    //       url,
+    //       body.toJson(),
+    //       decoder: any(named: 'decoder'),
+    //     ),
+    //   );
 
-  //     final future = categoriesService.createProduct(body);
-
-  //     verify(
-  //       () => connect.post(
-  //         url,
-  //         body.toJson(),
-  //         decoder: any(named: 'decoder'),
-  //       ),
-  //     );
-
-  //     expect(future, throwsA(isA<DefaultException>()));
-  //   });
-  // });
+    //   expect(future, throwsA(isA<DefaultException>()));
+    // });
+  });
 
   // group('Update product', () {
   //   test('with success', () async {
