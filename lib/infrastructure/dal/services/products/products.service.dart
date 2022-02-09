@@ -50,6 +50,23 @@ class ProductsService implements IProductsService {
   }
 
   @override
+  Future<void> updateProduct(ProductData body) async {
+    final response = await _connect.put(
+      _prefix,
+      body.toJson(),
+      decoder: ErrorResponse.fromJson,
+    );
+
+    if (!response.success) {
+      final error = response.payload!.errors!.first;
+      switch (error.id) {
+        default:
+          throw DefaultException(message: error.desc);
+      }
+    }
+  }
+
+  @override
   Future<void> deleteProduct(ProductData body) {
     // TODO: implement deleteProduct
     throw UnimplementedError();
@@ -58,12 +75,6 @@ class ProductsService implements IProductsService {
   @override
   Future<ProductData> getProductById() {
     // TODO: implement getProductById
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> updateProduct(ProductData body) {
-    // TODO: implement updateProduct
     throw UnimplementedError();
   }
 }
