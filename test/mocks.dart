@@ -1,6 +1,7 @@
 import 'package:ekko/domain/core/abstractions/domain/repositories/auth_repository.interface.dart';
 import 'package:ekko/domain/core/abstractions/infrastructure/http_connect.interface.dart';
 import 'package:ekko/domain/core/abstractions/infrastructure/services/auth_service.interface.dart';
+import 'package:ekko/domain/core/abstractions/infrastructure/services/categories_service.interface.dart';
 import 'package:ekko/domain/core/abstractions/infrastructure/services/products_service.interface.dart';
 import 'package:ekko/domain/core/abstractions/infrastructure/storage.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/field.interface.dart';
@@ -11,7 +12,9 @@ class AuthServiceMock extends Mock implements IAuthService {}
 
 class AuthRepositoryMock extends Mock implements IAuthRepository {}
 
-class ProductServiceMock extends Mock implements IProductsService {}
+class ProductsServiceMock extends Mock implements IProductsService {}
+
+class CategoriesServiceMock extends Mock implements ICategoriesService {}
 
 class LoadingControllerMock extends Mock implements ILoadingController {}
 

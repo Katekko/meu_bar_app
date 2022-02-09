@@ -1,3 +1,5 @@
+import 'package:ekko/domain/core/abstractions/infrastructure/services/categories_service.interface.dart';
+
 import '../core/abstractions/domain/repositories/product_repository.interface.dart';
 import '../core/abstractions/infrastructure/services/products_service.interface.dart';
 import 'models/category.model.dart';
@@ -5,8 +7,12 @@ import 'models/product.model.dart';
 
 class ProductRepository implements IProductRepository {
   final IProductsService _productsService;
-  ProductRepository({required IProductsService productsService})
-      : _productsService = productsService;
+  final ICategoriesService _categoriesService;
+  const ProductRepository({
+    required IProductsService productsService,
+    required ICategoriesService categoriesService,
+  })  : _productsService = productsService,
+        _categoriesService = categoriesService;
 
   @override
   Future<List<ProductModel>> getProducts({
@@ -70,32 +76,54 @@ class ProductRepository implements IProductRepository {
   }
 
   @override
-  Future<void> deleteCategory(CategoryModel category) {
-    // TODO: implement deleteCategory
-    throw UnimplementedError();
+  Future<List<CategoryModel>> getCategories({String? filter}) async {
+    try {
+      final response = await _categoriesService.getCategories(filter: filter);
+      final models = response.map((e) => CategoryModel.fromData(e)).toList();
+      return models;
+    } catch (err) {
+      rethrow;
+    }
   }
 
   @override
-  Future<List<CategoryModel>> getCategories({String? filter}) {
-    // TODO: implement getCategories
-    throw UnimplementedError();
+  Future<void> registerCategory(CategoryModel category) async {
+    try {
+      final data = category.toData();
+      await _categoriesService.createCategory(data);
+    } catch (err) {
+      rethrow;
+    }
   }
 
   @override
-  Future<CategoryModel> getCategoryById(int id) {
-    // TODO: implement getCategoryById
-    throw UnimplementedError();
+  Future<void> updateCategory(CategoryModel category) async {
+    try {
+      final data = category.toData();
+      await _categoriesService.updateCategory(data);
+    } catch (err) {
+      rethrow;
+    }
   }
 
   @override
-  Future<void> registerCategory(CategoryModel category) {
-    // TODO: implement registerCategory
-    throw UnimplementedError();
+  Future<void> deleteCategory(CategoryModel category) async {
+    try {
+      final data = category.toData();
+      await _categoriesService.deleteCategory(data);
+    } catch (err) {
+      rethrow;
+    }
   }
 
   @override
-  Future<void> updateCategory(CategoryModel category) {
-    // TODO: implement updateCategory
-    throw UnimplementedError();
+  Future<CategoryModel> getCategoryById(int id) async {
+    try {
+      final response = await _categoriesService.getCategoryById(id);
+      final model = CategoryModel.fromData(response);
+      return model;
+    } catch (err) {
+      rethrow;
+    }
   }
 }
