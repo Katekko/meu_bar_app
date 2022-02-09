@@ -59,7 +59,7 @@ class CategoriesService implements ICategoriesService {
   @override
   Future<void> updateCategory(CategoryData body) async {
     final response = await _connect.put(
-      _prefix,
+      '$_prefix/${body.id}',
       body.toJson(),
       decoder: ErrorResponse.fromJson,
     );
@@ -74,9 +74,19 @@ class CategoriesService implements ICategoriesService {
   }
 
   @override
-  Future<void> deleteCategory(CategoryData body) {
-    // TODO: implement deleteCategory
-    throw UnimplementedError();
+  Future<void> deleteCategory(CategoryData body) async {
+    final response = await _connect.delete(
+      '$_prefix/${body.id}',
+      decoder: ErrorResponse.fromJson,
+    );
+
+    if (!response.success) {
+      final error = response.payload!.errors!.first;
+      switch (error.id) {
+        default:
+          throw DefaultException(message: error.desc);
+      }
+    }
   }
 
   @override
@@ -189,7 +199,7 @@ void main() {
     test('with success', () async {
       when(
         () => connect.put(
-          urlBase,
+          '$urlBase/${categoryData1.id}',
           categoryData1.toJson(),
           decoder: any(named: 'decoder'),
         ),
@@ -199,7 +209,7 @@ void main() {
 
       verify(
         () => connect.put(
-          urlBase,
+          '$urlBase/${categoryData1.id}',
           categoryData1.toJson(),
           decoder: any(named: 'decoder'),
         ),
@@ -209,7 +219,7 @@ void main() {
     test('should throw DefaultException', () async {
       when(
         () => connect.put(
-          urlBase,
+          '$urlBase/${categoryData1.id}',
           categoryData1.toJson(),
           decoder: any(named: 'decoder'),
         ),
@@ -219,7 +229,7 @@ void main() {
 
       verify(
         () => connect.put(
-          urlBase,
+          '$urlBase/${categoryData1.id}',
           categoryData1.toJson(),
           decoder: any(named: 'decoder'),
         ),
@@ -229,63 +239,45 @@ void main() {
     });
   });
 
-  // group('Delete product', () {
-  //   test('with success', () async {
-  //     const url = 'categories';
+  group('Delete product', () {
+    test('with success', () async {
+      when(
+        () => connect.delete(
+          '$urlBase/${categoryData1.id}',
+          decoder: any(named: 'decoder'),
+        ),
+      ).thenAnswer((_) async => responseWithSuccess);
 
-  //     const body = ProductData(
-  //       id: 1,
-  //       name: 'Petra 600',
-  //       price: 12.20,
-  //       category: CategoryData(id: 1, name: 'Cerveja'),
-  //     );
+      await categoriesService.deleteCategory(categoryData1);
 
-  //     when(
-  //       () => connect.delete(
-  //         '$url/${body.id}',
-  //         decoder: any(named: 'decoder'),
-  //       ),
-  //     ).thenAnswer((_) async => deleteProductWithSuccess);
+      verify(
+        () => connect.delete(
+          '$urlBase/${categoryData1.id}',
+          decoder: any(named: 'decoder'),
+        ),
+      );
+    });
 
-  //     await categoriesService.deleteProduct(body);
+    test('should throw DefaultException', () async {
+      when(
+        () => connect.delete(
+          '$urlBase/${categoryData1.id}',
+          decoder: any(named: 'decoder'),
+        ),
+      ).thenAnswer((_) async => responseWithUnknowError);
 
-  //     verify(
-  //       () => connect.delete(
-  //         '$url/${body.id}',
-  //         decoder: any(named: 'decoder'),
-  //       ),
-  //     );
-  //   });
+      final future = categoriesService.deleteCategory(categoryData1);
 
-  //   test('should throw DefaultException', () async {
-  //     const url = 'categories';
+      verify(
+        () => connect.delete(
+          '$urlBase/${categoryData1.id}',
+          decoder: any(named: 'decoder'),
+        ),
+      );
 
-  //     const body = ProductData(
-  //       id: 1,
-  //       name: 'Petra 600',
-  //       price: 12.20,
-  //       category: CategoryData(id: 1, name: 'Cerveja'),
-  //     );
-
-  //     when(
-  //       () => connect.delete(
-  //         '$url/${body.id}',
-  //         decoder: any(named: 'decoder'),
-  //       ),
-  //     ).thenAnswer((_) async => deleteProductWithDefaultError);
-
-  //     final future = categoriesService.deleteProduct(body);
-
-  //     verify(
-  //       () => connect.delete(
-  //         '$url/${body.id}',
-  //         decoder: any(named: 'decoder'),
-  //       ),
-  //     );
-
-  //     expect(future, throwsA(isA<DefaultException>()));
-  //   });
-  // });
+      expect(future, throwsA(isA<DefaultException>()));
+    });
+  });
 
   // group('Get product by id', () {
   //   test(
