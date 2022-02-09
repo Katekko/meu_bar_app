@@ -1,16 +1,19 @@
 import 'package:ekko/domain/core/abstractions/infrastructure/http_connect.interface.dart';
 import 'package:ekko/domain/core/abstractions/infrastructure/services/categories_service.interface.dart';
+import 'package:ekko/domain/core/constants/errors.constants.dart';
 import 'package:ekko/domain/core/exceptions/default.exception.dart';
+import 'package:ekko/domain/core/exceptions/nonexistent.exception.dart';
+import 'package:ekko/infrastructure/dal/services/categories/dto/category.response.dart';
 import 'package:ekko/infrastructure/dal/services/categories/dto/get_categories.response.dart';
 import 'package:ekko/infrastructure/dal/services/data/category.data.dart';
 import 'package:ekko/infrastructure/dal/services/data/error.response.dart';
-import 'package:ekko/infrastructure/dal/services/data/product.data.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 import '../../../mocks.dart';
 import '../../../products.mocks.dart';
 import 'mocks/categories/get_categories.mock.dart';
+import 'mocks/categories/get_category_by_id.mock.dart';
 import 'mocks/error_response.mock.dart';
 
 class CategoriesService implements ICategoriesService {
@@ -90,9 +93,23 @@ class CategoriesService implements ICategoriesService {
   }
 
   @override
-  Future<ProductData> getCategoryById(int id) {
-    // TODO: implement getCategoryById
-    throw UnimplementedError();
+  Future<CategoryData> getCategoryById(int id) async {
+    final response = await _connect.get(
+      '$_prefix/$id',
+      decoder: CategoryResponse.fromJson,
+    );
+
+    if (response.success) {
+      return response.payload!.data!;
+    } else {
+      final error = response.payload!.errors!.first;
+      switch (error.id) {
+        case ErrosConstants.nonexistent:
+          throw NonexistentException(message: error.desc);
+        default:
+          throw DefaultException(message: error.desc);
+      }
+    }
   }
 }
 
@@ -151,7 +168,7 @@ void main() {
     );
   });
 
-  group('Create product', () {
+  group('Create category', () {
     test('with success', () async {
       when(
         () => connect.post(
@@ -195,7 +212,7 @@ void main() {
     });
   });
 
-  group('Update product', () {
+  group('Update category', () {
     test('with success', () async {
       when(
         () => connect.put(
@@ -239,7 +256,7 @@ void main() {
     });
   });
 
-  group('Delete product', () {
+  group('Delete category', () {
     test('with success', () async {
       when(
         () => connect.delete(
@@ -279,56 +296,56 @@ void main() {
     });
   });
 
-  // group('Get product by id', () {
-  //   test(
-  //     'should get with success',
-  //     () async {
-  //       const id = 1;
+  group('Get product by id', () {
+    test(
+      'should get with success',
+      () async {
+        const id = 1;
 
-  //       when(
-  //         () => connect.get('categories/$id', decoder: any(named: 'decoder')),
-  //       ).thenAnswer((_) async => getProductByIdWithSuccessResponse);
+        when(
+          () => connect.get('$urlBase/$id', decoder: any(named: 'decoder')),
+        ).thenAnswer((_) async => getCategoryByIdWithSuccessResponse);
 
-  //       final response = await categoriesService.getProductById(id);
+        final response = await categoriesService.getCategoryById(id);
 
-  //       expect(response, product);
-  //     },
-  //   );
+        expect(response, categoryData1);
+      },
+    );
 
-  //   test(
-  //     'should throw nonexistent exception',
-  //     () async {
-  //       const id = 1;
+    test(
+      'should throw nonexistent exception',
+      () async {
+        const id = 1;
 
-  //       when(
-  //         () => connect.get(
-  //           'categories/$id',
-  //           decoder: any(named: 'decoder'),
-  //         ),
-  //       ).thenAnswer((_) async => getProductByIdWithNonexistentError);
+        when(
+          () => connect.get(
+            'categories/$id',
+            decoder: any(named: 'decoder'),
+          ),
+        ).thenAnswer((_) async => getCategoryByIdWithNonexistentError);
 
-  //       final future = categoriesService.getProductById(id);
+        final future = categoriesService.getCategoryById(id);
 
-  //       expect(future, throwsA(isA<NonexistentException>()));
-  //     },
-  //   );
+        expect(future, throwsA(isA<NonexistentException>()));
+      },
+    );
 
-  //   test(
-  //     'should throw default exception',
-  //     () async {
-  //       const id = 1;
+    test(
+      'should throw default exception',
+      () async {
+        const id = 1;
 
-  //       when(
-  //         () => connect.get(
-  //           'categories/$id',
-  //           decoder: any(named: 'decoder'),
-  //         ),
-  //       ).thenAnswer((_) async => getProductByIdWithUnknowError);
+        when(
+          () => connect.get(
+            'categories/$id',
+            decoder: any(named: 'decoder'),
+          ),
+        ).thenAnswer((_) async => getCategoryByIdUnknowError);
 
-  //       final future = categoriesService.getProductById(id);
+        final future = categoriesService.getCategoryById(id);
 
-  //       expect(future, throwsA(isA<DefaultException>()));
-  //     },
-  //   );
-  // });
+        expect(future, throwsA(isA<DefaultException>()));
+      },
+    );
+  });
 }
