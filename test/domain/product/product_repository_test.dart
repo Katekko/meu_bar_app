@@ -19,7 +19,7 @@ class ProductRepository implements IProductRepository {
     List<CategoryModel>? categories,
   }) async {
     try {
-      final response = await _productsService.getProducts();
+      final response = await _productsService.getProducts(filter: filter);
       final models = response.map((e) => ProductModel.fromData(e)).toList();
       return models;
     } catch (err) {
@@ -97,6 +97,18 @@ void main() {
     ).thenAnswer((_) async => listProductsData);
 
     final response = await productRepository.getProducts();
+
+    expect(response, listProductsModel);
+  });
+
+  test('Should call service with correct params', () async {
+    const filter = 'filtering';
+
+    when(
+      () => productsService.getProducts(filter: filter),
+    ).thenAnswer((_) async => listProductsData);
+
+    final response = await productRepository.getProducts(filter: filter);
 
     expect(response, listProductsModel);
   });
