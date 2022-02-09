@@ -8,7 +8,7 @@ part 'product.data.g.dart';
 class ProductData {
   final int id;
   final String name;
-  final double value;
+  final double price;
   final CategoryData category;
 
   final String? urlImage;
@@ -16,7 +16,7 @@ class ProductData {
   const ProductData({
     required this.id,
     required this.name,
-    required this.value,
+    required this.price,
     required this.category,
     this.urlImage,
   });

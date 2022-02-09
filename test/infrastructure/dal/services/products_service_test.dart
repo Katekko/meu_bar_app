@@ -9,6 +9,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 import '../../../mocks.dart';
+import '../../../products.mocks.dart';
 import 'mocks/products_service/create_product.mock.dart';
 import 'mocks/products_service/delete_product.mock.dart';
 import 'mocks/products_service/get_product_by_id.mock.dart';
@@ -34,7 +35,7 @@ void main() {
 
         final response = await productsService.getProducts();
 
-        expect(response, listProducts);
+        expect(response, listProductsData);
       },
     );
 
@@ -50,7 +51,7 @@ void main() {
 
         final response = await productsService.getProducts(filter: 'cer');
 
-        expect(response, listProducts);
+        expect(response, listProductsData);
       },
     );
   });
@@ -62,7 +63,7 @@ void main() {
       const body = ProductData(
         id: -1,
         name: 'Petra 600',
-        value: 12.20,
+        price: 12.20,
         category: CategoryData(id: 1, name: 'Cerveja'),
       );
 
@@ -91,7 +92,7 @@ void main() {
       const body = ProductData(
         id: -1,
         name: 'Petra 600',
-        value: 12.20,
+        price: 12.20,
         category: CategoryData(id: 1, name: 'Cerveja'),
       );
 
@@ -124,7 +125,7 @@ void main() {
       const body = ProductData(
         id: 1,
         name: 'Petra 600',
-        value: 12.20,
+        price: 12.20,
         category: CategoryData(id: 1, name: 'Cerveja'),
       );
 
@@ -153,7 +154,7 @@ void main() {
       const body = ProductData(
         id: 1,
         name: 'Petra 600',
-        value: 12.20,
+        price: 12.20,
         category: CategoryData(id: 1, name: 'Cerveja'),
       );
 
@@ -186,7 +187,7 @@ void main() {
       const body = ProductData(
         id: 1,
         name: 'Petra 600',
-        value: 12.20,
+        price: 12.20,
         category: CategoryData(id: 1, name: 'Cerveja'),
       );
 
@@ -213,7 +214,7 @@ void main() {
       const body = ProductData(
         id: 1,
         name: 'Petra 600',
-        value: 12.20,
+        price: 12.20,
         category: CategoryData(id: 1, name: 'Cerveja'),
       );
 

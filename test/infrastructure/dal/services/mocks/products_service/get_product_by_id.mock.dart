@@ -10,7 +10,7 @@ const product = ProductData(
   name: 'Amstel 600',
   category: CategoryData(id: 1, name: 'Bebidas'),
   urlImage: null,
-  value: 10,
+  price: 10,
 );
 
 const getProductByIdWithSuccessResponse = Response(
