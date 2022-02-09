@@ -8,7 +8,7 @@ const withSuccess = Response<ErrorResponse>(
   payload: ErrorResponse(success: true),
 );
 
-const unknowError = Response<ErrorResponse>(
+const withUnknowError = Response<ErrorResponse>(
   statusCode: 400,
   payload: ErrorResponse(
     success: false,

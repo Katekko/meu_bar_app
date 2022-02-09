@@ -3,6 +3,7 @@ import 'package:ekko/domain/core/abstractions/infrastructure/services/categories
 import 'package:ekko/domain/core/exceptions/default.exception.dart';
 import 'package:ekko/infrastructure/dal/services/categories/dto/get_categories.response.dart';
 import 'package:ekko/infrastructure/dal/services/data/category.data.dart';
+import 'package:ekko/infrastructure/dal/services/data/error.response.dart';
 import 'package:ekko/infrastructure/dal/services/data/product.data.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
@@ -10,14 +11,17 @@ import 'package:test/test.dart';
 import '../../../mocks.dart';
 import '../../../products.mocks.dart';
 import 'mocks/categories/get_categories.mock.dart';
+import 'mocks/error_response.mock.dart';
 
 class CategoriesService implements ICategoriesService {
   final IHttpConnect _connect;
   const CategoriesService(IHttpConnect connect) : _connect = connect;
 
+  final _prefix = 'categories';
+
   @override
   Future<List<CategoryData>> getCategories({String? filter}) async {
-    var url = filter != null ? 'categories?filter=$filter' : 'categories';
+    var url = filter != null ? '$_prefix?filter=$filter' : 'categories';
 
     final response = await _connect.get(
       url,
@@ -36,9 +40,20 @@ class CategoriesService implements ICategoriesService {
   }
 
   @override
-  Future<void> createCategory(CategoryData body) {
-    // TODO: implement createCategory
-    throw UnimplementedError();
+  Future<void> createCategory(CategoryData body) async {
+    final response = await _connect.post(
+      _prefix,
+      body.toJson(),
+      decoder: ErrorResponse.fromJson,
+    );
+
+    if (!response.success) {
+      final error = response.payload!.errors!.first;
+      switch (error.id) {
+        default:
+          throw DefaultException(message: error.desc);
+      }
+    }
   }
 
   @override
@@ -123,7 +138,7 @@ void main() {
           categoryData1.toJson(),
           decoder: any(named: 'decoder'),
         ),
-      ).thenAnswer((_) async => createProductWithSuccess);
+      ).thenAnswer((_) async => withSuccess);
 
       await categoriesService.createCategory(categoryData1);
 
@@ -136,36 +151,27 @@ void main() {
       );
     });
 
-    // test('should throw DefaultException', () async {
-    //   const url = 'categories';
+    test('should throw DefaultException', () async {
+      when(
+        () => connect.post(
+          urlBase,
+          categoryData1.toJson(),
+          decoder: any(named: 'decoder'),
+        ),
+      ).thenAnswer((_) async => withUnknowError);
 
-    //   const body = ProductData(
-    //     id: -1,
-    //     name: 'Petra 600',
-    //     price: 12.20,
-    //     category: CategoryData(id: 1, name: 'Cerveja'),
-    //   );
+      final future = categoriesService.createCategory(categoryData1);
 
-    //   when(
-    //     () => connect.post(
-    //       url,
-    //       body.toJson(),
-    //       decoder: any(named: 'decoder'),
-    //     ),
-    //   ).thenAnswer((_) async => createProductWithDefaultError);
+      verify(
+        () => connect.post(
+          urlBase,
+          categoryData1.toJson(),
+          decoder: any(named: 'decoder'),
+        ),
+      );
 
-    //   final future = categoriesService.createProduct(body);
-
-    //   verify(
-    //     () => connect.post(
-    //       url,
-    //       body.toJson(),
-    //       decoder: any(named: 'decoder'),
-    //     ),
-    //   );
-
-    //   expect(future, throwsA(isA<DefaultException>()));
-    // });
+      expect(future, throwsA(isA<DefaultException>()));
+    });
   });
 
   // group('Update product', () {
