@@ -23,6 +23,7 @@ class ProductsService implements IProductsService {
   }) async {
     var url = filter != null ? '$_prefix?filter=$filter' : _prefix;
 
+    // TODO: Testar se está criando a query de categorias corretamente
     if (categories != null) {
       url += 'categories=';
       for (var i = 0; i < categories.length; i++) {

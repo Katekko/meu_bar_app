@@ -34,6 +34,16 @@ class ProductRepository implements IProductRepository {
   }
 
   @override
+  Future<void> registerProduct(ProductModel product) async {
+    try {
+      final data = product.toData();
+      await _productsService.createProduct(data);
+    } catch (err) {
+      rethrow;
+    }
+  }
+
+  @override
   Future<void> deleteCategory(CategoryModel category) {
     // TODO: implement deleteCategory
     throw UnimplementedError();
@@ -66,12 +76,6 @@ class ProductRepository implements IProductRepository {
   @override
   Future<void> registerCategory(CategoryModel category) {
     // TODO: implement registerCategory
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> registerProduct(ProductModel product) {
-    // TODO: implement registerProduct
     throw UnimplementedError();
   }
 
@@ -131,5 +135,16 @@ void main() {
 
       expect(response, listProductsModel);
     });
+  });
+
+  test(
+      'Register product should call create product on service with correct param',
+      () async {
+    when(() => productsService.createProduct(productData1))
+        .thenAnswer((_) async {});
+
+    await productRepository.registerProduct(productModel1);
+
+    verify(() => productsService.createProduct(productData1));
   });
 }

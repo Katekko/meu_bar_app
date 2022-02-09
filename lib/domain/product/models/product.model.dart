@@ -28,6 +28,15 @@ class ProductModel extends Equatable {
     );
   }
 
+  ProductData toData() {
+    return ProductData(
+      id: id,
+      name: name,
+      price: price,
+      category: category.toData(),
+    );
+  }
+
   @override
   List<Object?> get props => [id, name, price, category, urlImage];
 }
