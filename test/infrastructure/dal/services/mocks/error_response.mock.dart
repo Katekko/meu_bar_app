@@ -3,12 +3,12 @@ import 'package:ekko/domain/core/constants/errors.constants.dart';
 import 'package:ekko/infrastructure/dal/services/data/error.data.dart';
 import 'package:ekko/infrastructure/dal/services/data/error.response.dart';
 
-const withSuccess = Response<ErrorResponse>(
+const responseWithSuccess = Response<ErrorResponse>(
   statusCode: 200,
   payload: ErrorResponse(success: true),
 );
 
-const withUnknowError = Response<ErrorResponse>(
+const responseWithUnknowError = Response<ErrorResponse>(
   statusCode: 400,
   payload: ErrorResponse(
     success: false,

@@ -57,6 +57,23 @@ class CategoriesService implements ICategoriesService {
   }
 
   @override
+  Future<void> updateCategory(CategoryData body) async {
+    final response = await _connect.put(
+      _prefix,
+      body.toJson(),
+      decoder: ErrorResponse.fromJson,
+    );
+
+    if (!response.success) {
+      final error = response.payload!.errors!.first;
+      switch (error.id) {
+        default:
+          throw DefaultException(message: error.desc);
+      }
+    }
+  }
+
+  @override
   Future<void> deleteCategory(CategoryData body) {
     // TODO: implement deleteCategory
     throw UnimplementedError();
@@ -65,12 +82,6 @@ class CategoriesService implements ICategoriesService {
   @override
   Future<ProductData> getCategoryById(int id) {
     // TODO: implement getCategoryById
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> updateCategory(CategoryData body) {
-    // TODO: implement updateCategory
     throw UnimplementedError();
   }
 }
@@ -138,7 +149,7 @@ void main() {
           categoryData1.toJson(),
           decoder: any(named: 'decoder'),
         ),
-      ).thenAnswer((_) async => withSuccess);
+      ).thenAnswer((_) async => responseWithSuccess);
 
       await categoriesService.createCategory(categoryData1);
 
@@ -158,7 +169,7 @@ void main() {
           categoryData1.toJson(),
           decoder: any(named: 'decoder'),
         ),
-      ).thenAnswer((_) async => withUnknowError);
+      ).thenAnswer((_) async => responseWithUnknowError);
 
       final future = categoriesService.createCategory(categoryData1);
 
@@ -174,67 +185,49 @@ void main() {
     });
   });
 
-  // group('Update product', () {
-  //   test('with success', () async {
-  //     const url = 'categories';
+  group('Update product', () {
+    test('with success', () async {
+      when(
+        () => connect.put(
+          urlBase,
+          categoryData1.toJson(),
+          decoder: any(named: 'decoder'),
+        ),
+      ).thenAnswer((_) async => responseWithSuccess);
 
-  //     const body = ProductData(
-  //       id: 1,
-  //       name: 'Petra 600',
-  //       price: 12.20,
-  //       category: CategoryData(id: 1, name: 'Cerveja'),
-  //     );
+      await categoriesService.updateCategory(categoryData1);
 
-  //     when(
-  //       () => connect.put(
-  //         url,
-  //         body.toJson(),
-  //         decoder: any(named: 'decoder'),
-  //       ),
-  //     ).thenAnswer((_) async => updateProductWithSuccess);
+      verify(
+        () => connect.put(
+          urlBase,
+          categoryData1.toJson(),
+          decoder: any(named: 'decoder'),
+        ),
+      );
+    });
 
-  //     await categoriesService.updateProduct(body);
+    test('should throw DefaultException', () async {
+      when(
+        () => connect.put(
+          urlBase,
+          categoryData1.toJson(),
+          decoder: any(named: 'decoder'),
+        ),
+      ).thenAnswer((_) async => responseWithUnknowError);
 
-  //     verify(
-  //       () => connect.put(
-  //         url,
-  //         body.toJson(),
-  //         decoder: any(named: 'decoder'),
-  //       ),
-  //     );
-  //   });
+      final future = categoriesService.updateCategory(categoryData1);
 
-  //   test('should throw DefaultException', () async {
-  //     const url = 'categories';
+      verify(
+        () => connect.put(
+          urlBase,
+          categoryData1.toJson(),
+          decoder: any(named: 'decoder'),
+        ),
+      );
 
-  //     const body = ProductData(
-  //       id: 1,
-  //       name: 'Petra 600',
-  //       price: 12.20,
-  //       category: CategoryData(id: 1, name: 'Cerveja'),
-  //     );
-
-  //     when(
-  //       () => connect.put(
-  //         url,
-  //         body.toJson(),
-  //         decoder: any(named: 'decoder'),
-  //       ),
-  //     ).thenAnswer((_) async => updateProductWithDefaultError);
-
-  //     final future = categoriesService.updateProduct(body);
-
-  //     verify(
-  //       () => connect.put(
-  //         url,
-  //         body.toJson(),
-  //         decoder: any(named: 'decoder'),
-  //       ),
-  //     );
-
-  //     expect(future, throwsA(isA<DefaultException>()));
-  //   });
-  // });
+      expect(future, throwsA(isA<DefaultException>()));
+    });
+  });
 
   // group('Delete product', () {
   //   test('with success', () async {
