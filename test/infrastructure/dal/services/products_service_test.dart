@@ -250,7 +250,7 @@ void main() {
 
         final response = await productsService.getProductById(id);
 
-        expect(response, product);
+        expect(response, productData1);
       },
     );
 
