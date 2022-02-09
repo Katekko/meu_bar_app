@@ -1,10 +1,13 @@
 import 'package:ekko/domain/core/abstractions/infrastructure/http_connect.interface.dart';
 import 'package:ekko/domain/core/abstractions/infrastructure/services/products_service.interface.dart';
+import 'package:ekko/domain/core/constants/errors.constants.dart';
 import 'package:ekko/domain/core/exceptions/default.exception.dart';
+import 'package:ekko/domain/core/exceptions/nonexistent.exception.dart';
 import 'package:ekko/infrastructure/dal/services/data/error.response.dart';
 import 'package:ekko/infrastructure/dal/services/data/product.data.dart';
 
 import 'dto/get_products.response.dart';
+import 'dto/product.response.dart';
 
 class ProductsService implements IProductsService {
   final IHttpConnect _connect;
@@ -83,8 +86,22 @@ class ProductsService implements IProductsService {
   }
 
   @override
-  Future<ProductData> getProductById() {
-    // TODO: implement getProductById
-    throw UnimplementedError();
+  Future<ProductData> getProductById(int id) async {
+    final response = await _connect.get(
+      '$_prefix/$id',
+      decoder: ProductResponse.fromJson,
+    );
+
+    if (response.success) {
+      return response.payload!.data!;
+    } else {
+      final error = response.payload!.errors!.first;
+      switch (error.id) {
+        case ErrosConstants.nonexistent:
+          throw NonexistentException(message: error.desc);
+        default:
+          throw DefaultException(message: error.desc);
+      }
+    }
   }
 }

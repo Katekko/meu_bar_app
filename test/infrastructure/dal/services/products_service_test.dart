@@ -1,6 +1,7 @@
 import 'package:ekko/domain/core/abstractions/infrastructure/http_connect.interface.dart';
 import 'package:ekko/domain/core/abstractions/infrastructure/services/products_service.interface.dart';
 import 'package:ekko/domain/core/exceptions/default.exception.dart';
+import 'package:ekko/domain/core/exceptions/nonexistent.exception.dart';
 import 'package:ekko/infrastructure/dal/services/data/category.data.dart';
 import 'package:ekko/infrastructure/dal/services/data/product.data.dart';
 import 'package:ekko/infrastructure/dal/services/products/products.service.dart';
@@ -10,6 +11,7 @@ import 'package:test/test.dart';
 import '../../../mocks.dart';
 import 'mocks/products_service/create_product.mock.dart';
 import 'mocks/products_service/delete_product.mock.dart';
+import 'mocks/products_service/get_product_by_id.mock.dart';
 import 'mocks/products_service/get_products.mock.dart';
 import 'mocks/products_service/update_product.mock.dart';
 
@@ -233,5 +235,58 @@ void main() {
 
       expect(future, throwsA(isA<DefaultException>()));
     });
+  });
+
+  group('Get product by id', () {
+    test(
+      'should get with success',
+      () async {
+        const id = 1;
+
+        when(
+          () => connect.get('products/$id', decoder: any(named: 'decoder')),
+        ).thenAnswer((_) async => getProductByIdWithSuccessResponse);
+
+        final response = await productsService.getProductById(id);
+
+        expect(response, product);
+      },
+    );
+
+    test(
+      'should throw nonexistent exception',
+      () async {
+        const id = 1;
+
+        when(
+          () => connect.get(
+            'products/$id',
+            decoder: any(named: 'decoder'),
+          ),
+        ).thenAnswer((_) async => getProductByIdWithNonexistentError);
+
+        final future = productsService.getProductById(id);
+
+        expect(future, throwsA(isA<NonexistentException>()));
+      },
+    );
+
+    test(
+      'should throw default exception',
+      () async {
+        const id = 1;
+
+        when(
+          () => connect.get(
+            'products/$id',
+            decoder: any(named: 'decoder'),
+          ),
+        ).thenAnswer((_) async => getProductByIdWithUnknowError);
+
+        final future = productsService.getProductById(id);
+
+        expect(future, throwsA(isA<DefaultException>()));
+      },
+    );
   });
 }
