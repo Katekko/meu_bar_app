@@ -45,19 +45,27 @@ class ProductRepository implements IProductRepository {
 
   @override
   Future<void> updateProduct(ProductModel product) async {
-    final data = product.toData();
-    await _productsService.updateProduct(data);
+    try {
+      final data = product.toData();
+      await _productsService.updateProduct(data);
+    } catch (err) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> deleteProduct(ProductModel product) async {
+    try {
+      final data = product.toData();
+      await _productsService.deleteProduct(data);
+    } catch (err) {
+      rethrow;
+    }
   }
 
   @override
   Future<void> deleteCategory(CategoryModel category) {
     // TODO: implement deleteCategory
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> deleteProduct(ProductModel product) {
-    // TODO: implement deleteProduct
     throw UnimplementedError();
   }
 
@@ -157,5 +165,16 @@ void main() {
     await productRepository.updateProduct(productModel1);
 
     verify(() => productsService.updateProduct(productData1));
+  });
+
+  test(
+      'Delete product should call delete product on service with correct param',
+      () async {
+    when(() => productsService.deleteProduct(productData1))
+        .thenAnswer((_) async {});
+
+    await productRepository.deleteProduct(productModel1);
+
+    verify(() => productsService.deleteProduct(productData1));
   });
 }
