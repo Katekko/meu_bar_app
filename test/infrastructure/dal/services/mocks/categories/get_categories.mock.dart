@@ -1,5 +1,7 @@
 import 'package:ekko/domain/core/abstractions/infrastructure/response.model.dart';
+import 'package:ekko/domain/core/constants/errors.constants.dart';
 import 'package:ekko/infrastructure/dal/services/categories/dto/get_categories.response.dart';
+import 'package:ekko/infrastructure/dal/services/data/error.data.dart';
 
 import '../../../../../products.mocks.dart';
 
@@ -9,5 +11,14 @@ const getCategoriesWithSuccessResponse = Response(
     success: true,
     data: listCategoriesData,
     errors: null,
+  ),
+);
+
+const getCategoriesWithUnknowErrorResponse = Response(
+  statusCode: 400,
+  payload: GetCategoriesResponse(
+    success: true,
+    data: null,
+    errors: [ErrorData(id: ErrosConstants.unknow, desc: 'Unknow error')],
   ),
 );

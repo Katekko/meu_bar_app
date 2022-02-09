@@ -83,21 +83,34 @@ void main() {
       },
     );
 
-    // test(
-    //   'Should get categories passing filter with success',
-    //   () async {
-    //     when(
-    //       () => connect.get(
-    //         'categories?filter=cer',
-    //         decoder: any(named: 'decoder'),
-    //       ),
-    //     ).thenAnswer((_) async => getcategoriesWithSuccessResponse);
+    test(
+      'Should get categories passing filter with success',
+      () async {
+        when(
+          () => connect.get(
+            'categories?filter=cer',
+            decoder: any(named: 'decoder'),
+          ),
+        ).thenAnswer((_) async => getCategoriesWithSuccessResponse);
 
-    //     final response = await categoriesService.getcategories(filter: 'cer');
+        final response = await categoriesService.getCategories(filter: 'cer');
 
-    //     expect(response, listcategoriesData);
-    //   },
-    // );
+        expect(response, listCategoriesData);
+      },
+    );
+
+    test(
+      'Should throw default exception',
+      () async {
+        when(
+          () => connect.get('categories', decoder: any(named: 'decoder')),
+        ).thenAnswer((_) async => getCategoriesWithUnknowErrorResponse);
+
+        final future = categoriesService.getCategories();
+
+        expect(future, throwsA(isA<DefaultException>()));
+      },
+    );
   });
 
   // group('Create product', () {
