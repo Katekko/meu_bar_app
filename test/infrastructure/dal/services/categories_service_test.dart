@@ -1,12 +1,8 @@
 import 'package:ekko/domain/core/abstractions/infrastructure/http_connect.interface.dart';
 import 'package:ekko/domain/core/abstractions/infrastructure/services/categories_service.interface.dart';
-import 'package:ekko/domain/core/constants/errors.constants.dart';
 import 'package:ekko/domain/core/exceptions/default.exception.dart';
 import 'package:ekko/domain/core/exceptions/nonexistent.exception.dart';
-import 'package:ekko/infrastructure/dal/services/categories/dto/category.response.dart';
-import 'package:ekko/infrastructure/dal/services/categories/dto/get_categories.response.dart';
-import 'package:ekko/infrastructure/dal/services/data/category.data.dart';
-import 'package:ekko/infrastructure/dal/services/data/error.response.dart';
+import 'package:ekko/infrastructure/dal/services/categories/categories.service.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
@@ -15,103 +11,6 @@ import '../../../products.mocks.dart';
 import 'mocks/categories/get_categories.mock.dart';
 import 'mocks/categories/get_category_by_id.mock.dart';
 import 'mocks/error_response.mock.dart';
-
-class CategoriesService implements ICategoriesService {
-  final IHttpConnect _connect;
-  const CategoriesService(IHttpConnect connect) : _connect = connect;
-
-  final _prefix = 'categories';
-
-  @override
-  Future<List<CategoryData>> getCategories({String? filter}) async {
-    var url = filter != null ? '$_prefix?filter=$filter' : 'categories';
-
-    final response = await _connect.get(
-      url,
-      decoder: GetCategoriesResponse.fromJson,
-    );
-
-    if (response.success) {
-      return response.payload!.data!;
-    } else {
-      final error = response.payload!.errors!.first;
-      switch (error.id) {
-        default:
-          throw DefaultException(message: error.desc);
-      }
-    }
-  }
-
-  @override
-  Future<void> createCategory(CategoryData body) async {
-    final response = await _connect.post(
-      _prefix,
-      body.toJson(),
-      decoder: ErrorResponse.fromJson,
-    );
-
-    if (!response.success) {
-      final error = response.payload!.errors!.first;
-      switch (error.id) {
-        default:
-          throw DefaultException(message: error.desc);
-      }
-    }
-  }
-
-  @override
-  Future<void> updateCategory(CategoryData body) async {
-    final response = await _connect.put(
-      '$_prefix/${body.id}',
-      body.toJson(),
-      decoder: ErrorResponse.fromJson,
-    );
-
-    if (!response.success) {
-      final error = response.payload!.errors!.first;
-      switch (error.id) {
-        default:
-          throw DefaultException(message: error.desc);
-      }
-    }
-  }
-
-  @override
-  Future<void> deleteCategory(CategoryData body) async {
-    final response = await _connect.delete(
-      '$_prefix/${body.id}',
-      decoder: ErrorResponse.fromJson,
-    );
-
-    if (!response.success) {
-      final error = response.payload!.errors!.first;
-      switch (error.id) {
-        default:
-          throw DefaultException(message: error.desc);
-      }
-    }
-  }
-
-  @override
-  Future<CategoryData> getCategoryById(int id) async {
-    final response = await _connect.get(
-      '$_prefix/$id',
-      decoder: CategoryResponse.fromJson,
-    );
-
-    if (response.success) {
-      return response.payload!.data!;
-    } else {
-      final error = response.payload!.errors!.first;
-      switch (error.id) {
-        case ErrosConstants.nonexistent:
-          throw NonexistentException(message: error.desc);
-        default:
-          throw DefaultException(message: error.desc);
-      }
-    }
-  }
-}
 
 void main() {
   late ICategoriesService categoriesService;
