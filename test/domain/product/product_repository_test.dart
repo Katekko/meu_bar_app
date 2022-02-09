@@ -64,6 +64,17 @@ class ProductRepository implements IProductRepository {
   }
 
   @override
+  Future<ProductModel> getProductById(int id) async {
+    try {
+      final response = await _productsService.getProductById(id);
+      final model = ProductModel.fromData(response);
+      return model;
+    } catch (err) {
+      rethrow;
+    }
+  }
+
+  @override
   Future<void> deleteCategory(CategoryModel category) {
     // TODO: implement deleteCategory
     throw UnimplementedError();
@@ -78,12 +89,6 @@ class ProductRepository implements IProductRepository {
   @override
   Future<CategoryModel> getCategoryById(int id) {
     // TODO: implement getCategoryById
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<ProductModel> getProductById(int id) {
-    // TODO: implement getProductById
     throw UnimplementedError();
   }
 
@@ -176,5 +181,16 @@ void main() {
     await productRepository.deleteProduct(productModel1);
 
     verify(() => productsService.deleteProduct(productData1));
+  });
+
+  test('Get product by id should call service with correct params', () async {
+    const id = 1;
+
+    when(() => productsService.getProductById(id))
+        .thenAnswer((_) async => productData1);
+
+    final response = await productRepository.getProductById(id);
+
+    expect(response, productModel1);
   });
 }
