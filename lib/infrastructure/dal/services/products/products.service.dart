@@ -6,6 +6,7 @@ import 'package:ekko/domain/core/exceptions/nonexistent.exception.dart';
 import 'package:ekko/infrastructure/dal/services/data/error.response.dart';
 import 'package:ekko/infrastructure/dal/services/data/product.data.dart';
 
+import '../data/category.data.dart';
 import 'dto/get_products.response.dart';
 import 'dto/product.response.dart';
 
@@ -16,8 +17,24 @@ class ProductsService implements IProductsService {
   final _prefix = 'products';
 
   @override
-  Future<List<ProductData>> getProducts({String? filter}) async {
-    final url = filter != null ? '$_prefix?filter=$filter' : _prefix;
+  Future<List<ProductData>> getProducts({
+    String? filter,
+    List<CategoryData>? categories,
+  }) async {
+    var url = filter != null ? '$_prefix?filter=$filter' : _prefix;
+
+    if (categories != null) {
+      url += 'categories=';
+      for (var i = 0; i < categories.length; i++) {
+        final item = categories[i];
+        if (i == 0) {
+          url += '${item.id}';
+          break;
+        }
+
+        url += ',${item.id}';
+      }
+    }
 
     final response = await _connect.get(
       url,

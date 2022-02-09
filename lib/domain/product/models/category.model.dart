@@ -10,6 +10,8 @@ class CategoryModel extends Equatable {
     return CategoryModel(id: data.id, name: data.name);
   }
 
+  CategoryData toData() => CategoryData(id: id, name: name);
+
   @override
   List<Object?> get props => [id, name];
 }

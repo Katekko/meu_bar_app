@@ -19,7 +19,13 @@ class ProductRepository implements IProductRepository {
     List<CategoryModel>? categories,
   }) async {
     try {
-      final response = await _productsService.getProducts(filter: filter);
+      final filterCategories = categories?.map((e) => e.toData()).toList();
+
+      final response = await _productsService.getProducts(
+        filter: filter,
+        categories: filterCategories,
+      );
+
       final models = response.map((e) => ProductModel.fromData(e)).toList();
       return models;
     } catch (err) {
@@ -91,25 +97,39 @@ void main() {
     productRepository = ProductRepository(productsService: productsService);
   });
 
-  test('Should get all products with success', () async {
-    when(
-      () => productsService.getProducts(),
-    ).thenAnswer((_) async => listProductsData);
+  group('Get products', () {
+    test('should get with success', () async {
+      when(
+        () => productsService.getProducts(),
+      ).thenAnswer((_) async => listProductsData);
 
-    final response = await productRepository.getProducts();
+      final response = await productRepository.getProducts();
 
-    expect(response, listProductsModel);
-  });
+      expect(response, listProductsModel);
+    });
 
-  test('Should call service with correct params', () async {
-    const filter = 'filtering';
+    test('should call service with correct filter param', () async {
+      const filter = 'filtering';
 
-    when(
-      () => productsService.getProducts(filter: filter),
-    ).thenAnswer((_) async => listProductsData);
+      when(
+        () => productsService.getProducts(filter: filter),
+      ).thenAnswer((_) async => listProductsData);
 
-    final response = await productRepository.getProducts(filter: filter);
+      final response = await productRepository.getProducts(filter: filter);
 
-    expect(response, listProductsModel);
+      expect(response, listProductsModel);
+    });
+
+    test('should call service with correct categories param', () async {
+      when(
+        () => productsService.getProducts(categories: listCategoriesData),
+      ).thenAnswer((_) async => listProductsData);
+
+      final response = await productRepository.getProducts(
+        categories: listCategoriesModel,
+      );
+
+      expect(response, listProductsModel);
+    });
   });
 }
