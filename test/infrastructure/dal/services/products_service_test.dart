@@ -9,6 +9,7 @@ import 'package:test/test.dart';
 
 import '../../../mocks.dart';
 import 'mocks/products_service/create_product.mock.dart';
+import 'mocks/products_service/delete_product.mock.dart';
 import 'mocks/products_service/get_products.mock.dart';
 import 'mocks/products_service/update_product.mock.dart';
 
@@ -168,6 +169,64 @@ void main() {
         () => connect.put(
           url,
           body.toJson(),
+          decoder: any(named: 'decoder'),
+        ),
+      );
+
+      expect(future, throwsA(isA<DefaultException>()));
+    });
+  });
+
+  group('Delete product', () {
+    test('with success', () async {
+      const url = 'products';
+
+      const body = ProductData(
+        id: 1,
+        name: 'Petra 600',
+        value: 12.20,
+        category: CategoryData(id: 1, name: 'Cerveja'),
+      );
+
+      when(
+        () => connect.delete(
+          '$url/${body.id}',
+          decoder: any(named: 'decoder'),
+        ),
+      ).thenAnswer((_) async => deleteProductWithSuccess);
+
+      await productsService.deleteProduct(body);
+
+      verify(
+        () => connect.delete(
+          '$url/${body.id}',
+          decoder: any(named: 'decoder'),
+        ),
+      );
+    });
+
+    test('should throw DefaultException', () async {
+      const url = 'products';
+
+      const body = ProductData(
+        id: 1,
+        name: 'Petra 600',
+        value: 12.20,
+        category: CategoryData(id: 1, name: 'Cerveja'),
+      );
+
+      when(
+        () => connect.delete(
+          '$url/${body.id}',
+          decoder: any(named: 'decoder'),
+        ),
+      ).thenAnswer((_) async => deleteProductWithDefaultError);
+
+      final future = productsService.deleteProduct(body);
+
+      verify(
+        () => connect.delete(
+          '$url/${body.id}',
           decoder: any(named: 'decoder'),
         ),
       );

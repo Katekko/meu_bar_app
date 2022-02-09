@@ -67,9 +67,19 @@ class ProductsService implements IProductsService {
   }
 
   @override
-  Future<void> deleteProduct(ProductData body) {
-    // TODO: implement deleteProduct
-    throw UnimplementedError();
+  Future<void> deleteProduct(ProductData body) async {
+    final response = await _connect.delete(
+      '$_prefix/${body.id}',
+      decoder: ErrorResponse.fromJson,
+    );
+
+    if (!response.success) {
+      final error = response.payload!.errors!.first;
+      switch (error.id) {
+        default:
+          throw DefaultException(message: error.desc);
+      }
+    }
   }
 
   @override
