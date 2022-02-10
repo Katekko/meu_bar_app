@@ -5,7 +5,7 @@ class Routes {
       // final authDomainService = AuthRepositoryBinding().repository;
       // final authenticated = await authDomainService.isAuthenticated();
       // return !authenticated ? login : home;
-      return login;
+      return home;
     } catch (err) {
       return login;
     }

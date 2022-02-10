@@ -15,6 +15,7 @@ class Nav {
     GetPage(
       name: Routes.home,
       page: () => HomeScreen(),
+      binding: HomeControllerBinding(),
     ),
   ];
 }
