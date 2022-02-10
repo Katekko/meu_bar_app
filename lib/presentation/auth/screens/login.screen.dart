@@ -7,9 +7,9 @@ import 'package:ekko/presentation/shared/view_controller.interface.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../widgets/login_button.widget.dart';
-import '../../widgets/login_text_field.widget.dart';
-import '../../widgets/password_text_field.widget.dart';
+import '../widgets/login_button.widget.dart';
+import '../widgets/login_text_field.widget.dart';
+import '../widgets/password_text_field.widget.dart';
 
 class LoginScreen extends ViewController<ILoginController> {
   void doLogin(BuildContext context) {

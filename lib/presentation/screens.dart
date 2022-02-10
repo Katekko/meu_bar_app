@@ -1,1 +1,3 @@
-export 'auth/screens/auth.dart';
+export 'auth/screens/screens.dart';
+export 'categories/screens/screens.dart';
+export 'home/screens/screens.dart';

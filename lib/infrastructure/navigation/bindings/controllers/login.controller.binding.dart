@@ -5,7 +5,7 @@ import 'package:ekko/domain/core/builders/field_validator.builder.dart';
 import 'package:ekko/domain/core/models/getx_field.model.dart';
 import 'package:ekko/infrastructure/dal/inject.dart';
 import 'package:ekko/infrastructure/navigation/bindings/domains/auth.repository.binding.dart';
-import 'package:ekko/presentation/auth/controllers/controllers.dart';
+import 'package:ekko/presentation/controllers.dart';
 import 'package:ekko/presentation/shared/loading/loading.interface.dart';
 import 'package:get/get.dart';
 
