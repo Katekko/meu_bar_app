@@ -3,9 +3,8 @@ import 'package:ekko/presentation/home/controllers/home.controller.dart';
 import 'package:test/test.dart';
 
 void main() {
-  test('Should return the correct controller model', () {
+  test('Should return the correct controller', () {
     final controller = makeHomeController();
-
-    expect(controller, HomeController());
+    expect(controller, isA<HomeController>());
   });
 }

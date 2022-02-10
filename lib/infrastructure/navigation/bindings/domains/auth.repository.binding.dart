@@ -10,7 +10,6 @@ class AuthRepositoryBinding {
 
   AuthRepositoryBinding() {
     final storage = Inject.find<IStorage>();
-    // TODO: Mockado para utilizar o service mock
     // final connect = Inject.find<IHttpConnect>();
     // final authService = AuthService(connect);
     final authService = AuthServiceMock();
