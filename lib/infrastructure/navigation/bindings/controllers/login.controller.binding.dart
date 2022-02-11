@@ -1,5 +1,5 @@
 import 'package:ekko/domain/core/abstractions/domain/repositories/auth_repository.interface.dart';
-import 'package:ekko/domain/core/abstractions/presentation/controllers/login/login_controller.interface.dart';
+import 'package:ekko/domain/core/abstractions/presentation/controllers/auth/login_controller.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/field.interface.dart';
 import 'package:ekko/domain/core/builders/field_validator.builder.dart';
 import 'package:ekko/domain/core/models/getx_field.model.dart';

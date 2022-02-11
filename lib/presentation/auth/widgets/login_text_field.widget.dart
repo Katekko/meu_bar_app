@@ -1,4 +1,4 @@
-import 'package:ekko/domain/core/abstractions/presentation/controllers/login/login_controller.interface.dart';
+import 'package:ekko/domain/core/abstractions/presentation/controllers/auth/login_controller.interface.dart';
 import 'package:ekko/presentation/shared/view_controller.interface.dart';
 import 'package:flutter/material.dart';
 

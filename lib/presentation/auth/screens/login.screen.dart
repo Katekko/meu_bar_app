@@ -1,4 +1,4 @@
-import 'package:ekko/domain/core/abstractions/presentation/controllers/login/login_controller.interface.dart';
+import 'package:ekko/domain/core/abstractions/presentation/controllers/auth/login_controller.interface.dart';
 import 'package:ekko/domain/core/utils/snackbar.util.dart';
 import 'package:ekko/infrastructure/navigation/routes.dart';
 import 'package:ekko/presentation/shared/hide_keyboard/hide_keyboard.widget.dart';
