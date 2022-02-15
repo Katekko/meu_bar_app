@@ -9,7 +9,7 @@ part of 'category.data.dart';
 CategoryData _$CategoryDataFromJson(Map<String, dynamic> json) => CategoryData(
       id: json['id'] as int,
       name: json['name'] as String,
-      icon: json['icon'] as int?,
+      icon: json['icon'] as int,
     );
 
 Map<String, dynamic> _$CategoryDataToJson(CategoryData instance) =>

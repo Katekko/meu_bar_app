@@ -3,10 +3,8 @@ import 'dart:async';
 import 'package:ekko/domain/core/abstractions/presentation/controllers/home/home_controller.interface.dart';
 import 'package:get/get.dart' hide Rx;
 
-import '../../../domain/core/abstractions/rx.dart';
-
 class HomeController extends GetxController implements IHomeController {
-  final _currentVersion = Rx<String>('1.0.0');
+  final _currentVersion = '1.0.0'.obs;
 
   @override
   Stream<String> get currentVersionStream => _currentVersion.stream;

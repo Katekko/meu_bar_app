@@ -23,9 +23,7 @@ class CategoryItemListWidget extends ViewController<ICategoriesController> {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: () => editCategory(context),
-      leading: item.icon != null
-          ? Icon(IconData(item.icon!, fontFamily: 'MaterialIcons'))
-          : null,
+      leading: Icon(IconData(item.icon, fontFamily: 'MaterialIcons')),
       title: Text(item.name),
     );
   }

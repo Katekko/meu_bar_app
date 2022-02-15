@@ -13,6 +13,7 @@ class TextFieldWidget extends StatelessWidget {
       stream: field.errorStream,
       builder: (_, snapshot) {
         return TextFormField(
+          initialValue: field.value,
           onChanged: field.onChange,
           textInputAction: TextInputAction.next,
           decoration: InputDecoration(

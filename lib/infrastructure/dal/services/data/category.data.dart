@@ -9,9 +9,13 @@ class CategoryData extends Equatable {
   final String name;
 
   /// Hexdecimal
-  final int? icon;
+  final int icon;
 
-  const CategoryData({required this.id, required this.name, this.icon});
+  const CategoryData({
+    required this.id,
+    required this.name,
+    required this.icon,
+  });
 
   factory CategoryData.fromJson(json) => _$CategoryDataFromJson(json);
   Map<String, dynamic> toJson() => _$CategoryDataToJson(this);

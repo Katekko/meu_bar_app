@@ -8,7 +8,7 @@ import '../widgets/category/icon_picker.widget.dart';
 
 class CategoryScreen extends ViewController<ICategoryController> {
   void createCategory(BuildContext context) {
-    controller.createCategory(backScreen: Navigator.of(context).pop);
+    controller.saveCategory(backScreen: Navigator.of(context).pop);
   }
 
   @override
@@ -37,7 +37,9 @@ class CategoryScreen extends ViewController<ICategoryController> {
         ),
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () => createCategory(context),
-          label: const Text('CRIAR CATEGORIA'),
+          label: Text(
+            controller.isEdit ? 'EDITAR CATEGORIA' : 'CRIAR CATEGORIA',
+          ),
           icon: const Icon(Icons.save),
         ),
       ),

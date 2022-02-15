@@ -9,6 +9,6 @@ abstract class ICategoriesController {
 
   void editCategory({
     required CategoryModel category,
-    required void Function(CategoryModel category) openScreen,
+    required Future<void> Function(CategoryModel category) openScreen,
   });
 }

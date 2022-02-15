@@ -64,7 +64,7 @@ void main() {
         id: -1,
         name: 'Petra 600',
         price: 12.20,
-        category: CategoryData(id: 1, name: 'Cerveja'),
+        category: CategoryData(id: 1, name: 'Cerveja', icon: 0xff),
       );
 
       when(
@@ -93,7 +93,7 @@ void main() {
         id: -1,
         name: 'Petra 600',
         price: 12.20,
-        category: CategoryData(id: 1, name: 'Cerveja'),
+        category: CategoryData(id: 1, name: 'Cerveja', icon: 0xff),
       );
 
       when(
@@ -126,7 +126,7 @@ void main() {
         id: 1,
         name: 'Petra 600',
         price: 12.20,
-        category: CategoryData(id: 1, name: 'Cerveja'),
+        category: CategoryData(id: 1, name: 'Cerveja', icon: 0xff),
       );
 
       when(
@@ -155,7 +155,7 @@ void main() {
         id: 1,
         name: 'Petra 600',
         price: 12.20,
-        category: CategoryData(id: 1, name: 'Cerveja'),
+        category: CategoryData(id: 1, name: 'Cerveja', icon: 0xff),
       );
 
       when(
@@ -188,7 +188,7 @@ void main() {
         id: 1,
         name: 'Petra 600',
         price: 12.20,
-        category: CategoryData(id: 1, name: 'Cerveja'),
+        category: CategoryData(id: 1, name: 'Cerveja', icon: 0xff),
       );
 
       when(
@@ -215,7 +215,7 @@ void main() {
         id: 1,
         name: 'Petra 600',
         price: 12.20,
-        category: CategoryData(id: 1, name: 'Cerveja'),
+        category: CategoryData(id: 1, name: 'Cerveja', icon: 0xff),
       );
 
       when(

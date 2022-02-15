@@ -6,9 +6,13 @@ class CategoryModel extends Equatable {
   final String name;
 
   /// Hexdecimal
-  final int? icon;
+  final int icon;
 
-  const CategoryModel({required this.id, required this.name, this.icon});
+  const CategoryModel({
+    required this.id,
+    required this.name,
+    required this.icon,
+  });
 
   factory CategoryModel.fromData(CategoryData data) {
     return CategoryModel(id: data.id, name: data.name, icon: data.icon);
