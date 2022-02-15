@@ -21,5 +21,10 @@ class Nav {
       page: () => CategoriesScreen(),
       binding: CategoriesControllerBinding(),
     ),
+    GetPage(
+      name: Routes.CATEGORY,
+      page: () => CategoryScreen(),
+      binding: CategoryControllerBinding(),
+    ),    
   ];
 }

@@ -11,7 +11,9 @@ class Routes {
     }
   }
 
+
+	static const CATEGORY = '/category';
+  static const categories = '/categories';
   static const home = '/home';
   static const login = '/login';
-  static const categories = '/categories';
 }
