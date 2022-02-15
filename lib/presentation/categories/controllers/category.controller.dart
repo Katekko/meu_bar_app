@@ -1,4 +1,6 @@
 import 'package:ekko/domain/core/abstractions/presentation/field.interface.dart';
+import 'package:ekko/domain/product/models/category.model.dart';
+import 'package:rxdart/rxdart.dart';
 
 import '../../../domain/core/abstractions/presentation/controllers/categories/category_controller.interface.dart';
 
@@ -12,9 +14,17 @@ class CategoryController implements ICategoryController {
   })  : _isEdit = isEdit,
         _nameField = nameField;
 
+  final _iconField = BehaviorSubject<int>();
+
   @override
   bool get isEdit => _isEdit;
 
   @override
   IField get nameField => _nameField;
+
+  @override
+  Stream<int> get iconFieldStream => _iconField.stream;
+
+  @override
+  void pickAnIcon(int hex) => _iconField.add(hex);
 }

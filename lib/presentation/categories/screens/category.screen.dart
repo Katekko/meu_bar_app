@@ -3,6 +3,7 @@ import 'package:ekko/presentation/shared/view_controller.interface.dart';
 import 'package:flutter/material.dart';
 
 import '../../shared/text_field.widget.dart';
+import '../widgets/category/icon_picker.widget.dart';
 
 class CategoryScreen extends ViewController<ICategoryController> {
   @override
@@ -18,10 +19,13 @@ class CategoryScreen extends ViewController<ICategoryController> {
         padding: const EdgeInsets.all(15),
         child: Column(
           children: [
+            const SizedBox(height: 20),
             TextFieldWidget(
               label: 'Nome da Categoria',
               field: controller.nameField,
             ),
+            const SizedBox(height: 20),
+            IconPickerWidget(),
           ],
         ),
       ),
