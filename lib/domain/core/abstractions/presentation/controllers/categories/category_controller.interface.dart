@@ -6,4 +6,5 @@ abstract class ICategoryController {
   Stream<int> get iconFieldStream;
 
   void pickAnIcon(int hex);
+  void createCategory({required void Function() backScreen});
 }

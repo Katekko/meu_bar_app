@@ -19,25 +19,25 @@ class IconPickerWidget extends ViewController<ICategoryController> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Card(
-          elevation: 3,
-          child: SizedBox(
-            height: 80,
-            width: 80,
-            child: StreamBuilder<int>(
-              stream: controller.iconFieldStream,
-              builder: (_, snap) {
-                if (snap.hasData) {
-                  return Icon(
-                    IconData(snap.data!, fontFamily: 'MaterialIcons'),
-                    size: 70,
-                  );
-                }
-
-                return const SizedBox();
-              },
-            ),
-          ),
+        StreamBuilder<int>(
+          stream: controller.iconFieldStream,
+          builder: (_, snap) {
+            return Card(
+              shadowColor: snap.hasError ? Colors.red : null,
+              color: snap.hasError ? Colors.red.shade100 : null,
+              elevation: 3,
+              child: SizedBox(
+                height: 80,
+                width: 80,
+                child: snap.hasData
+                    ? Icon(
+                        IconData(snap.data!, fontFamily: 'MaterialIcons'),
+                        size: 70,
+                      )
+                    : const SizedBox(),
+              ),
+            );
+          },
         ),
         const SizedBox(width: 20),
         ElevatedButton(

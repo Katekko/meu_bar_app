@@ -14,7 +14,6 @@ class TextFieldWidget extends StatelessWidget {
       builder: (_, snapshot) {
         return TextFormField(
           onChanged: field.onChange,
-          textAlign: TextAlign.center,
           textInputAction: TextInputAction.next,
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
