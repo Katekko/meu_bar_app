@@ -39,6 +39,11 @@ class CategoriesController extends GetxController
   }
 
   @override
+  void createCategory({required void Function() openScreen}) {
+    openScreen();
+  }
+
+  @override
   void editCategory({
     required CategoryModel category,
     required void Function(CategoryModel category) openScreen,

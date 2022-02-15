@@ -22,9 +22,14 @@ class Nav {
       binding: CategoriesControllerBinding(),
     ),
     GetPage(
-      name: Routes.CATEGORY,
+      name: Routes.createCategory,
       page: () => CategoryScreen(),
-      binding: CategoryControllerBinding(),
-    ),    
+      binding: CategoryControllerBinding(isEdit: false),
+    ),
+    GetPage(
+      name: Routes.editCategory,
+      page: () => CategoryScreen(),
+      binding: CategoryControllerBinding(isEdit: true),
+    ),
   ];
 }

@@ -3,6 +3,7 @@ import 'package:ekko/presentation/shared/view_controller.interface.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../domain/product/models/category.model.dart';
+import '../../../../infrastructure/navigation/routes.dart';
 
 class CategoryItemListWidget extends ViewController<ICategoriesController> {
   final CategoryModel item;
@@ -12,7 +13,7 @@ class CategoryItemListWidget extends ViewController<ICategoriesController> {
     controller.editCategory(
       category: item,
       openScreen: (category) => Navigator.of(context).pushNamed(
-        'categories/edit',
+        Routes.editCategory,
         arguments: {'category': category},
       ),
     );

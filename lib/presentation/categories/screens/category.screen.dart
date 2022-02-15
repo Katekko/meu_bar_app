@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/categories/initial.widget.dart';
+import '../widgets/category/initial.widget.dart';
 
-//TODO: Implement CategoryScreen
 class CategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

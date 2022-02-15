@@ -6,6 +6,6 @@ import '../../../shared/view_controller.interface.dart';
 class InitialWidget extends ViewController<ICategoryController> {
   @override
   Widget build(BuildContext context) {
-    return Text(controller.katekko);
+    return Text('${controller.isEdit}');
   }
 }

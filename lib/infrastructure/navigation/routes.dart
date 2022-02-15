@@ -11,8 +11,8 @@ class Routes {
     }
   }
 
-
-	static const CATEGORY = '/category';
+  static const editCategory = '/categories/edit';
+  static const createCategory = '/categories/create';
   static const categories = '/categories';
   static const home = '/home';
   static const login = '/login';
