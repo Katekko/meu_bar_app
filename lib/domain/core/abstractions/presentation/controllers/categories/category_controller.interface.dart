@@ -1,6 +1,7 @@
-abstract class ICategoryController {
-  //TODO: Implement ICategoryController
-  String get katekko;
+import '../../field.interface.dart';
 
+abstract class ICategoryController {
   bool get isEdit;
+
+  IField get nameField;
 }
