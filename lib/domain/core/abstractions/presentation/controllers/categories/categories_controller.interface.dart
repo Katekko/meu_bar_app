@@ -5,7 +5,7 @@ abstract class ICategoriesController {
 
   void loadCategories();
 
-  void createCategory({required void Function() openScreen});
+  void createCategory({required Future<void> Function() openScreen});
 
   void editCategory({
     required CategoryModel category,

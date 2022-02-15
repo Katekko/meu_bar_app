@@ -3,6 +3,7 @@ import 'package:ekko/domain/core/abstractions/presentation/controllers/categorie
 import 'package:ekko/infrastructure/dal/inject.dart';
 import 'package:ekko/infrastructure/navigation/bindings/domains/product.repository.binding.dart';
 import 'package:ekko/presentation/categories/controllers/categories.controller.dart';
+import 'package:ekko/presentation/shared/loading/loading.interface.dart';
 import 'package:get/get.dart';
 
 class CategoriesControllerBinding extends Bindings {
@@ -12,6 +13,7 @@ class CategoriesControllerBinding extends Bindings {
     Inject.put<ICategoriesController>(
       () => makeCategoriesController(
         productRepository: productBinding.repository,
+        loading: Inject.find<ILoadingController>(),
       ),
     );
   }
@@ -19,6 +21,10 @@ class CategoriesControllerBinding extends Bindings {
 
 ICategoriesController makeCategoriesController({
   required IProductRepository productRepository,
+  required ILoadingController loading,
 }) {
-  return CategoriesController(productRepository: productRepository);
+  return CategoriesController(
+    productRepository: productRepository,
+    loading: loading,
+  );
 }
