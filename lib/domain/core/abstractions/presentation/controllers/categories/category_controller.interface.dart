@@ -1,5 +1,3 @@
-import 'package:ekko/domain/product/models/category.model.dart';
-
 import '../../field.interface.dart';
 
 abstract class ICategoryController {

@@ -1,5 +1,4 @@
 import 'package:ekko/domain/core/abstractions/presentation/field.interface.dart';
-import 'package:ekko/domain/product/models/category.model.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../../domain/core/abstractions/presentation/controllers/categories/category_controller.interface.dart';
