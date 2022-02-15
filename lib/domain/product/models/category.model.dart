@@ -4,14 +4,18 @@ import 'package:equatable/equatable.dart';
 class CategoryModel extends Equatable {
   final int id;
   final String name;
-  const CategoryModel({required this.id, required this.name});
+
+  /// Hexdecimal
+  final int? icon;
+
+  const CategoryModel({required this.id, required this.name, this.icon});
 
   factory CategoryModel.fromData(CategoryData data) {
-    return CategoryModel(id: data.id, name: data.name);
+    return CategoryModel(id: data.id, name: data.name, icon: data.icon);
   }
 
-  CategoryData toData() => CategoryData(id: id, name: name);
+  CategoryData toData() => CategoryData(id: id, name: name, icon: icon);
 
   @override
-  List<Object?> get props => [id, name];
+  List<Object?> get props => [id, name, icon];
 }

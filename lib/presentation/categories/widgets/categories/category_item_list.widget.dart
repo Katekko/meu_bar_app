@@ -9,6 +9,10 @@ class CategoryItemListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: () {},
+      leading: item.icon != null
+          ? Icon(IconData(item.icon!, fontFamily: 'MaterialIcons'))
+          : null,
       title: Text(item.name),
     );
   }

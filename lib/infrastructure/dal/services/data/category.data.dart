@@ -7,7 +7,11 @@ part 'category.data.g.dart';
 class CategoryData extends Equatable {
   final int id;
   final String name;
-  const CategoryData({required this.id, required this.name});
+
+  /// Hexdecimal
+  final int? icon;
+
+  const CategoryData({required this.id, required this.name, this.icon});
 
   factory CategoryData.fromJson(json) => _$CategoryDataFromJson(json);
   Map<String, dynamic> toJson() => _$CategoryDataToJson(this);

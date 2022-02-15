@@ -2,9 +2,9 @@ import 'package:ekko/domain/core/abstractions/domain/repositories/product_reposi
 import 'package:ekko/domain/product/models/product.model.dart';
 import 'package:ekko/domain/product/models/category.model.dart';
 
-const categoryModel1 = CategoryModel(id: 1, name: 'Bebidas');
-const categoryModel2 = CategoryModel(id: 2, name: 'Comidas');
-const categoryModel3 = CategoryModel(id: 2, name: 'Outros');
+const categoryModel1 = CategoryModel(id: 1, name: 'Bebidas', icon: 0xe6f1);
+const categoryModel2 = CategoryModel(id: 2, name: 'Comidas', icon: 0xe532);
+const categoryModel3 = CategoryModel(id: 2, name: 'Outros', icon: 0xe147);
 
 const listCategoriesModel = [categoryModel1, categoryModel2, categoryModel3];
 
