@@ -2,7 +2,6 @@ import 'package:ekko/domain/core/abstractions/presentation/field.interface.dart'
 
 import '../../reactive_button.interface.dart';
 
-// TODO: Trocar nome dessa pasta para auth ao invés de login
 abstract class ILoginController implements IReactiveButton {
   IField get currentLogin;
   IField get currentPassword;
