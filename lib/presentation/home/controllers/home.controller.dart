@@ -1,17 +1,19 @@
+import 'dart:async';
+
 import 'package:ekko/domain/core/abstractions/presentation/controllers/home/home_controller.interface.dart';
 import 'package:get/get.dart';
+import 'package:rxdart/rxdart.dart';
 
 class HomeController extends GetxController implements IHomeController {
-  final _currentVersion = '1.0.0'.obs;
+  final _currentVersion = BehaviorSubject<String>();
+
   @override
   Stream<String> get currentVersionStream => _currentVersion.stream;
 
   @override
   void onInit() {
     super.onInit();
-    // TODO: Esperando versão 5 do getx para que o valor inicial
-    // venha dentro da stream do get
-    Future.delayed(const Duration(milliseconds: 300), _loadCurrentVersion);
+    _loadCurrentVersion();
   }
 
   @override
@@ -21,7 +23,8 @@ class HomeController extends GetxController implements IHomeController {
   }
 
   void _loadCurrentVersion() {
-    _currentVersion.value = '1.0.0';
+    // TODO: Adicionar o modo de pegar a versão atual do projeto
+    _currentVersion.add('1.0.0');
   }
 
   @override
