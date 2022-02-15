@@ -37,4 +37,12 @@ class CategoriesController extends GetxController
       _categories.addError(err);
     }
   }
+
+  @override
+  void editCategory({
+    required CategoryModel category,
+    required void Function(CategoryModel category) openScreen,
+  }) {
+    openScreen(category);
+  }
 }
