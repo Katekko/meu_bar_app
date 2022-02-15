@@ -25,16 +25,6 @@ class HomeController extends GetxController implements IHomeController {
   }
 
   @override
-  void navToCategories() {
-    // TODO: implement navToCategories
-  }
-
-  @override
-  void navToProducts() {
-    // TODO: implement navToProducts
-  }
-
-  @override
   void logout() {
     // TODO: implement logout
   }

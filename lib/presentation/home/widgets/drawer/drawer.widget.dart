@@ -1,12 +1,19 @@
 import 'package:ekko/domain/core/abstractions/presentation/controllers/home/home_controller.interface.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../infrastructure/navigation/routes.dart';
 import '../../../shared/view_controller.interface.dart';
 import 'exit_button.widget.dart';
 import 'header.widget.dart';
 import 'menu_item.widget.dart';
 
 class DrawerWidget extends ViewController<IHomeController> {
+  void navToCategories(BuildContext context) {
+    Navigator.of(context).pushNamed(Routes.categories);
+  }
+
+  void navToProducts(BuildContext context) {}
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -19,12 +26,12 @@ class DrawerWidget extends ViewController<IHomeController> {
             MenuItemWidget(
               text: 'Categorias',
               icon: Icons.category,
-              onTap: controller.navToCategories,
+              onTap: () => navToCategories(context),
             ),
             MenuItemWidget(
               text: 'Produtos',
               icon: Icons.production_quantity_limits,
-              onTap: controller.navToProducts,
+              onTap: () => navToProducts(context),
             ),
             const Spacer(),
             Padding(
