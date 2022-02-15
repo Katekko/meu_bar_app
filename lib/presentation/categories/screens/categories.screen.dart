@@ -2,12 +2,19 @@ import 'package:ekko/domain/core/abstractions/presentation/controllers/categorie
 import 'package:ekko/presentation/shared/view_controller.interface.dart';
 import 'package:flutter/material.dart';
 
+import '../widgets/categories/categories_list.widget.dart';
+
 class CategoriesScreen extends ViewController<ICategoriesController> {
+  void openCategoryScreen(BuildContext context) {}
+
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Categories'),
+    return Scaffold(
+      appBar: AppBar(title: const Text('Categorias')),
+      body: CategoriesListWidget(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => openCategoryScreen(context),
+        child: const Icon(Icons.add),
       ),
     );
   }
