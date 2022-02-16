@@ -27,13 +27,13 @@ void main() {
     );
   });
 
-  test('should pick correct icon', () {
+  test('pickAnIcon should pick correct icon', () {
     controller.pickAnIcon(1);
 
     expect(controller.iconFieldStream, emits(1));
   });
 
-  test('should create a category with success', () async {
+  test('saveCategories should create a category with success', () async {
     const name = 'katekko';
     when(() => nameField.validate()).thenReturn(true);
     when(() => nameField.value).thenReturn(name);
@@ -56,7 +56,7 @@ void main() {
     verify(() => productRepository.registerCategory(category));
   });
 
-  test('should update a category with success', () async {
+  test('saveCategories should update a category with success', () async {
     // arrange
     const name = 'katekko';
     when(() => nameField.validate()).thenReturn(true);
@@ -91,5 +91,43 @@ void main() {
 
     // assert
     verify(() => productRepository.updateCategory(categoryToSave));
+  });
+
+  test('validateFields should return true', () {
+    // arrange
+    when(nameField.validate).thenReturn(true);
+    when(() => nameField.hasError).thenReturn(false);
+    controller.pickAnIcon(1);
+
+    // action
+    final response = controller.validateFields();
+
+    // assert
+    expect(response, true);
+  });
+
+  test('validateFields should return false when icon is null', () {
+    // arrange
+    when(nameField.validate).thenReturn(true);
+    when(() => nameField.hasError).thenReturn(false);
+
+    // action
+    final response = controller.validateFields();
+
+    // assert
+    expect(response, false);
+  });
+
+  test('validateFields should return false when validate field return false',
+      () {
+    // arrange
+    when(nameField.validate).thenReturn(false);
+    when(() => nameField.hasError).thenReturn(true);
+
+    // action
+    final response = controller.validateFields();
+
+    // assert
+    expect(response, false);
   });
 }

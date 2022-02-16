@@ -85,6 +85,7 @@ class CategoryController extends GetxController implements ICategoryController {
     }
   }
 
+  @override
   bool validateFields() {
     _nameField.validate();
 
