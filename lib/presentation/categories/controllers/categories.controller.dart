@@ -5,12 +5,13 @@ import 'package:ekko/domain/core/abstractions/presentation/controllers/categorie
 import 'package:ekko/domain/product/models/category.model.dart';
 import 'package:ekko/presentation/shared/loading/loading.interface.dart';
 import 'package:get/get.dart';
+import 'package:rxdart/rxdart.dart';
 
 class CategoriesController extends GetxController
     implements ICategoriesController {
   final IProductRepository _productRepository;
   final ILoadingController _loading;
-  final _categories = StreamController<List<CategoryModel>>();
+  final _categories = BehaviorSubject<List<CategoryModel>>();
 
   CategoriesController({
     required IProductRepository productRepository,

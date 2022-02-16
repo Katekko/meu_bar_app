@@ -3,6 +3,7 @@ import 'package:ekko/domain/core/abstractions/presentation/field.interface.dart'
 import 'package:ekko/domain/product/models/category.model.dart';
 import 'package:ekko/presentation/shared/loading/loading.interface.dart';
 import 'package:get/get.dart';
+import 'package:rxdart/rxdart.dart';
 
 import '../../../domain/core/abstractions/presentation/controllers/categories/category_controller.interface.dart';
 
@@ -25,8 +26,7 @@ class CategoryController extends GetxController implements ICategoryController {
         _nameField = nameField,
         _category = category;
 
-  final _iconField = Rxn<int>();
-  final _iconFieldError = Rxn<String>();
+  final _iconField = BehaviorSubject<int>();
 
   @override
   bool get isEdit => _isEdit;
@@ -36,17 +36,14 @@ class CategoryController extends GetxController implements ICategoryController {
 
   @override
   Stream<int?> get iconFieldStream => _iconField.stream;
-  @override
-  Stream<String?> get iconFieldError => _iconFieldError.stream;
 
   @override
   void onInit() async {
     super.onInit();
     if (_category != null) {
-      /// TODO: Esperando versão 5.0 do getx
       _nameField.value = _category!.name;
       Future.delayed(const Duration(milliseconds: 200), () {
-        _iconField.value = _category!.icon;
+        _iconField.add(_category!.icon);
       });
     }
   }
@@ -59,10 +56,7 @@ class CategoryController extends GetxController implements ICategoryController {
   }
 
   @override
-  void pickAnIcon(int hex) {
-    _iconField.value = hex;
-    _iconFieldError.value = null;
-  }
+  void pickAnIcon(int hex) => _iconField.add(hex);
 
   @override
   void saveCategory({required void Function() backScreen}) async {
@@ -94,11 +88,10 @@ class CategoryController extends GetxController implements ICategoryController {
   bool validateFields() {
     _nameField.validate();
 
-    _iconFieldError.value =
-        _iconField.value == null ? 'Icone Obrigatório' : null;
+    if (_iconField.value == null) {
+      _iconField.addError('Icone Obrigatório');
+    }
 
-    return !_nameField.hasError &&
-        _iconFieldError.value == null &&
-        _iconField.value != null;
+    return !_nameField.hasError && !_iconField.hasError;
   }
 }

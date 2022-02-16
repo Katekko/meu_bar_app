@@ -8,6 +8,7 @@ import '../widgets/category/icon_picker.widget.dart';
 
 class CategoryScreen extends ViewController<ICategoryController> {
   void createCategory(BuildContext context) {
+    FocusScope.of(context).unfocus();
     controller.saveCategory(backScreen: Navigator.of(context).pop);
   }
 
