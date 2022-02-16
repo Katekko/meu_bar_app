@@ -2,7 +2,6 @@ import 'package:ekko/domain/core/abstractions/domain/repositories/product_reposi
 import 'package:ekko/domain/core/abstractions/presentation/field.interface.dart';
 import 'package:ekko/domain/product/models/category.model.dart';
 import 'package:ekko/presentation/shared/loading/loading.interface.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../../../domain/core/abstractions/presentation/controllers/categories/category_controller.interface.dart';
