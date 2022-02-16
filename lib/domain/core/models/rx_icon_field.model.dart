@@ -5,7 +5,6 @@ import '../abstractions/presentation/stream_field.interface.dart';
 
 class RxIconFieldModel extends IStreamField<int?> {
   final _stream = BehaviorSubject<int?>();
-  final _error = BehaviorSubject<String>();
 
   RxIconFieldModel({
     int? value,
@@ -24,10 +23,7 @@ class RxIconFieldModel extends IStreamField<int?> {
   set value(int? val) => onChange(val);
 
   @override
-  Stream<String?> get errorStream => _error.stream;
-
-  @override
-  bool get hasError => _error.value != null;
+  bool get hasError => _stream.hasError;
 
   @override
   void onChange(int? val) {
@@ -39,13 +35,10 @@ class RxIconFieldModel extends IStreamField<int?> {
   @override
   bool validate() {
     final error = super.validateValue(_stream.value);
-    if (error != null) _error.add(error);
-    return _error.value != null;
+    if (error != null) _stream.addError(error);
+    return !hasError;
   }
 
   @override
-  void dispose() {
-    _stream.close();
-    _error.close();
-  }
+  void dispose() => _stream.close();
 }

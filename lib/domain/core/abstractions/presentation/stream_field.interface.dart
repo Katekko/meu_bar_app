@@ -5,7 +5,6 @@ abstract class IStreamField<T> extends IValidator<T> {
   T get value;
   set value(T val);
   Stream<T> get stream;
-  Stream<String?> get errorStream;
 
   /// Chame esse callback caso queira executar alguma funcionalidade
   /// após o onChange rodar.
