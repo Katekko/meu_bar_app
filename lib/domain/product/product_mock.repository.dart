@@ -4,7 +4,7 @@ import 'package:ekko/domain/product/models/category.model.dart';
 
 const categoryModel1 = CategoryModel(id: 1, name: 'Bebidas', icon: 0xe6f1);
 const categoryModel2 = CategoryModel(id: 2, name: 'Comidas', icon: 0xe532);
-const categoryModel3 = CategoryModel(id: 2, name: 'Outros', icon: 0xe147);
+const categoryModel3 = CategoryModel(id: 3, name: 'Outros', icon: 0xe147);
 
 final listCategoriesModel = [categoryModel1, categoryModel2, categoryModel3];
 
