@@ -33,101 +33,95 @@ void main() {
     expect(controller.iconFieldStream, emits(1));
   });
 
-  test('saveCategories should create a category with success', () async {
-    const name = 'katekko';
-    when(() => nameField.validate()).thenReturn(true);
-    when(() => nameField.value).thenReturn(name);
-    when(() => nameField.hasError).thenReturn(false);
+  group('Save Categories', () {
+    test('should create a category with success', () async {
+      const name = 'katekko';
+      when(() => nameField.validate()).thenReturn(true);
+      when(() => nameField.value).thenReturn(name);
+      when(() => nameField.hasError).thenReturn(false);
 
-    controller.pickAnIcon(1);
-    controller.nameField.value = name;
-    final icon = await controller.iconFieldStream.first;
-    final category = CategoryModel(
-      id: -1,
-      name: controller.nameField.value,
-      icon: icon!,
-    );
+      controller.pickAnIcon(1);
+      controller.nameField.value = name;
+      final icon = await controller.iconFieldStream.first;
+      final category = CategoryModel(
+        id: -1,
+        name: controller.nameField.value,
+        icon: icon!,
+      );
 
-    when(() => productRepository.registerCategory(category))
-        .thenAnswer((_) async {});
+      when(() => productRepository.registerCategory(category))
+          .thenAnswer((_) async {});
 
-    await controller.saveCategory(backScreen: () {});
+      await controller.saveCategory(backScreen: () {});
 
-    verify(() => productRepository.registerCategory(category));
+      verify(() => productRepository.registerCategory(category));
+    });
+
+    test('should update a category with success', () async {
+      // arrange
+      const name = 'katekko';
+      when(() => nameField.validate()).thenReturn(true);
+      when(() => nameField.value).thenReturn(name);
+      when(() => nameField.hasError).thenReturn(false);
+
+      const category = CategoryModel(id: 1, name: 'Katekko', icon: 1);
+
+      final controller = CategoryController(
+        productRepository: productRepository,
+        loading: LoadingControllerMock(),
+        isEdit: true,
+        nameField: nameField,
+        category: category,
+      );
+
+      controller.pickAnIcon(2);
+      final icon = await controller.iconFieldStream.first;
+      controller.nameField.value = 'katekko 2';
+
+      final categoryToSave = CategoryModel(
+        id: 1,
+        name: controller.nameField.value,
+        icon: icon!,
+      );
+
+      when(() => productRepository.updateCategory(categoryToSave))
+          .thenAnswer((_) async {});
+
+      // action
+      await controller.saveCategory(backScreen: () {});
+
+      // assert
+      verify(() => productRepository.updateCategory(categoryToSave));
+    });
   });
 
-  test('saveCategories should update a category with success', () async {
-    // arrange
-    const name = 'katekko';
-    when(() => nameField.validate()).thenReturn(true);
-    when(() => nameField.value).thenReturn(name);
-    when(() => nameField.hasError).thenReturn(false);
+  group('Validate Fields', () {
+    test('should return true', () {
+      when(nameField.validate).thenReturn(true);
+      when(() => nameField.hasError).thenReturn(false);
+      controller.pickAnIcon(1);
 
-    const category = CategoryModel(id: 1, name: 'Katekko', icon: 1);
+      final response = controller.validateFields();
 
-    final controller = CategoryController(
-      productRepository: productRepository,
-      loading: LoadingControllerMock(),
-      isEdit: true,
-      nameField: nameField,
-      category: category,
-    );
+      expect(response, true);
+    });
 
-    controller.pickAnIcon(2);
-    final icon = await controller.iconFieldStream.first;
-    controller.nameField.value = 'katekko 2';
+    test('should return false when icon is null', () {
+      when(nameField.validate).thenReturn(true);
+      when(() => nameField.hasError).thenReturn(false);
 
-    final categoryToSave = CategoryModel(
-      id: 1,
-      name: controller.nameField.value,
-      icon: icon!,
-    );
+      final response = controller.validateFields();
 
-    when(() => productRepository.updateCategory(categoryToSave))
-        .thenAnswer((_) async {});
+      expect(response, false);
+    });
 
-    // action
-    await controller.saveCategory(backScreen: () {});
+    test('should return false when validate field return false', () {
+      when(nameField.validate).thenReturn(false);
+      when(() => nameField.hasError).thenReturn(true);
 
-    // assert
-    verify(() => productRepository.updateCategory(categoryToSave));
-  });
+      final response = controller.validateFields();
 
-  test('validateFields should return true', () {
-    // arrange
-    when(nameField.validate).thenReturn(true);
-    when(() => nameField.hasError).thenReturn(false);
-    controller.pickAnIcon(1);
-
-    // action
-    final response = controller.validateFields();
-
-    // assert
-    expect(response, true);
-  });
-
-  test('validateFields should return false when icon is null', () {
-    // arrange
-    when(nameField.validate).thenReturn(true);
-    when(() => nameField.hasError).thenReturn(false);
-
-    // action
-    final response = controller.validateFields();
-
-    // assert
-    expect(response, false);
-  });
-
-  test('validateFields should return false when validate field return false',
-      () {
-    // arrange
-    when(nameField.validate).thenReturn(false);
-    when(() => nameField.hasError).thenReturn(true);
-
-    // action
-    final response = controller.validateFields();
-
-    // assert
-    expect(response, false);
+      expect(response, false);
+    });
   });
 }
