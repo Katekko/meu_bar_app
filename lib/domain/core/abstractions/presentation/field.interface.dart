@@ -2,7 +2,8 @@ import 'package:ekko/domain/core/abstractions/domain/validators/field_validator.
 import 'package:ekko/domain/core/abstractions/domain/validators/validator.interface.dart';
 
 abstract class IField extends IValidator<String> {
-  String value;
+  set value(String val);
+  String get value;
   Stream<String?> get errorStream;
 
   /// Chame esse callback caso queira executar alguma funcionalidade
@@ -12,14 +13,9 @@ abstract class IField extends IValidator<String> {
   void Function(String val)? onChangeCallback;
 
   /// Função utilizada para setar valor do campo
-  void onChange(String val) {
-    value = val;
-    validate();
-    onChangeCallback?.call(val);
-  }
+  void onChange(String val);
 
   IField({
-    required this.value,
     required List<IFieldValidator<String>> validators,
   }) : super(validators: validators);
 

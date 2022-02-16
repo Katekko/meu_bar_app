@@ -25,18 +25,4 @@ class ConnectMock extends Mock implements IHttpConnect {}
 
 class StorageMock extends Mock implements IStorage {}
 
-class FieldMock extends IField {
-  FieldMock({required String value}) : super(value: value, validators: []);
-
-  @override
-  Stream<String?> get errorStream => throw UnimplementedError();
-
-  @override
-  bool get hasError => throw UnimplementedError();
-
-  @override
-  bool validate() => throw UnimplementedError();
-
-  @override
-  void dispose() {}
-}
+class FieldMock extends Mock implements IField {}
