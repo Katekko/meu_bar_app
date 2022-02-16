@@ -1,12 +1,12 @@
-import 'package:ekko/domain/core/validators/password.validator.dart';
+import 'package:ekko/domain/core/validators/string_validators/password.validator.dart';
 import 'package:ekko/infrastructure/translate/validators.translate.dart';
 import 'package:test/test.dart';
 
 void main() {
-  late PasswordFieldValidator sut;
+  late PasswordValidator sut;
 
   setUp(() {
-    sut = PasswordFieldValidator();
+    sut = PasswordValidator();
   });
 
   test('Should return null if value is more then 3 characters', () {

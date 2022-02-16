@@ -6,6 +6,7 @@ import 'package:ekko/domain/core/abstractions/infrastructure/services/categories
 import 'package:ekko/domain/core/abstractions/infrastructure/services/products_service.interface.dart';
 import 'package:ekko/domain/core/abstractions/infrastructure/storage.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/field.interface.dart';
+import 'package:ekko/domain/core/abstractions/presentation/stream_field.interface.dart';
 import 'package:ekko/presentation/shared/loading/loading.interface.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -25,4 +26,6 @@ class ConnectMock extends Mock implements IHttpConnect {}
 
 class StorageMock extends Mock implements IStorage {}
 
-class FieldMock extends Mock implements IField {}
+class FieldMock<T> extends Mock implements IField<T> {}
+
+class FieldStreamMock<T> extends Mock implements IStreamField<T> {}

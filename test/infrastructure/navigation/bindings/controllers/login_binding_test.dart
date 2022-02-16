@@ -1,4 +1,4 @@
-import 'package:ekko/domain/core/builders/field_validator.builder.dart';
+import 'package:ekko/domain/core/builders/string_field_validator.builder.dart';
 import 'package:ekko/infrastructure/navigation/bindings/controllers/login.controller.binding.dart';
 import 'package:test/test.dart';
 
@@ -8,7 +8,7 @@ void main() {
   test('Should return the correct login field', () {
     final field = makeLoginField();
     expect(field.value, '');
-    expect(field.validators, FieldValidatorBuilder().required().build());
+    expect(field.validators, StringFieldValidatorBuilder().required().build());
     expect(field.hasError, false);
   });
 
@@ -17,7 +17,7 @@ void main() {
     expect(field.value, '');
     expect(
       field.validators,
-      FieldValidatorBuilder().required().password().build(),
+      StringFieldValidatorBuilder().required().password().build(),
     );
     expect(field.hasError, false);
   });

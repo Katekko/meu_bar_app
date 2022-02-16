@@ -20,7 +20,7 @@ class IconPickerWidget extends ViewController<ICategoryController> {
     return Row(
       children: [
         StreamBuilder<int?>(
-          stream: controller.iconFieldStream,
+          stream: controller.iconField.stream,
           builder: (_, snapIcon) {
             return Card(
               shadowColor: snapIcon.hasError ? Colors.red : null,

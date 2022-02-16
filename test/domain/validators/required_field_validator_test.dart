@@ -1,12 +1,12 @@
-import 'package:ekko/domain/core/validators/required_field.validator.dart';
+import 'package:ekko/domain/core/validators/string_validators/required_string_field.validator.dart';
 import 'package:ekko/infrastructure/translate/validators.translate.dart';
 import 'package:test/test.dart';
 
 void main() {
-  late RequiredFieldValidator sut;
+  late RequiredStringFieldValidator sut;
 
   setUp(() {
-    sut = RequiredFieldValidator();
+    sut = RequiredStringFieldValidator();
   });
 
   test('Should return null if value is not empty', () {

@@ -2,7 +2,7 @@ import 'package:ekko/domain/core/abstractions/domain/validators/field_validator.
 import 'package:ekko/infrastructure/translate/validators.translate.dart';
 import 'package:equatable/equatable.dart';
 
-class EmailFieldValidator extends Equatable implements IFieldValidator<String> {
+class EmailValidator extends Equatable implements IFieldValidator<String> {
   @override
   String? validate(String value) {
     String? error;

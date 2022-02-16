@@ -3,14 +3,15 @@ import 'package:ekko/domain/core/abstractions/presentation/field.interface.dart'
 import 'package:ekko/domain/product/models/category.model.dart';
 import 'package:ekko/presentation/shared/loading/loading.interface.dart';
 import 'package:get/get.dart';
-import 'package:rxdart/rxdart.dart';
 
 import '../../../domain/core/abstractions/presentation/controllers/categories/category_controller.interface.dart';
+import '../../../domain/core/abstractions/presentation/stream_field.interface.dart';
 
 class CategoryController extends GetxController implements ICategoryController {
   late final IProductRepository _productRepository;
   late final bool _isEdit;
-  late final IField _nameField;
+  late final IField<String> _nameField;
+  late final IStreamField<int?> _iconField;
   late final ILoadingController _loading;
   late final CategoryModel? _category;
 
@@ -18,24 +19,24 @@ class CategoryController extends GetxController implements ICategoryController {
     required IProductRepository productRepository,
     required ILoadingController loading,
     required bool isEdit,
-    required IField nameField,
+    required IField<String> nameField,
+    required IStreamField<int?> iconField,
     CategoryModel? category,
   })  : _productRepository = productRepository,
         _loading = loading,
         _isEdit = isEdit,
         _nameField = nameField,
+        _iconField = iconField,
         _category = category;
-
-  final _iconField = BehaviorSubject<int>();
 
   @override
   bool get isEdit => _isEdit;
 
   @override
-  IField get nameField => _nameField;
+  IField<String> get nameField => _nameField;
 
   @override
-  Stream<int?> get iconFieldStream => _iconField.stream;
+  IStreamField<int?> get iconField => _iconField;
 
   @override
   void onInit() async {
@@ -43,7 +44,7 @@ class CategoryController extends GetxController implements ICategoryController {
     if (_category != null) {
       _nameField.value = _category!.name;
       Future.delayed(const Duration(milliseconds: 200), () {
-        _iconField.add(_category!.icon);
+        _iconField.value = _category!.icon;
       });
     }
   }
@@ -51,12 +52,12 @@ class CategoryController extends GetxController implements ICategoryController {
   @override
   void onClose() {
     _nameField.dispose();
-    _iconField.close();
+    _iconField.dispose();
     super.onClose();
   }
 
   @override
-  void pickAnIcon(int hex) => _iconField.add(hex);
+  void pickAnIcon(int hex) => _iconField.value = hex;
 
   @override
   Future<void> saveCategory({required void Function() backScreen}) async {
@@ -88,10 +89,7 @@ class CategoryController extends GetxController implements ICategoryController {
   @override
   bool validateFields() {
     _nameField.validate();
-
-    if (_iconField.value == null) {
-      _iconField.addError('Icone Obrigatório');
-    }
+    _iconField.validate();
 
     return !_nameField.hasError && !_iconField.hasError;
   }

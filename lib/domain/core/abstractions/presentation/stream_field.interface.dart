@@ -1,9 +1,10 @@
 import 'package:ekko/domain/core/abstractions/domain/validators/field_validator.interface.dart';
 import 'package:ekko/domain/core/abstractions/domain/validators/validator.interface.dart';
 
-abstract class IField<T> extends IValidator<T> {
-  set value(T val);
+abstract class IStreamField<T> extends IValidator<T> {
   T get value;
+  set value(T val);
+  Stream<T> get stream;
   Stream<String?> get errorStream;
 
   /// Chame esse callback caso queira executar alguma funcionalidade
@@ -15,30 +16,30 @@ abstract class IField<T> extends IValidator<T> {
   /// Função utilizada para setar valor do campo
   void onChange(T val);
 
-  IField({
+  IStreamField({
     required List<IFieldValidator<T>> validators,
   }) : super(validators: validators);
 
   void dispose();
 
   // Isso daqui ta muito estranho, preciso de ajuda
-  @override
-  bool operator ==(Object other) {
-    if (runtimeType == other.runtimeType) {
-      var obj = other as IField;
-      if (obj.value != other.value) return false;
-      if (validators.length != other.validators.length) return false;
-      for (var val1 in validators) {
-        final hasThisValidator = other.validators.any((e) => e == val1);
-        if (!hasThisValidator) return false;
-      }
+  // @override
+  // bool operator ==(Object other) {
+  //   if (runtimeType == other.runtimeType) {
+  //     var obj = other as IStreamField;
+  //     if (obj.value != other.value) return false;
+  //     if (validators.length != other.validators.length) return false;
+  //     for (var val1 in validators) {
+  //       final hasThisValidator = other.validators.any((e) => e == val1);
+  //       if (!hasThisValidator) return false;
+  //     }
 
-      return true;
-    }
+  //     return true;
+  //   }
 
-    return false;
-  }
+  //   return false;
+  // }
 
-  @override
-  int get hashCode => runtimeType.hashCode;
+  // @override
+  // int get hashCode => runtimeType.hashCode;
 }

@@ -2,7 +2,7 @@ import 'package:ekko/domain/core/abstractions/domain/validators/field_validator.
 import 'package:ekko/domain/core/abstractions/presentation/field.interface.dart';
 import 'package:get/get.dart';
 
-class GetxFieldModel extends IField {
+class GetxFieldModel extends IField<String> {
   var _value = '';
   final _error = Rxn<String>();
 

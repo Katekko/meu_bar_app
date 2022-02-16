@@ -1,7 +1,7 @@
 import 'package:ekko/domain/core/abstractions/domain/repositories/auth_repository.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/controllers/auth/login_controller.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/field.interface.dart';
-import 'package:ekko/domain/core/builders/field_validator.builder.dart';
+import 'package:ekko/domain/core/builders/string_field_validator.builder.dart';
 import 'package:ekko/domain/core/models/getx_field.model.dart';
 import 'package:ekko/infrastructure/dal/inject.dart';
 import 'package:ekko/infrastructure/navigation/bindings/domains/auth.repository.binding.dart';
@@ -27,14 +27,14 @@ class LoginControllerBinding extends Bindings {
 IField makeLoginField() {
   return GetxFieldModel(
     value: '',
-    validators: FieldValidatorBuilder().required().build(),
+    validators: StringFieldValidatorBuilder().required().build(),
   );
 }
 
 IField makePasswordField() {
   return GetxFieldModel(
     value: '',
-    validators: FieldValidatorBuilder().required().password().build(),
+    validators: StringFieldValidatorBuilder().required().password().build(),
   );
 }
 

@@ -1,5 +1,5 @@
 import 'package:ekko/domain/core/abstractions/domain/repositories/product_repository.interface.dart';
-import 'package:ekko/domain/core/builders/field_validator.builder.dart';
+import 'package:ekko/domain/core/builders/string_field_validator.builder.dart';
 import 'package:ekko/infrastructure/navigation/bindings/controllers/controllers_bindings.dart';
 import 'package:ekko/presentation/controllers.dart';
 import 'package:ekko/presentation/shared/loading/loading.interface.dart';
@@ -21,16 +21,17 @@ void main() {
   test('Should correct name field', () {
     final field = makeCategoryNameField();
     expect(field.value, '');
-    expect(field.validators, FieldValidatorBuilder().required().build());
+    expect(field.validators, StringFieldValidatorBuilder().required().build());
     expect(field.hasError, false);
   });
 
   test('Should return the correct controller with isEdit true', () {
     final controller = makeCategoryController(
-      isEdit: true,
-      nameField: makeCategoryNameField(),
       productRepository: productRepository,
       loading: loading,
+      isEdit: true,
+      nameField: makeCategoryNameField(),
+      iconField: makeCategoryIconField(),
     );
     expect(controller, isA<CategoryController>());
     expect(controller.isEdit, true);
@@ -39,10 +40,11 @@ void main() {
 
   test('Should return the correct controller with isEdit false', () {
     final controller = makeCategoryController(
-      isEdit: false,
-      nameField: makeCategoryNameField(),
       productRepository: productRepository,
       loading: loading,
+      isEdit: false,
+      nameField: makeCategoryNameField(),
+      iconField: makeCategoryIconField(),
     );
     expect(controller, isA<CategoryController>());
     expect(controller.isEdit, false);
