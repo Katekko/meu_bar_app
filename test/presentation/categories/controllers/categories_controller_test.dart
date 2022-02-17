@@ -28,14 +28,18 @@ void main() {
   });
 
   test('onInit should emit categories to stream', () async {
-    when(() => productRepository.getCategories())
+    when(productRepository.getCategories)
         .thenAnswer((_) async => listCategoriesModel);
+    when(() => categoriesList.value).thenAnswer((_) => listCategoriesModel);
 
     await controller.onInit();
 
     verify(() => productRepository.getCategories());
     // TODO: Precisa verificar se a lista que está sendo passada é igual a lista que veio do repository
     verify(() => categoriesList.add(listCategoriesModel));
+
+    final value = categoriesList.value;
+    expect(value, equals(listCategoriesModel));
   });
 
   test('onClose should dipose all streams and fields', () async {
@@ -44,5 +48,27 @@ void main() {
     controller.onClose();
 
     verify(() => categoriesList.close());
+  });
+
+  test('should emit the categories with success', () async {
+    when(productRepository.getCategories)
+        .thenAnswer((_) async => listCategoriesModel);
+
+    await controller.loadCategories();
+
+    verify(() => productRepository.getCategories());
+    verify(() => categoriesList.add(listCategoriesModel));
+  });
+
+  test('should emit the categories with error', () async {
+    final exception = Exception();
+
+    when(productRepository.getCategories).thenThrow(exception);
+    when(() => categoriesList.addError(exception)).thenAnswer((_) {});
+
+    await controller.loadCategories();
+
+    verify(() => productRepository.getCategories());
+    expect(categoriesList, emitsError(isA<Exception>()));
   });
 }
