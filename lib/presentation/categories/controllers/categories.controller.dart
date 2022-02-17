@@ -51,13 +51,15 @@ class CategoriesController extends GetxController
   }
 
   @override
-  void createCategory({required Future<void> Function() openScreen}) async {
+  Future<void> createCategory({
+    required Future<void> Function() openScreen,
+  }) async {
     await openScreen();
     loadCategories();
   }
 
   @override
-  void editCategory({
+  Future<void> editCategory({
     required CategoryModel category,
     required Future<void> Function(CategoryModel category) openScreen,
   }) async {

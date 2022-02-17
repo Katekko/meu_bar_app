@@ -65,4 +65,37 @@ void main() {
       expectLater(controller.categoriesStream, emitsError(isA<Exception>()));
     });
   });
+
+  test('create category should reload the page (calling again loadCategories)',
+      () async {
+    when(productRepository.getCategories)
+        .thenAnswer((_) async => List.from(listCategoriesModel));
+
+    await controller.createCategory(openScreen: () async {});
+
+    verify(() => productRepository.getCategories()).called(1);
+
+    expectLater(
+      controller.categoriesStream,
+      emits(equals(List.from(listCategoriesModel))),
+    );
+  });
+
+  test('edit category should reload the page (calling again loadCategories)',
+      () async {
+    when(productRepository.getCategories)
+        .thenAnswer((_) async => List.from(listCategoriesModel));
+
+    await controller.editCategory(
+      openScreen: (_) async {},
+      category: categoryModel1,
+    );
+
+    verify(() => productRepository.getCategories()).called(1);
+
+    expectLater(
+      controller.categoriesStream,
+      emits(equals(List.from(listCategoriesModel))),
+    );
+  });
 }

@@ -6,9 +6,9 @@ abstract class ICategoriesController {
 
   Future<void> loadCategories();
 
-  void createCategory({required Future<void> Function() openScreen});
+  Future<void> createCategory({required Future<void> Function() openScreen});
 
-  void editCategory({
+  Future<void> editCategory({
     required CategoryModel category,
     required Future<void> Function(CategoryModel category) openScreen,
   });
