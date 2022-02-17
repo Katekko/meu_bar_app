@@ -57,9 +57,6 @@ class CategoryController extends GetxController implements ICategoryController {
   }
 
   @override
-  void pickAnIcon(int hex) => _iconField.value = hex;
-
-  @override
   Future<void> saveCategory({required void Function() backScreen}) async {
     try {
       _loading.isLoading = true;

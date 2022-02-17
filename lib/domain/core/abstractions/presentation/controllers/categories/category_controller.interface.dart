@@ -6,7 +6,6 @@ abstract class ICategoryController {
   IField<String> get nameField;
   IStreamField<int?> get iconField;
 
-  void pickAnIcon(int hex);
   Future<void> saveCategory({required void Function() backScreen});
   bool validateFields();
 

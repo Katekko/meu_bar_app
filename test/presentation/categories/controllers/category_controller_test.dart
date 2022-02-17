@@ -1,18 +1,19 @@
 import 'package:ekko/domain/core/abstractions/domain/repositories/product_repository.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/controllers/categories/category_controller.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/field.interface.dart';
+import 'package:ekko/domain/core/abstractions/presentation/stream_field.interface.dart';
+import 'package:ekko/domain/product/models/category.model.dart';
 import 'package:ekko/presentation/categories/controllers/category.controller.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 import '../../../mocks.dart';
 
 void main() {
-  // TODO: Conseguir testar as streams
-  // ignore: unused_local_variable
   late ICategoryController controller;
   late final IProductRepository productRepository;
   late final IField<String> nameField;
-  late final FieldStreamMock<int?> iconField;
+  late final IStreamField<int?> iconField;
 
   setUpAll(() {
     productRepository = ProductRepositoryMock();
@@ -30,114 +31,126 @@ void main() {
     );
   });
 
-  // test('pickAnIcon should pick correct icon', () {
-  //   when(controller.iconField.validate).thenReturn(true);
-  //   when(() => controller.iconField.stream)
-  //       .thenAnswer((_) => BehaviorSubject());
+  test('pickAnIcon should pick correct icon', () {
+    const value = 1;
+    when(() => iconField.onChange(value)).thenReturn(null);
+    when(() => iconField.value).thenReturn(value);
+    controller.iconField.value = value;
+    expect(controller.iconField.value, value);
+  });
 
-  //   controller.pickAnIcon(1);
-  //   controller.iconField.validate();
+  group('Save Categories', () {
+    test('should create a category with success', () async {
+      const name = 'katekko';
+      const icon = 1;
+      when(() => nameField.validate()).thenReturn(true);
+      when(() => nameField.value).thenReturn(name);
+      when(() => nameField.hasError).thenReturn(false);
 
-  //   expect(controller.iconField.stream, emits(1));
-  //   expect(controller.iconField.value, 1);
-  //   expect(controller.iconField.hasError, false);
-  // });
+      when(() => iconField.validate()).thenReturn(true);
+      when(() => iconField.value).thenReturn(icon);
+      when(() => iconField.hasError).thenReturn(false);
 
-  // group('Save Categories', () {
-  //   test('should create a category with success', () async {
-  //     const name = 'katekko';
-  //     when(() => nameField.validate()).thenReturn(true);
-  //     when(() => nameField.value).thenReturn(name);
-  //     when(() => nameField.hasError).thenReturn(false);
+      controller.iconField.value = icon;
+      controller.nameField.value = name;
+      final category = CategoryModel(
+        id: -1,
+        name: controller.nameField.value,
+        icon: controller.iconField.value!,
+      );
 
-  //     controller.pickAnIcon(1);
-  //     controller.nameField.value = name;
-  //     final category = CategoryModel(
-  //       id: -1,
-  //       name: controller.nameField.value,
-  //       icon: controller.iconField.value!,
-  //     );
+      when(() => productRepository.registerCategory(category))
+          .thenAnswer((_) async {});
 
-  //     when(() => productRepository.registerCategory(category))
-  //         .thenAnswer((_) async {});
+      await controller.saveCategory(backScreen: () {});
 
-  //     await controller.saveCategory(backScreen: () {});
+      verify(() => productRepository.registerCategory(category));
+    });
 
-  //     verify(() => productRepository.registerCategory(category));
-  //   });
+    test('should update a category with success', () async {
+      const name = 'katekko';
+      const icon = 1;
+      when(() => nameField.validate()).thenReturn(true);
+      when(() => nameField.value).thenReturn(name);
+      when(() => nameField.hasError).thenReturn(false);
 
-  //   test('should update a category with success', () async {
-  //     // arrange
-  //     const name = 'katekko';
-  //     when(() => nameField.validate()).thenReturn(true);
-  //     when(() => nameField.value).thenReturn(name);
-  //     when(() => nameField.hasError).thenReturn(false);
+      when(() => iconField.validate()).thenReturn(true);
+      when(() => iconField.value).thenReturn(icon);
+      when(() => iconField.hasError).thenReturn(false);
 
-  //     const category = CategoryModel(id: 1, name: 'Katekko', icon: 1);
+      const category = CategoryModel(id: 1, name: name, icon: icon);
 
-  //     final controller = CategoryController(
-  //       productRepository: productRepository,
-  //       loading: LoadingControllerMock(),
-  //       isEdit: true,
-  //       nameField: nameField,
-  //       iconField: iconField,
-  //       category: category,
-  //     );
+      final controller = CategoryController(
+        productRepository: productRepository,
+        loading: LoadingControllerMock(),
+        isEdit: true,
+        nameField: nameField,
+        iconField: iconField,
+        category: category,
+      );
 
-  //     controller.pickAnIcon(2);
-  //     controller.nameField.value = 'katekko 2';
+      controller.iconField.value = 2;
+      controller.nameField.value = 'katekko 2';
 
-  //     final categoryToSave = CategoryModel(
-  //       id: 1,
-  //       name: controller.nameField.value,
-  //       icon: controller.iconField.value!,
-  //     );
+      final categoryToSave = CategoryModel(
+        id: 1,
+        name: controller.nameField.value,
+        icon: controller.iconField.value!,
+      );
 
-  //     when(() => productRepository.updateCategory(categoryToSave))
-  //         .thenAnswer((_) async {});
+      when(() => productRepository.updateCategory(categoryToSave))
+          .thenAnswer((_) async {});
 
-  //     // action
-  //     await controller.saveCategory(backScreen: () {});
+      await controller.saveCategory(backScreen: () {});
 
-  //     // assert
-  //     verify(() => productRepository.updateCategory(categoryToSave));
-  //   });
-  // });
+      verify(() => productRepository.updateCategory(categoryToSave));
+    });
+  });
 
-  // group('Validate Fields', () {
-  //   test('should return true', () {
-  //     when(nameField.validate).thenReturn(true);
-  //     when(() => nameField.hasError).thenReturn(false);
-  //     controller.pickAnIcon(1);
+  group('Validate Fields', () {
+    test('should return true', () {
+      when(nameField.validate).thenReturn(true);
+      when(() => nameField.hasError).thenReturn(false);
 
-  //     final response = controller.validateFields();
+      when(iconField.validate).thenReturn(true);
+      when(() => iconField.hasError).thenReturn(false);
 
-  //     expect(response, true);
-  //   });
+      controller.iconField.value = 1;
 
-  //   test('should return false when icon is null', () {
-  //     when(nameField.validate).thenReturn(true);
-  //     when(() => nameField.hasError).thenReturn(false);
+      final response = controller.validateFields();
 
-  //     final response = controller.validateFields();
+      expect(response, true);
+    });
 
-  //     expect(response, false);
-  //   });
+    test('should return false when icon is null', () {
+      when(nameField.validate).thenReturn(true);
+      when(() => nameField.hasError).thenReturn(false);
 
-  //   test('should return false when validate field return false', () {
-  //     when(nameField.validate).thenReturn(false);
-  //     when(() => nameField.hasError).thenReturn(true);
+      when(iconField.validate).thenReturn(false);
+      when(() => iconField.hasError).thenReturn(true);
 
-  //     final response = controller.validateFields();
+      final response = controller.validateFields();
 
-  //     expect(response, false);
-  //   });
-  // });
+      expect(response, false);
+    });
 
-  // test('description', () {
-  //   controller.onClose();
+    test('should return false when nameField is invalid', () {
+      when(nameField.validate).thenReturn(false);
+      when(() => nameField.hasError).thenReturn(true);
 
-  //   verify(nameField.dispose);
-  //   verify(iconField.dispose);
-  // });
+      when(iconField.validate).thenReturn(true);
+      when(() => iconField.hasError).thenReturn(false);
+
+      final response = controller.validateFields();
+
+      expect(response, false);
+    });
+  });
+
+  test('onClose should call all field disposes', () {
+    controller.onClose();
+
+    verify(nameField.dispose);
+    verify(iconField.dispose);
+  });
 }

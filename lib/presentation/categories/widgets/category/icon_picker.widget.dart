@@ -12,7 +12,7 @@ class IconPickerWidget extends ViewController<ICategoryController> {
       title: const Text('Escolha um icone'),
       closeChild: const Text('Fechar', textScaleFactor: 1.25),
     );
-    if (icon != null) controller.pickAnIcon(icon.codePoint);
+    if (icon != null) controller.iconField.value = icon.codePoint;
   }
 
   @override
