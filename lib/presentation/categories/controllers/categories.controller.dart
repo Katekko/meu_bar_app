@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:ekko/domain/core/abstractions/domain/repositories/product_repository.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/controllers/categories/categories_controller.interface.dart';
 import 'package:ekko/domain/product/models/category.model.dart';
-import 'package:ekko/domain/product/product_mock.repository.dart';
 import 'package:ekko/presentation/shared/loading/loading.interface.dart';
 import 'package:get/get.dart';
 import 'package:rxdart/rxdart.dart';
@@ -21,7 +20,10 @@ class CategoriesController extends GetxController
         _loading = loading;
 
   @override
-  Stream<List<CategoryModel>> get categories => _categoriesStream.stream;
+  Stream<List<CategoryModel>> get categoriesStream => _categoriesStream.stream;
+
+  @override
+  bool get categoriesStreamIsClosed => _categoriesStream.isClosed;
 
   @override
   Future<void> onInit() async {
@@ -36,15 +38,13 @@ class CategoriesController extends GetxController
   }
 
   @override
-  Future<List<CategoryModel>> loadCategories() async {
+  Future<void> loadCategories() async {
     try {
       _loading.isLoading = true;
       final response = await _productRepository.getCategories();
       _categoriesStream.add(response);
-      return response;
     } catch (err) {
       _categoriesStream.addError(err);
-      rethrow;
     } finally {
       _loading.isLoading = false;
     }

@@ -1,9 +1,10 @@
 import 'package:ekko/domain/product/models/category.model.dart';
 
 abstract class ICategoriesController {
-  Stream<List<CategoryModel>> get categories;
+  Stream<List<CategoryModel>> get categoriesStream;
+  bool get categoriesStreamIsClosed;
 
-  Future<List<CategoryModel>> loadCategories();
+  Future<void> loadCategories();
 
   void createCategory({required Future<void> Function() openScreen});
 

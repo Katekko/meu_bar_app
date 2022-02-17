@@ -30,34 +30,39 @@ void main() {
 
     verify(() => productRepository.getCategories()).called(1);
     expectLater(
-      controller.categories,
+      controller.categoriesStream,
       emits(equals(List.from(listCategoriesModel))),
     );
   });
 
   test('onClose should dipose all streams and fields', () async {
     controller.onClose();
+
+    expect(controller.categoriesStreamIsClosed, true);
   });
 
-  // test('should emit the categories with success', () async {
-  //   when(productRepository.getCategories)
-  //       .thenAnswer((_) async => listCategoriesModel);
+  group('loadCategories', () {
+    test('should emit the categories with success', () async {
+      when(productRepository.getCategories)
+          .thenAnswer((_) async => List.from(listCategoriesModel));
 
-  //   await controller.loadCategories();
+      await controller.loadCategories();
 
-  //   verify(() => productRepository.getCategories());
-  //   verify(() => categoriesList.add(listCategoriesModel));
-  // });
+      verify(() => productRepository.getCategories()).called(1);
+      expectLater(
+        controller.categoriesStream,
+        emits(equals(List.from(listCategoriesModel))),
+      );
+    });
 
-  // test('should emit the categories with error', () async {
-  //   final exception = Exception();
+    test('should emit the categories with error', () async {
+      final exception = Exception();
+      when(productRepository.getCategories).thenThrow(exception);
 
-  //   when(productRepository.getCategories).thenThrow(exception);
-  //   when(() => categoriesList.addError(exception)).thenAnswer((_) {});
+      await controller.loadCategories();
 
-  //   await controller.loadCategories();
-
-  //   verify(() => productRepository.getCategories());
-  //   expect(categoriesList, emitsError(isA<Exception>()));
-  // });
+      verify(() => productRepository.getCategories());
+      expectLater(controller.categoriesStream, emitsError(isA<Exception>()));
+    });
+  });
 }

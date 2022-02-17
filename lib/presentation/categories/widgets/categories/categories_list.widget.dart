@@ -8,7 +8,7 @@ class CategoriesListWidget extends ViewController<ICategoriesController> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<CategoryModel>>(
-      stream: controller.categories,
+      stream: controller.categoriesStream,
       builder: (_, listSnap) {
         if (listSnap.hasData) {
           final list = listSnap.data!;
