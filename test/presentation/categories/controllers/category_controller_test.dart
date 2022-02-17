@@ -3,6 +3,7 @@ import 'package:ekko/domain/core/abstractions/presentation/controllers/categorie
 import 'package:ekko/domain/core/abstractions/presentation/field.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/stream_field.interface.dart';
 import 'package:ekko/domain/product/models/category.model.dart';
+import 'package:ekko/domain/product/product_mock.repository.dart';
 import 'package:ekko/presentation/categories/controllers/category.controller.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
@@ -145,6 +146,37 @@ void main() {
 
       expect(response, false);
     });
+  });
+
+  test('onInit should initiate fields when a category is passed', () {
+    controller = CategoryController(
+      productRepository: productRepository,
+      loading: LoadingControllerMock(),
+      isEdit: false,
+      nameField: nameField,
+      iconField: iconField,
+      category: categoryModel1,
+    );
+
+    controller.onInit();
+
+    verify(() => nameField.value = categoryModel1.name);
+    verify(() => iconField.value = categoryModel1.icon);
+  });
+
+  test('onInit should never initiate fields when a category is not passed', () {
+    controller = CategoryController(
+      productRepository: productRepository,
+      loading: LoadingControllerMock(),
+      isEdit: false,
+      nameField: nameField,
+      iconField: iconField,
+    );
+
+    controller.onInit();
+
+    verifyNever(() => nameField.value = categoryModel1.name);
+    verifyNever(() => iconField.value = categoryModel1.icon);
   });
 
   test('onClose should call all field disposes', () {

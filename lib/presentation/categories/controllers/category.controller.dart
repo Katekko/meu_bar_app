@@ -39,13 +39,11 @@ class CategoryController extends GetxController implements ICategoryController {
   IStreamField<int?> get iconField => _iconField;
 
   @override
-  void onInit() async {
+  void onInit() {
     super.onInit();
     if (_category != null) {
       _nameField.value = _category!.name;
-      Future.delayed(const Duration(milliseconds: 200), () {
-        _iconField.value = _category!.icon;
-      });
+      _iconField.value = _category!.icon;
     }
   }
 

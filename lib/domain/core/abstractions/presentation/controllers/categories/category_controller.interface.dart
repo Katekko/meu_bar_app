@@ -9,5 +9,6 @@ abstract class ICategoryController {
   Future<void> saveCategory({required void Function() backScreen});
   bool validateFields();
 
+  void onInit();
   void onClose();
 }
