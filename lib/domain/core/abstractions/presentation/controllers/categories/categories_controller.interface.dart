@@ -3,7 +3,7 @@ import 'package:ekko/domain/product/models/category.model.dart';
 abstract class ICategoriesController {
   Stream<List<CategoryModel>> get categories;
 
-  Future<void> loadCategories();
+  Future<List<CategoryModel>> loadCategories();
 
   void createCategory({required Future<void> Function() openScreen});
 

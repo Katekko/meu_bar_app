@@ -5,9 +5,6 @@ import 'package:ekko/infrastructure/navigation/bindings/domains/product.reposito
 import 'package:ekko/presentation/categories/controllers/categories.controller.dart';
 import 'package:ekko/presentation/shared/loading/loading.interface.dart';
 import 'package:get/get.dart';
-import 'package:rxdart/rxdart.dart';
-
-import '../../../../domain/product/models/category.model.dart';
 
 class CategoriesControllerBinding extends Bindings {
   @override
@@ -17,7 +14,6 @@ class CategoriesControllerBinding extends Bindings {
       () => makeCategoriesController(
         productRepository: productBinding.repository,
         loading: Inject.find<ILoadingController>(),
-        categoriesStream: BehaviorSubject<List<CategoryModel>>(),
       ),
     );
   }
@@ -26,11 +22,9 @@ class CategoriesControllerBinding extends Bindings {
 ICategoriesController makeCategoriesController({
   required IProductRepository productRepository,
   required ILoadingController loading,
-  required BehaviorSubject<List<CategoryModel>> categoriesStream,
 }) {
   return CategoriesController(
     productRepository: productRepository,
     loading: loading,
-    categoriesStream: categoriesStream,
   );
 }
