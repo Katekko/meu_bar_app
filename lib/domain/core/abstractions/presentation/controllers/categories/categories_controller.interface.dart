@@ -12,6 +12,6 @@ abstract class ICategoriesController {
     required Future<void> Function(CategoryModel category) openScreen,
   });
 
-  void onInit();
+  Future<void> onInit();
   void onClose();
 }

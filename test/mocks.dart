@@ -7,8 +7,10 @@ import 'package:ekko/domain/core/abstractions/infrastructure/services/products_s
 import 'package:ekko/domain/core/abstractions/infrastructure/storage.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/field.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/stream_field.interface.dart';
+import 'package:ekko/domain/product/models/category.model.dart';
 import 'package:ekko/presentation/shared/loading/loading.interface.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:rxdart/rxdart.dart';
 
 class AuthServiceMock extends Mock implements IAuthService {}
 
@@ -29,3 +31,6 @@ class StorageMock extends Mock implements IStorage {}
 class FieldMock<T> extends Mock implements IField<T> {}
 
 class FieldStreamMock<T> extends Mock implements IStreamField<T> {}
+
+class CategoriesStreamMock extends Mock
+    implements BehaviorSubject<List<CategoryModel>> {}
