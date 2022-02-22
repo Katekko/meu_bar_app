@@ -46,6 +46,7 @@ class ProductController extends GetxController implements IProductController {
   void onClose() {
     _nameField.dispose();
     _descriptionField.dispose();
+    _categoryField.dispose();
     super.onClose();
   }
 

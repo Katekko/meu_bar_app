@@ -37,6 +37,7 @@ void main() {
 
     verify(nameField.dispose).called(1);
     verify(descriptionField.dispose).called(1);
+    verify(categoryField.dispose).called(1);
   });
 
   test('Ensure fields are the same as passed', () {
