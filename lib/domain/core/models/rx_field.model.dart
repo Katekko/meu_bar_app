@@ -3,30 +3,30 @@ import 'package:rxdart/rxdart.dart';
 
 import '../abstractions/presentation/stream_field.interface.dart';
 
-class RxIconFieldModel extends IStreamField<int?> {
-  final _stream = BehaviorSubject<int?>();
+class RxFieldModel<T> extends IStreamField<T?> {
+  final _stream = BehaviorSubject<T?>();
 
-  RxIconFieldModel({
-    int? value,
-    List<IFieldValidator<int?>>? validators,
+  RxFieldModel({
+    T? value,
+    List<IFieldValidator<T?>>? validators,
   }) : super(validators: validators ?? []) {
     _stream.add(value);
   }
 
   @override
-  Stream<int?> get stream => _stream;
+  Stream<T?> get stream => _stream;
 
   @override
-  int? get value => _stream.value;
+  T? get value => _stream.value;
 
   @override
-  set value(int? val) => onChange(val);
+  set value(T? val) => onChange(val);
 
   @override
   bool get hasError => _stream.hasError;
 
   @override
-  void onChange(int? val) {
+  void onChange(T? val) {
     _stream.add(val);
     validate();
     onChangeCallback?.call(val);

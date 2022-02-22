@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 import '../../../../domain/core/abstractions/presentation/controllers/categories/category_controller.interface.dart';
 import '../../../../domain/core/abstractions/presentation/field.interface.dart';
 import '../../../../domain/core/builders/int_field_validator.builder.dart';
-import '../../../../domain/core/models/rx_icon_field.model.dart';
+import '../../../../domain/core/models/rx_field.model.dart';
 import '../../../../presentation/categories/controllers/controllers.dart';
 import '../../../dal/inject.dart';
 
@@ -41,7 +41,7 @@ IField<String> makeCategoryNameField() {
 }
 
 IStreamField<int?> makeCategoryIconField() {
-  return RxIconFieldModel(
+  return RxFieldModel<int?>(
     validators: IntFieldValidatorBuilder().required().build(),
   );
 }

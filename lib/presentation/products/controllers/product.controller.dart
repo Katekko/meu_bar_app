@@ -12,13 +12,17 @@ class ProductController extends GetxController implements IProductController {
   final bool _isEdit;
   final IField<String> _nameField;
   final IField<String> _descriptionField;
+  final IStreamField<CategoryModel?> _categoryField;
+
   ProductController({
     required bool isEdit,
     required IField<String> nameField,
     required IField<String> descriptionField,
+    required IStreamField<CategoryModel?> categoryField,
   })  : _isEdit = isEdit,
         _nameField = nameField,
-        _descriptionField = descriptionField;
+        _descriptionField = descriptionField,
+        _categoryField = categoryField;
 
   @override
   bool get isEdit => _isEdit;
@@ -28,6 +32,9 @@ class ProductController extends GetxController implements IProductController {
 
   @override
   IField<String> get descriptionField => _descriptionField;
+
+  @override
+  IStreamField<CategoryModel?> get categoryField => _categoryField;
 
   @override
   // ignore: unnecessary_overrides
@@ -41,10 +48,6 @@ class ProductController extends GetxController implements IProductController {
     _descriptionField.dispose();
     super.onClose();
   }
-
-  @override
-  // TODO: implement categoryField
-  IStreamField<CategoryModel?> get categoryField => throw UnimplementedError();
 
   @override
   // TODO: implement imageBytesField

@@ -1,6 +1,8 @@
 import 'package:ekko/domain/core/abstractions/domain/repositories/product_repository.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/controllers/products/product_controller.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/field.interface.dart';
+import 'package:ekko/domain/core/abstractions/presentation/stream_field.interface.dart';
+import 'package:ekko/domain/product/models/category.model.dart';
 import 'package:ekko/presentation/controllers.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
@@ -12,11 +14,13 @@ void main() {
   late final IProductRepository productRepository;
   late final IField<String> nameField;
   late final IField<String> descriptionField;
+  late final IStreamField<CategoryModel?> categoryField;
 
   setUpAll(() {
     productRepository = ProductRepositoryMock();
     nameField = FieldMock<String>();
     descriptionField = FieldMock<String>();
+    categoryField = FieldStreamMock<CategoryModel?>();
   });
 
   setUp(() {
@@ -24,6 +28,7 @@ void main() {
       isEdit: false,
       nameField: nameField,
       descriptionField: descriptionField,
+      categoryField: categoryField,
     );
   });
 
