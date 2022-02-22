@@ -34,6 +34,11 @@ void main() {
     verify(descriptionField.dispose).called(1);
   });
 
+  test('Ensure fields are the same as passed', () {
+    expect(controller.nameField, nameField);
+    expect(controller.descriptionField, descriptionField);
+  });
+
   group('Validate Fields', () {
     test('should return true', () {
       when(nameField.validate).thenReturn(true);
