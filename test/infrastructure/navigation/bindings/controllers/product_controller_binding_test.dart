@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 
 void main() {
   test('Should return the correct controller', () {
-    final controller = makeProductController();
+    final controller = makeProductController(isEdit: false);
     expect(
       controller.nameField.validators,
       [RequiredStringFieldValidator()],

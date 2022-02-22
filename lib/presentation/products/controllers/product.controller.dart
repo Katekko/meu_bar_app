@@ -9,13 +9,19 @@ import 'package:get/get.dart';
 import '../../../domain/core/abstractions/presentation/controllers/products/product_controller.interface.dart';
 
 class ProductController extends GetxController implements IProductController {
+  final bool _isEdit;
   final IField<String> _nameField;
   final IField<String> _descriptionField;
   ProductController({
+    required bool isEdit,
     required IField<String> nameField,
     required IField<String> descriptionField,
-  })  : _nameField = nameField,
+  })  : _isEdit = isEdit,
+        _nameField = nameField,
         _descriptionField = descriptionField;
+
+  @override
+  bool get isEdit => _isEdit;
 
   @override
   IField<String> get nameField => _nameField;
@@ -43,10 +49,6 @@ class ProductController extends GetxController implements IProductController {
   @override
   // TODO: implement imageBytesField
   IStreamField<Uint8List?> get imageBytesField => throw UnimplementedError();
-
-  @override
-  // TODO: implement isEdit
-  bool get isEdit => throw UnimplementedError();
 
   @override
   // TODO: implement priceField

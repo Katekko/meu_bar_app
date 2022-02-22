@@ -21,6 +21,7 @@ void main() {
 
   setUp(() {
     controller = ProductController(
+      isEdit: false,
       nameField: nameField,
       descriptionField: descriptionField,
     );

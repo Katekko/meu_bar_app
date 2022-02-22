@@ -12,7 +12,9 @@ class ProductControllerBinding extends Bindings {
 
   @override
   void dependencies() {
-    Get.lazyPut<IProductController>(makeProductController);
+    Get.lazyPut<IProductController>(
+      () => makeProductController(isEdit: isEdit),
+    );
   }
 }
 
@@ -26,8 +28,9 @@ IField<String> makeProductDescriptionField() {
   return GetxFieldModel();
 }
 
-IProductController makeProductController() {
+IProductController makeProductController({required bool isEdit}) {
   return ProductController(
+    isEdit: isEdit,
     nameField: makeProductNameField(),
     descriptionField: makeProductDescriptionField(),
   );
