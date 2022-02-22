@@ -13,6 +13,6 @@ abstract class IProductsController {
     required Future<void> Function(ProductModel product) openScreen,
   });
 
-  void onReady();
+  Future<void> onReady();
   void onClose();
 }

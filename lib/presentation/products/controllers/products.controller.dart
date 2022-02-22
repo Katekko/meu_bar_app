@@ -25,7 +25,7 @@ class ProductsController extends GetxController implements IProductsController {
   bool get productsStreamIsClosed => _productsStream.isClosed;
 
   @override
-  void onReady() {
+  Future<void> onReady() async {
     super.onReady();
     loadProducts();
   }
