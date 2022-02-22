@@ -176,6 +176,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.1"
+  decimal:
+    dependency: transitive
+    description:
+      name: decimal
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.5.0"
   equatable:
     dependency: "direct main"
     description:
@@ -211,6 +218,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.1.2"
+  fixed:
+    dependency: transitive
+    description:
+      name: fixed
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
   fixnum:
     dependency: transitive
     description:
@@ -394,6 +408,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.0"
+  money2:
+    dependency: "direct main"
+    description:
+      name: money2
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.2"
   node_preamble:
     dependency: transitive
     description:
@@ -506,6 +527,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
+  rational:
+    dependency: transitive
+    description:
+      name: rational
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.1"
   rxdart:
     dependency: "direct main"
     description:

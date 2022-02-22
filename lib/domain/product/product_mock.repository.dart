@@ -12,16 +12,19 @@ const productModel1 = ProductModel(
   id: 1,
   name: 'Amstel 600',
   category: categoryModel1,
-  urlImage: null,
-  price: 10,
+  urlImage: 'https://10619-2.s.cdn12.com/rests/original/344_508581564.jpg',
+  price: 10.56,
 );
 
 const productModel2 = ProductModel(
   id: 2,
   name: 'Petra 600',
   category: categoryModel2,
-  urlImage: null,
+  urlImage:
+      'https://instadelivery-public.nyc3.digitaloceanspaces.com/itens/163801540561a221adb2cea_75_75.jpeg',
   price: 12,
+  description:
+      'Cerveja petra gelada boa de mais, vamos colocar uma descrição maior para ver como vai se comportar',
 );
 
 final listProductsModel = [productModel1, productModel2];

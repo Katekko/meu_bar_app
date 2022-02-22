@@ -2,6 +2,7 @@ import 'package:ekko/presentation/shared/view_controller.interface.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../domain/core/abstractions/presentation/controllers/products/products_controller.interface.dart';
+import '../../../../domain/core/utils/money.util.dart';
 import '../../../../domain/product/models/product.model.dart';
 
 class ProductItemListWidget extends ViewController<IProductsController> {
@@ -20,9 +21,51 @@ class ProductItemListWidget extends ViewController<IProductsController> {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
+    return InkWell(
       onTap: () => editCategory(context),
-      title: Text(item.name),
+      child: Ink(
+        child: Padding(
+          padding: const EdgeInsets.all(15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (item.urlImage != null)
+                Image.network(item.urlImage!, width: 50),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      item.name,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(height: 3),
+                    item.description != null
+                        ? Text(
+                            item.description!,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          )
+                        : const SizedBox()
+                  ],
+                ),
+              ),
+              Text(
+                MoneyUtil.formatBRL(item.price),
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

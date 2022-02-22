@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 class ProductModel extends Equatable {
   final int id;
   final String name;
+  final String? description;
   final double price;
   final CategoryModel category;
 
@@ -16,6 +17,7 @@ class ProductModel extends Equatable {
     required this.price,
     required this.category,
     required this.urlImage,
+    this.description,
   });
 
   factory ProductModel.fromData(ProductData data) {

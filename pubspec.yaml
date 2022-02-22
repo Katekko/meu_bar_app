@@ -20,6 +20,7 @@ dependencies:
   equatable: ^2.0.3
   flutter_iconpicker: ^3.1.2
   rxdart: ^0.26.0
+  money2: ^3.1.2
 
 dev_dependencies:
   flutter_test:
