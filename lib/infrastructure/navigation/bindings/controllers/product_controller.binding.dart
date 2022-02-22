@@ -1,3 +1,6 @@
+import 'package:ekko/domain/core/abstractions/presentation/field.interface.dart';
+import 'package:ekko/domain/core/builders/string_field_validator.builder.dart';
+import 'package:ekko/domain/core/models/getx_field.model.dart';
 import 'package:get/get.dart';
 
 import '../../../../domain/core/abstractions/presentation/controllers/products/product_controller.interface.dart';
@@ -13,6 +16,14 @@ class ProductControllerBinding extends Bindings {
   }
 }
 
+IField<String> makeProductNameField() {
+  return GetxFieldModel(
+    validators: StringFieldValidatorBuilder().required().build(),
+  );
+}
+
 IProductController makeProductController() {
-  return ProductController();
+  return ProductController(
+    nameField: makeProductNameField(),
+  );
 }
