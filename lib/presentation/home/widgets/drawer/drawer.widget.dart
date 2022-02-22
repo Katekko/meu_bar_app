@@ -12,7 +12,9 @@ class DrawerWidget extends ViewController<IHomeController> {
     Navigator.of(context).pushNamed(Routes.categories);
   }
 
-  void navToProducts(BuildContext context) {}
+  void navToProducts(BuildContext context) {
+    Navigator.of(context).pushNamed(Routes.products);
+  }
 
   @override
   Widget build(BuildContext context) {

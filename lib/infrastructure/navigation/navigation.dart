@@ -31,5 +31,10 @@ class Nav {
       page: () => CategoryScreen(),
       binding: CategoryControllerBinding(isEdit: true),
     ),
+    GetPage(
+      name: Routes.products,
+      page: () => ProductsScreen(),
+      binding: ProductsControllerBinding(),
+    ),
   ];
 }
