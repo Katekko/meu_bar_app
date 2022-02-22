@@ -22,8 +22,13 @@ IField<String> makeProductNameField() {
   );
 }
 
+IField<String> makeProductDescriptionField() {
+  return GetxFieldModel();
+}
+
 IProductController makeProductController() {
   return ProductController(
     nameField: makeProductNameField(),
+    descriptionField: makeProductDescriptionField(),
   );
 }

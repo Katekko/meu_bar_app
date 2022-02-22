@@ -10,11 +10,18 @@ import '../../../domain/core/abstractions/presentation/controllers/products/prod
 
 class ProductController extends GetxController implements IProductController {
   final IField<String> _nameField;
-  ProductController({required IField<String> nameField})
-      : _nameField = nameField;
+  final IField<String> _descriptionField;
+  ProductController({
+    required IField<String> nameField,
+    required IField<String> descriptionField,
+  })  : _nameField = nameField,
+        _descriptionField = descriptionField;
 
   @override
   IField<String> get nameField => _nameField;
+
+  @override
+  IField<String> get descriptionField => _descriptionField;
 
   @override
   // ignore: unnecessary_overrides
@@ -25,16 +32,13 @@ class ProductController extends GetxController implements IProductController {
   @override
   void onClose() {
     _nameField.dispose();
+    _descriptionField.dispose();
     super.onClose();
   }
 
   @override
   // TODO: implement categoryField
   IStreamField<CategoryModel?> get categoryField => throw UnimplementedError();
-
-  @override
-  // TODO: implement descriptionField
-  IField<String> get descriptionField => throw UnimplementedError();
 
   @override
   // TODO: implement imageBytesField
@@ -57,7 +61,8 @@ class ProductController extends GetxController implements IProductController {
   @override
   bool validateFields() {
     _nameField.validate();
+    _descriptionField.validate();
 
-    return !_nameField.hasError;
+    return !_nameField.hasError && !_descriptionField.hasError;
   }
 }

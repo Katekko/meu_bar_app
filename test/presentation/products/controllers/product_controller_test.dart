@@ -11,15 +11,18 @@ void main() {
   late IProductController controller;
   late final IProductRepository productRepository;
   late final IField<String> nameField;
+  late final IField<String> descriptionField;
 
   setUpAll(() {
     productRepository = ProductRepositoryMock();
     nameField = FieldMock<String>();
+    descriptionField = FieldMock<String>();
   });
 
   setUp(() {
     controller = ProductController(
       nameField: nameField,
+      descriptionField: descriptionField,
     );
   });
 
@@ -27,12 +30,16 @@ void main() {
     await controller.onClose();
 
     verify(nameField.dispose).called(1);
+    verify(descriptionField.dispose).called(1);
   });
 
   group('Validate Fields', () {
     test('should return true', () {
       when(nameField.validate).thenReturn(true);
       when(() => nameField.hasError).thenReturn(false);
+
+      when(descriptionField.validate).thenReturn(true);
+      when(() => descriptionField.hasError).thenReturn(false);
 
       final response = controller.validateFields();
 
@@ -42,6 +49,21 @@ void main() {
     test('should return false when nameField hasError', () {
       when(nameField.validate).thenReturn(false);
       when(() => nameField.hasError).thenReturn(true);
+
+      when(descriptionField.validate).thenReturn(true);
+      when(() => descriptionField.hasError).thenReturn(false);
+
+      final response = controller.validateFields();
+
+      expect(response, false);
+    });
+
+    test('should return false when descriptionField hasError', () {
+      when(nameField.validate).thenReturn(true);
+      when(() => nameField.hasError).thenReturn(false);
+
+      when(descriptionField.validate).thenReturn(false);
+      when(() => descriptionField.hasError).thenReturn(true);
 
       final response = controller.validateFields();
 
