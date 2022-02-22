@@ -27,7 +27,7 @@ class ProductsController extends GetxController implements IProductsController {
   @override
   Future<void> onReady() async {
     super.onReady();
-    loadProducts();
+    loadProducts(withLoad: false);
   }
 
   @override
@@ -37,15 +37,15 @@ class ProductsController extends GetxController implements IProductsController {
   }
 
   @override
-  Future<void> loadProducts() async {
+  Future<void> loadProducts({bool withLoad = true}) async {
     try {
-      _loading.isLoading = true;
+      if (withLoad) _loading.isLoading = true;
       final response = await _productRepository.getProducts();
       _productsStream.add(response);
     } catch (err) {
       _productsStream.addError(err);
     } finally {
-      _loading.isLoading = false;
+      if (withLoad) _loading.isLoading = false;
     }
   }
 

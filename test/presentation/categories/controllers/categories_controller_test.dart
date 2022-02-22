@@ -26,7 +26,7 @@ void main() {
     when(productRepository.getCategories)
         .thenAnswer((_) async => List.from(listCategoriesModel));
 
-    await controller.onInit();
+    await controller.onReady();
 
     verify(() => productRepository.getCategories()).called(1);
     expectLater(

@@ -11,13 +11,14 @@ class CategoriesController extends GetxController
     implements ICategoriesController {
   final IProductRepository _productRepository;
   final ILoadingController _loading;
-  final _categoriesStream = BehaviorSubject<List<CategoryModel>>();
 
   CategoriesController({
     required IProductRepository productRepository,
     required ILoadingController loading,
   })  : _productRepository = productRepository,
         _loading = loading;
+
+  final _categoriesStream = BehaviorSubject<List<CategoryModel>>();
 
   @override
   Stream<List<CategoryModel>> get categoriesStream => _categoriesStream.stream;
@@ -26,9 +27,9 @@ class CategoriesController extends GetxController
   bool get categoriesStreamIsClosed => _categoriesStream.isClosed;
 
   @override
-  Future<void> onInit() async {
-    super.onInit();
-    loadCategories();
+  Future<void> onReady() async {
+    super.onReady();
+    loadCategories(withLoad: false);
   }
 
   @override
@@ -38,15 +39,15 @@ class CategoriesController extends GetxController
   }
 
   @override
-  Future<void> loadCategories() async {
+  Future<void> loadCategories({bool withLoad = true}) async {
     try {
-      _loading.isLoading = true;
+      if (withLoad) _loading.isLoading = true;
       final response = await _productRepository.getCategories();
       _categoriesStream.add(response);
     } catch (err) {
       _categoriesStream.addError(err);
     } finally {
-      _loading.isLoading = false;
+      if (withLoad) _loading.isLoading = false;
     }
   }
 
