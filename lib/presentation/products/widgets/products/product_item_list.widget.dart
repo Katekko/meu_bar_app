@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../../domain/core/abstractions/presentation/controllers/products/products_controller.interface.dart';
 import '../../../../domain/core/utils/money.util.dart';
 import '../../../../domain/product/models/product.model.dart';
+import '../../../../infrastructure/navigation/routes.dart';
 
 class ProductItemListWidget extends ViewController<IProductsController> {
   final ProductModel item;
@@ -13,7 +14,7 @@ class ProductItemListWidget extends ViewController<IProductsController> {
     controller.editProduct(
       product: item,
       openScreen: (product) => Navigator.of(context).pushNamed(
-        '',
+        Routes.editProduct,
         arguments: {'product': product},
       ),
     );
@@ -31,7 +32,10 @@ class ProductItemListWidget extends ViewController<IProductsController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (item.urlImage != null)
-                Image.network(item.urlImage!, width: 50),
+                Hero(
+                  tag: item.urlImage!,
+                  child: Image.network(item.urlImage!, width: 50),
+                ),
               const SizedBox(width: 10),
               Expanded(
                 child: Column(

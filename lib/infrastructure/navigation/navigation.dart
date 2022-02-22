@@ -36,5 +36,15 @@ class Nav {
       page: () => ProductsScreen(),
       binding: ProductsControllerBinding(),
     ),
+    GetPage(
+      name: Routes.createProduct,
+      page: () => ProductScreen(),
+      binding: ProductControllerBinding(isEdit: false),
+    ),
+    GetPage(
+      name: Routes.editProduct,
+      page: () => ProductScreen(),
+      binding: ProductControllerBinding(isEdit: true),
+    ),
   ];
 }

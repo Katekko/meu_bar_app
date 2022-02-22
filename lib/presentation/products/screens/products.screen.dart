@@ -3,12 +3,13 @@ import 'package:ekko/presentation/products/widgets/products/products_list.widget
 import 'package:ekko/presentation/shared/view_controller.interface.dart';
 import 'package:flutter/material.dart';
 
+import '../../../infrastructure/navigation/routes.dart';
 import '../../shared/loading/loading.widget.dart';
 
 class ProductsScreen extends ViewController<IProductsController> {
   void openProductScreen(BuildContext context) {
     controller.createProduct(
-      openScreen: () => Navigator.of(context).pushNamed(''),
+      openScreen: () => Navigator.of(context).pushNamed(Routes.createProduct),
     );
   }
 

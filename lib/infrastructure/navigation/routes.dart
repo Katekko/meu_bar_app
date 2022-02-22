@@ -11,10 +11,12 @@ class Routes {
     }
   }
 
-  static const products = '/products';
   static const categories = '/categories';
   static const createCategory = '/categories/create';
   static const editCategory = '/categories/edit';
   static const home = '/home';
   static const login = '/login';
+  static const products = '/products';
+  static const createProduct = '/products/create';
+  static const editProduct = '/products/edit';
 }
