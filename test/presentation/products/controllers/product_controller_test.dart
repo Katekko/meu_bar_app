@@ -43,6 +43,7 @@ void main() {
   test('Ensure fields are the same as passed', () {
     expect(controller.nameField, nameField);
     expect(controller.descriptionField, descriptionField);
+    expect(controller.categoryField, categoryField);
   });
 
   group('Validate Fields', () {
@@ -52,6 +53,9 @@ void main() {
 
       when(descriptionField.validate).thenReturn(true);
       when(() => descriptionField.hasError).thenReturn(false);
+
+      when(categoryField.validate).thenReturn(true);
+      when(() => categoryField.hasError).thenReturn(false);
 
       final response = controller.validateFields();
 
@@ -65,6 +69,9 @@ void main() {
       when(descriptionField.validate).thenReturn(true);
       when(() => descriptionField.hasError).thenReturn(false);
 
+      when(categoryField.validate).thenReturn(true);
+      when(() => categoryField.hasError).thenReturn(false);
+
       final response = controller.validateFields();
 
       expect(response, false);
@@ -76,6 +83,24 @@ void main() {
 
       when(descriptionField.validate).thenReturn(false);
       when(() => descriptionField.hasError).thenReturn(true);
+
+      when(categoryField.validate).thenReturn(true);
+      when(() => categoryField.hasError).thenReturn(false);
+
+      final response = controller.validateFields();
+
+      expect(response, false);
+    });
+
+    test('should return false when categoryField hasError', () {
+      when(nameField.validate).thenReturn(true);
+      when(() => nameField.hasError).thenReturn(false);
+
+      when(descriptionField.validate).thenReturn(true);
+      when(() => descriptionField.hasError).thenReturn(false);
+
+      when(categoryField.validate).thenReturn(false);
+      when(() => categoryField.hasError).thenReturn(true);
 
       final response = controller.validateFields();
 

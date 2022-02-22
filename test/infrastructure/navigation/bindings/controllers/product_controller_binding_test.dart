@@ -9,5 +9,12 @@ void main() {
       controller.nameField.validators,
       [RequiredStringFieldValidator()],
     );
+
+    expect(
+      controller.descriptionField.validators,
+      [],
+    );
+
+    expect(controller.categoryField.validators, []);
   });
 }
