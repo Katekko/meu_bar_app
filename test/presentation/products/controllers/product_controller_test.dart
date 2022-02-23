@@ -5,8 +5,11 @@ import 'package:ekko/domain/core/abstractions/presentation/controllers/products/
 import 'package:ekko/domain/core/abstractions/presentation/field.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/stream_field.interface.dart';
 import 'package:ekko/domain/product/models/category.model.dart';
+import 'package:ekko/domain/product/models/product.model.dart';
+import 'package:ekko/domain/product/product_mock.repository.dart';
 import 'package:ekko/presentation/controllers.dart';
 import 'package:ekko/presentation/shared/loading/loading.interface.dart';
+import 'package:faker/faker.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
@@ -191,5 +194,88 @@ void main() {
 
       expect(response, false);
     });
+  });
+
+  group('Save products', () {
+    test('should create a product with success', () async {
+      final name = faker.food.random.string(10);
+      final description = faker.food.random.string(10);
+      final price = faker.currency.random.decimal(min: 1, scale: 2);
+
+      when(() => nameField.validate()).thenReturn(true);
+      when(() => nameField.value).thenReturn(name);
+      when(() => nameField.hasError).thenReturn(false);
+
+      when(() => descriptionField.validate()).thenReturn(true);
+      when(() => descriptionField.value).thenReturn(description);
+      when(() => descriptionField.hasError).thenReturn(false);
+
+      when(() => categoryField.validate()).thenReturn(true);
+      when(() => categoryField.value).thenReturn(categoryModel1);
+      when(() => categoryField.hasError).thenReturn(false);
+
+      when(() => priceField.validate()).thenReturn(true);
+      when(() => priceField.value).thenReturn(price);
+      when(() => priceField.hasError).thenReturn(false);
+
+      when(() => imageBytesField.validate()).thenReturn(true);
+      when(() => imageBytesField.value).thenReturn(null);
+      when(() => imageBytesField.hasError).thenReturn(false);
+
+      final product = ProductModel(
+        id: -1,
+        name: controller.nameField.value!,
+        description: controller.descriptionField.value,
+        category: controller.categoryField.value!,
+        price: controller.priceField.value!,
+        urlImage: '',
+      );
+
+      when(() => productRepository.registerProduct(product))
+          .thenAnswer((_) async {});
+
+      await controller.saveProduct(backScreen: () {}, onError: (err) {});
+
+      verify(() => productRepository.registerProduct(product));
+    });
+
+    // test('should update a category with success', () async {
+    //   const name = 'katekko';
+    //   const icon = 1;
+    //   when(() => nameField.validate()).thenReturn(true);
+    //   when(() => nameField.value).thenReturn(name);
+    //   when(() => nameField.hasError).thenReturn(false);
+
+    //   when(() => iconField.validate()).thenReturn(true);
+    //   when(() => iconField.value).thenReturn(icon);
+    //   when(() => iconField.hasError).thenReturn(false);
+
+    //   const category = CategoryModel(id: 1, name: name, icon: icon);
+
+    //   final controller = CategoryController(
+    //     productRepository: productRepository,
+    //     loading: LoadingControllerMock(),
+    //     isEdit: true,
+    //     nameField: nameField,
+    //     iconField: iconField,
+    //     category: category,
+    //   );
+
+    //   controller.iconField.value = 2;
+    //   controller.nameField.value = 'katekko 2';
+
+    //   final categoryToSave = CategoryModel(
+    //     id: 1,
+    //     name: controller.nameField.value!,
+    //     icon: controller.iconField.value!,
+    //   );
+
+    //   when(() => productRepository.updateCategory(categoryToSave))
+    //       .thenAnswer((_) async {});
+
+    //   await controller.saveCategory(backScreen: () {});
+
+    //   verify(() => productRepository.updateCategory(categoryToSave));
+    // });
   });
 }
