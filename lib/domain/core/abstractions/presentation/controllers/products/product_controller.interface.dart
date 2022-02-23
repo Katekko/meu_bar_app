@@ -22,5 +22,7 @@ abstract class IProductController {
     required void Function(dynamic err) onError,
   });
 
+  Future<List<CategoryModel>> loadCategories(String term);
+
   bool validateFields();
 }

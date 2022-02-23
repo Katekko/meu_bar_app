@@ -7,11 +7,12 @@ import '../widgets/search.screen.dart';
 
 class SearchFunctions {
   static void openSingleSearchDialog<T extends ISearchable>({
+    required Future<List<T>> Function(String)? callbackItems,
     Function(T)? onSingleSelected,
     required Widget Function(T) buildDropdownItem,
     required T? currentItem,
     required bool Function(T, String) onFilter,
-    required List<T> items,
+    List<T>? items,
   }) {
     _openSearchDialog(
       onSingleSelected: onSingleSelected,
@@ -19,6 +20,7 @@ class SearchFunctions {
       currentItem: currentItem,
       items: items,
       onFilter: onFilter,
+      callbackItems: callbackItems,
     );
   }
 

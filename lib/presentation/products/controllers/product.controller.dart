@@ -10,7 +10,6 @@ import 'package:ekko/presentation/shared/loading/loading.interface.dart';
 import 'package:get/get.dart';
 
 import '../../../domain/core/abstractions/presentation/controllers/products/product_controller.interface.dart';
-import '../../shared/search/search.dart';
 
 class ProductController extends GetxController implements IProductController {
   final IProductRepository _productRepository;
@@ -116,8 +115,17 @@ class ProductController extends GetxController implements IProductController {
     }
   }
 
-  bool filterCategories(CategoryModel item, String searchText) {
-    return item.desc.toLowerCase().contains(searchText.toLowerCase());
+  @override
+  Future<List<CategoryModel>> loadCategories(String term) async {
+    try {
+      _loading.isLoading = true;
+      final response = await _productRepository.getCategories(filter: term);
+      return response;
+    } catch (err) {
+      rethrow;
+    } finally {
+      _loading.isLoading = false;
+    }
   }
 
   @override

@@ -11,9 +11,9 @@ class CategoryWidget extends ViewController<IProductController> {
     return item.desc.toLowerCase().contains(searchText.toLowerCase());
   }
 
-  void openCategoriesSearch({required List<CategoryModel> items}) {
+  void openCategoriesSearch() {
     SearchFunctions.openSingleSearchDialog<CategoryModel>(
-      items: items,
+      callbackItems: controller.loadCategories,
       onSingleSelected: (category) => controller.categoryField.value = category,
       currentItem: controller.categoryField.value,
       onFilter: filterCategories,
@@ -33,7 +33,7 @@ class CategoryWidget extends ViewController<IProductController> {
       stream: controller.categoryField.stream,
       builder: (_, snap) {
         return InkWell(
-          onTap: () {},
+          onTap: openCategoriesSearch,
           child: Row(
             children: [
               Expanded(
