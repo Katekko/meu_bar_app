@@ -7,7 +7,8 @@ import '../../../shared/search/functions/search.functions.dart';
 import '../../../shared/search/widgets/search_item.widget.dart';
 
 class CategoryWidget extends ViewController<IProductController> {
-  void openCategoriesSearch() {
+  void openCategoriesSearch(BuildContext context) {
+    FocusScope.of(context).unfocus();
     SearchFunctions.openSingleSearchDialog<CategoryModel>(
       callbackItems: controller.loadCategories,
       onSingleSelected: (category) => controller.categoryField.value = category,
@@ -28,7 +29,7 @@ class CategoryWidget extends ViewController<IProductController> {
       stream: controller.categoryField.stream,
       builder: (_, snap) {
         return InkWell(
-          onTap: openCategoriesSearch,
+          onTap: () => openCategoriesSearch(context),
           child: SizedBox(
             height: 50,
             child: Row(
