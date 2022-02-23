@@ -5,10 +5,13 @@ import 'package:ekko/domain/core/builders/field_validator.builder.dart';
 import 'package:ekko/domain/core/models/getx_field.model.dart';
 import 'package:ekko/domain/core/models/rx_field.model.dart';
 import 'package:ekko/domain/product/models/category.model.dart';
+import 'package:ekko/infrastructure/navigation/bindings/domains/product.repository.binding.dart';
 import 'package:get/get.dart';
 
 import '../../../../domain/core/abstractions/presentation/controllers/products/product_controller.interface.dart';
 import '../../../../presentation/products/controllers/controllers.dart';
+import '../../../../presentation/shared/loading/loading.interface.dart';
+import '../../../dal/inject.dart';
 
 class ProductControllerBinding extends Bindings {
   final bool isEdit;
@@ -52,6 +55,8 @@ RxFieldModel<Uint8List> makeProductImageBytesField() {
 
 IProductController makeProductController({required bool isEdit}) {
   return ProductController(
+    productRepository: ProductRepositoryBinding().repository,
+    loading: Inject.find<ILoadingController>(),
     isEdit: isEdit,
     nameField: makeProductNameField(),
     descriptionField: makeProductDescriptionField(),

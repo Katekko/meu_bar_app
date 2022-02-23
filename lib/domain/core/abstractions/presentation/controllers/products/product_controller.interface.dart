@@ -14,7 +14,10 @@ abstract class IProductController {
   IStreamField<Uint8List?> get imageBytesField;
   IStreamField<CategoryModel?> get categoryField;
 
-  Future<void> saveProduct({required void Function() backScreen});
+  Future<void> saveProduct({
+    required void Function() backScreen,
+    required void Function(dynamic err) onError,
+  });
   bool validateFields();
 
   FutureOr onInit();

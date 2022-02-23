@@ -1,14 +1,20 @@
 import 'dart:async';
 import 'dart:typed_data';
 
+import 'package:ekko/domain/core/abstractions/domain/repositories/product_repository.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/field.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/stream_field.interface.dart';
 import 'package:ekko/domain/product/models/category.model.dart';
+import 'package:ekko/domain/product/models/product.model.dart';
+import 'package:ekko/presentation/shared/loading/loading.interface.dart';
 import 'package:get/get.dart';
 
 import '../../../domain/core/abstractions/presentation/controllers/products/product_controller.interface.dart';
 
 class ProductController extends GetxController implements IProductController {
+  final IProductRepository _productRepository;
+  final ILoadingController _loading;
+
   final bool _isEdit;
   final IField<String> _nameField;
   final IField<String> _descriptionField;
@@ -17,13 +23,17 @@ class ProductController extends GetxController implements IProductController {
   final IStreamField<Uint8List?> _imageBytesField;
 
   ProductController({
+    required IProductRepository productRepository,
+    required ILoadingController loading,
     required bool isEdit,
     required IField<String> nameField,
     required IField<String> descriptionField,
     required IField<double> priceField,
     required IStreamField<CategoryModel?> categoryField,
     required IStreamField<Uint8List?> imageBytesField,
-  })  : _isEdit = isEdit,
+  })  : _productRepository = productRepository,
+        _loading = loading,
+        _isEdit = isEdit,
         _nameField = nameField,
         _descriptionField = descriptionField,
         _priceField = priceField,
@@ -65,9 +75,30 @@ class ProductController extends GetxController implements IProductController {
   }
 
   @override
-  Future<void> saveProduct({required void Function() backScreen}) {
-    // TODO: implement saveProduct
-    throw UnimplementedError();
+  Future<void> saveProduct({
+    required void Function() backScreen,
+    required void Function(dynamic err) onError,
+  }) async {
+    try {
+      _loading.isLoading = true;
+      if (validateFields()) {
+        final product = ProductModel(
+          id: -1,
+          name: _nameField.value!,
+          price: _priceField.value!,
+          category: _categoryField.value!,
+          description: _descriptionField.value,
+          urlImage: '',
+        );
+
+        await _productRepository.registerProduct(product);
+        backScreen();
+      }
+    } catch (err) {
+      onError(err);
+    } finally {
+      _loading.isLoading = false;
+    }
   }
 
   @override

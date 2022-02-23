@@ -6,6 +6,7 @@ import 'package:ekko/domain/core/abstractions/presentation/field.interface.dart'
 import 'package:ekko/domain/core/abstractions/presentation/stream_field.interface.dart';
 import 'package:ekko/domain/product/models/category.model.dart';
 import 'package:ekko/presentation/controllers.dart';
+import 'package:ekko/presentation/shared/loading/loading.interface.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
@@ -13,8 +14,10 @@ import '../../../mocks.dart';
 
 void main() {
   late IProductController controller;
-  // ignore: unused_local_variable
+
   late final IProductRepository productRepository;
+  late final ILoadingController loading;
+
   late final IField<String> nameField;
   late final IField<String> descriptionField;
   late final IField<double> priceField;
@@ -23,6 +26,7 @@ void main() {
 
   setUpAll(() {
     productRepository = ProductRepositoryMock();
+    loading = LoadingControllerMock();
     nameField = FieldMock<String>();
     descriptionField = FieldMock<String>();
     priceField = FieldMock<double>();
@@ -32,6 +36,8 @@ void main() {
 
   setUp(() {
     controller = ProductController(
+      productRepository: productRepository,
+      loading: loading,
       isEdit: false,
       nameField: nameField,
       descriptionField: descriptionField,

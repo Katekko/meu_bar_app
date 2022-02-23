@@ -16,7 +16,7 @@ class ProductModel extends Equatable {
     required this.name,
     required this.price,
     required this.category,
-    required this.urlImage,
+    this.urlImage,
     this.description,
   });
 
