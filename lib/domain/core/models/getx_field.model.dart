@@ -30,15 +30,18 @@ class GetxFieldModel<T> extends IField<T> {
 
   @override
   void onChange(String val) {
-    dynamic parse;
-    if (runtimeType == GetxFieldModel<num>) {
+    if ((runtimeType == GetxFieldModel<double>) ||
+        runtimeType == GetxFieldModel<int>) {
+      dynamic parse;
       final onlyNumber = val.replaceAll(RegExp('[^0-9.]'), '');
       parse = num.tryParse(onlyNumber);
+      _value = parse;
+    } else if (runtimeType == GetxFieldModel<String>) {
+      _value = val as T;
     }
 
-    _value = parse;
     validate();
-    onChangeCallback?.call(parse);
+    onChangeCallback?.call(_value);
   }
 
   @override

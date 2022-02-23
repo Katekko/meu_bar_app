@@ -10,7 +10,7 @@ abstract class IField<T> extends IValidator<T> {
   /// após o onChange rodar.
   ///
   /// Parametro [val] é o valor retornado pelo onChange do campo
-  void Function(T val)? onChangeCallback;
+  void Function(T? val)? onChangeCallback;
 
   /// Função utilizada para setar valor do campo
   void onChange(String val);
