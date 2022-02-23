@@ -239,43 +239,58 @@ void main() {
       verify(() => productRepository.registerProduct(product));
     });
 
-    // test('should update a category with success', () async {
-    //   const name = 'katekko';
-    //   const icon = 1;
-    //   when(() => nameField.validate()).thenReturn(true);
-    //   when(() => nameField.value).thenReturn(name);
-    //   when(() => nameField.hasError).thenReturn(false);
+    test('should update a category with success', () async {
+      final name = faker.food.random.string(10);
+      final description = faker.food.random.string(10);
+      final price = faker.currency.random.decimal(min: 1, scale: 2);
 
-    //   when(() => iconField.validate()).thenReturn(true);
-    //   when(() => iconField.value).thenReturn(icon);
-    //   when(() => iconField.hasError).thenReturn(false);
+      when(() => nameField.validate()).thenReturn(true);
+      when(() => nameField.value).thenReturn(name);
+      when(() => nameField.hasError).thenReturn(false);
 
-    //   const category = CategoryModel(id: 1, name: name, icon: icon);
+      when(() => descriptionField.validate()).thenReturn(true);
+      when(() => descriptionField.value).thenReturn(description);
+      when(() => descriptionField.hasError).thenReturn(false);
 
-    //   final controller = CategoryController(
-    //     productRepository: productRepository,
-    //     loading: LoadingControllerMock(),
-    //     isEdit: true,
-    //     nameField: nameField,
-    //     iconField: iconField,
-    //     category: category,
-    //   );
+      when(() => categoryField.validate()).thenReturn(true);
+      when(() => categoryField.value).thenReturn(categoryModel1);
+      when(() => categoryField.hasError).thenReturn(false);
 
-    //   controller.iconField.value = 2;
-    //   controller.nameField.value = 'katekko 2';
+      when(() => priceField.validate()).thenReturn(true);
+      when(() => priceField.value).thenReturn(price);
+      when(() => priceField.hasError).thenReturn(false);
 
-    //   final categoryToSave = CategoryModel(
-    //     id: 1,
-    //     name: controller.nameField.value!,
-    //     icon: controller.iconField.value!,
-    //   );
+      when(() => imageBytesField.validate()).thenReturn(true);
+      when(() => imageBytesField.value).thenReturn(null);
+      when(() => imageBytesField.hasError).thenReturn(false);
 
-    //   when(() => productRepository.updateCategory(categoryToSave))
-    //       .thenAnswer((_) async {});
+      final controller = ProductController(
+        productRepository: productRepository,
+        loading: loading,
+        isEdit: true,
+        nameField: nameField,
+        categoryField: categoryField,
+        descriptionField: descriptionField,
+        imageBytesField: imageBytesField,
+        priceField: priceField,
+        product: productModel2,
+      );
 
-    //   await controller.saveCategory(backScreen: () {});
+      final productToSave = ProductModel(
+        id: productModel2.id,
+        name: controller.nameField.value!,
+        category: controller.categoryField.value!,
+        price: controller.priceField.value!,
+        description: controller.descriptionField.value,
+        urlImage: '',
+      );
 
-    //   verify(() => productRepository.updateCategory(categoryToSave));
-    // });
+      when(() => productRepository.updateProduct(productToSave))
+          .thenAnswer((_) async {});
+
+      await controller.saveProduct(backScreen: () {}, onError: (err) {});
+
+      verify(() => productRepository.updateProduct(productToSave));
+    });
   });
 }

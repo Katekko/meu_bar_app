@@ -22,6 +22,8 @@ class ProductController extends GetxController implements IProductController {
   final IStreamField<CategoryModel?> _categoryField;
   final IStreamField<Uint8List?> _imageBytesField;
 
+  final ProductModel? _product;
+
   ProductController({
     required IProductRepository productRepository,
     required ILoadingController loading,
@@ -31,6 +33,7 @@ class ProductController extends GetxController implements IProductController {
     required IField<double> priceField,
     required IStreamField<CategoryModel?> categoryField,
     required IStreamField<Uint8List?> imageBytesField,
+    ProductModel? product,
   })  : _productRepository = productRepository,
         _loading = loading,
         _isEdit = isEdit,
@@ -38,7 +41,8 @@ class ProductController extends GetxController implements IProductController {
         _descriptionField = descriptionField,
         _priceField = priceField,
         _categoryField = categoryField,
-        _imageBytesField = imageBytesField;
+        _imageBytesField = imageBytesField,
+        _product = product;
 
   @override
   bool get isEdit => _isEdit;
@@ -62,6 +66,12 @@ class ProductController extends GetxController implements IProductController {
   // ignore: unnecessary_overrides
   void onInit() {
     super.onInit();
+    if (_product != null) {
+      assert(
+        _isEdit && _product != null,
+        'Necessário passar o produto para entrar em modo de edição',
+      );
+    }
   }
 
   @override
@@ -83,7 +93,7 @@ class ProductController extends GetxController implements IProductController {
       _loading.isLoading = true;
       if (validateFields()) {
         final product = ProductModel(
-          id: -1,
+          id: _isEdit ? _product!.id : -1,
           name: _nameField.value!,
           price: _priceField.value!,
           category: _categoryField.value!,
@@ -91,7 +101,12 @@ class ProductController extends GetxController implements IProductController {
           urlImage: '',
         );
 
-        await _productRepository.registerProduct(product);
+        if (_isEdit) {
+          await _productRepository.updateProduct(product);
+        } else {
+          await _productRepository.registerProduct(product);
+        }
+
         backScreen();
       }
     } catch (err) {
