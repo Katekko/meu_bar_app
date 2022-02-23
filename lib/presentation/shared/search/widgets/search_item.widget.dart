@@ -119,7 +119,7 @@ class SearchItemWidget<T extends ISearchable>
                       child: Icon(
                         icon,
                         size: 24,
-                        color: selected ? Colors.black12 : Colors.black45,
+                        color: selected ? Colors.black87 : Colors.black45,
                       ),
                     ),
                   Expanded(
@@ -131,7 +131,7 @@ class SearchItemWidget<T extends ISearchable>
                           context,
                         ),
                         style: Get.textTheme.bodyText1!.copyWith(
-                          color: selected ? Colors.black12 : Colors.black45,
+                          color: selected ? Colors.black87 : Colors.black45,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
