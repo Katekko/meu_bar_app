@@ -11,8 +11,7 @@ void main() {
   });
 
   test('Should return null if value is a e-mail', () {
-    final email = faker.internet.email();
-    expect(sut.validate(email), null);
+    expect(sut.validate(faker.internet.email()), null);
   });
 
   test('Should return error if value is not a valid e-mail', () {
