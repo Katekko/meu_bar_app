@@ -30,6 +30,7 @@ class ProductScreen extends ViewController<IProductController> {
             TextFieldWidget(
               label: 'Quanto custa?',
               field: controller.priceField,
+              isCurrency: true,
             ),
           ],
         ),

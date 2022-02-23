@@ -30,7 +30,8 @@ class GetxFieldModel<T> extends IField<T> {
 
   @override
   void onChange(String val) {
-    dynamic parse = num.tryParse(val);
+    final onlyNumber = val.replaceAll(RegExp('[^0-9.]'), '');
+    dynamic parse = num.tryParse(onlyNumber);
     _value = parse;
     validate();
     onChangeCallback?.call(parse);
