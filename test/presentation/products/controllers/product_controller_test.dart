@@ -11,6 +11,7 @@ import '../../../mocks.dart';
 
 void main() {
   late IProductController controller;
+  // ignore: unused_local_variable
   late final IProductRepository productRepository;
   late final IField<String> nameField;
   late final IField<String> descriptionField;

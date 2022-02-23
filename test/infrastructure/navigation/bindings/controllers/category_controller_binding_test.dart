@@ -1,5 +1,5 @@
 import 'package:ekko/domain/core/abstractions/domain/repositories/product_repository.interface.dart';
-import 'package:ekko/domain/core/builders/string_field_validator.builder.dart';
+import 'package:ekko/domain/core/builders/field_validator.builder.dart';
 import 'package:ekko/infrastructure/navigation/bindings/controllers/controllers_bindings.dart';
 import 'package:ekko/presentation/controllers.dart';
 import 'package:ekko/presentation/shared/loading/loading.interface.dart';
@@ -18,10 +18,13 @@ void main() {
     loading = LoadingControllerMock();
   });
 
-  test('Should correct name field', () {
+  test('Should return correct name field', () {
     final field = makeCategoryNameField();
     expect(field.value, '');
-    expect(field.validators, StringFieldValidatorBuilder().required().build());
+    expect(
+      field.validators,
+      FieldValidatorBuilder<String>().required().build(),
+    );
     expect(field.hasError, false);
   });
 

@@ -1,6 +1,6 @@
 import 'package:ekko/domain/core/abstractions/domain/repositories/product_repository.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/stream_field.interface.dart';
-import 'package:ekko/domain/core/builders/string_field_validator.builder.dart';
+import 'package:ekko/domain/core/builders/field_validator.builder.dart';
 import 'package:ekko/domain/core/models/getx_field.model.dart';
 import 'package:ekko/domain/product/models/category.model.dart';
 import 'package:ekko/infrastructure/navigation/bindings/domains/product.repository.binding.dart';
@@ -9,7 +9,6 @@ import 'package:get/get.dart';
 
 import '../../../../domain/core/abstractions/presentation/controllers/categories/category_controller.interface.dart';
 import '../../../../domain/core/abstractions/presentation/field.interface.dart';
-import '../../../../domain/core/builders/int_field_validator.builder.dart';
 import '../../../../domain/core/models/rx_field.model.dart';
 import '../../../../presentation/categories/controllers/controllers.dart';
 import '../../../dal/inject.dart';
@@ -35,14 +34,13 @@ class CategoryControllerBinding extends Bindings {
 
 IField<String> makeCategoryNameField() {
   return GetxFieldModel(
-    value: '',
-    validators: StringFieldValidatorBuilder().required().build(),
+    validators: FieldValidatorBuilder<String>().required().build(),
   );
 }
 
 IStreamField<int?> makeCategoryIconField() {
-  return RxFieldModel<int?>(
-    validators: IntFieldValidatorBuilder().required().build(),
+  return RxFieldModel<int>(
+    validators: FieldValidatorBuilder<int>().required().build(),
   );
 }
 

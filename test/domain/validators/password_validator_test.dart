@@ -1,4 +1,4 @@
-import 'package:ekko/domain/core/validators/string_validators/password.validator.dart';
+import 'package:ekko/domain/core/validators/password.validator.dart';
 import 'package:ekko/infrastructure/translate/validators.translate.dart';
 import 'package:test/test.dart';
 

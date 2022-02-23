@@ -1,5 +1,5 @@
 import 'package:ekko/domain/core/abstractions/presentation/field.interface.dart';
-import 'package:ekko/domain/core/builders/string_field_validator.builder.dart';
+import 'package:ekko/domain/core/builders/field_validator.builder.dart';
 import 'package:ekko/domain/core/models/getx_field.model.dart';
 import 'package:ekko/domain/core/models/rx_field.model.dart';
 import 'package:ekko/domain/product/models/category.model.dart';
@@ -22,7 +22,7 @@ class ProductControllerBinding extends Bindings {
 
 IField<String> makeProductNameField() {
   return GetxFieldModel(
-    validators: StringFieldValidatorBuilder().required().build(),
+    validators: FieldValidatorBuilder<String>().required().build(),
   );
 }
 

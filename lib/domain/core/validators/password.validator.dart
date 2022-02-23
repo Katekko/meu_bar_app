@@ -2,11 +2,16 @@ import 'package:ekko/domain/core/abstractions/domain/validators/field_validator.
 import 'package:ekko/infrastructure/translate/validators.translate.dart';
 import 'package:equatable/equatable.dart';
 
-class RequiredStringFieldValidator extends Equatable
-    implements IFieldValidator<String> {
+class PasswordValidator<T> extends Equatable implements IFieldValidator<T> {
   @override
-  String? validate(String value) {
-    return value.isEmpty ? ValidatorsTranslate.requiredField : null;
+  String? validate(T value) {
+    if (value is String) {
+      String? error;
+      if (value.length <= 3) error = ValidatorsTranslate.invalidPassword;
+      return error;
+    }
+
+    throw TypeError();
   }
 
   @override
