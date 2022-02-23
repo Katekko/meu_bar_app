@@ -25,18 +25,18 @@ class CategoryWidget extends ViewController<IProductController> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Escolha a categoria do produto:',
-          style: Theme.of(context).textTheme.subtitle1,
-        ),
-        const SizedBox(height: 5),
-        StreamBuilder<CategoryModel?>(
-          stream: controller.categoryField.stream,
-          builder: (_, snap) {
-            return InkWell(
+    return StreamBuilder<CategoryModel?>(
+      stream: controller.categoryField.stream,
+      builder: (_, snap) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Escolha a categoria do produto:',
+              style: Theme.of(context).textTheme.subtitle1,
+            ),
+            const SizedBox(height: 5),
+            InkWell(
               onTap: () => openCategoriesSearch(context),
               child: SizedBox(
                 height: 50,
@@ -46,7 +46,12 @@ class CategoryWidget extends ViewController<IProductController> {
                       child: Container(
                         height: double.infinity,
                         decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey),
+                          border: Border.all(
+                            width: 1.2,
+                            color: controller.categoryField.hasError
+                                ? Colors.red.shade700
+                                : Colors.grey,
+                          ),
                           borderRadius: BorderRadius.circular(3),
                         ),
                         child: Ink(
@@ -67,7 +72,12 @@ class CategoryWidget extends ViewController<IProductController> {
                       child: Container(
                         height: double.infinity,
                         decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey),
+                          border: Border.all(
+                            width: 1.2,
+                            color: controller.categoryField.hasError
+                                ? Colors.red.shade700
+                                : Colors.grey,
+                          ),
                           borderRadius: BorderRadius.circular(3),
                         ),
                         child: Ink(
@@ -96,10 +106,23 @@ class CategoryWidget extends ViewController<IProductController> {
                   ],
                 ),
               ),
-            );
-          },
-        ),
-      ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 13, top: 8),
+              child: Visibility(
+                visible: snap.hasError,
+                child: Text(
+                  snap.error?.toString() ?? '',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall!
+                      .copyWith(color: Colors.red.shade700),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }
