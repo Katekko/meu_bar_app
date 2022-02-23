@@ -11,7 +11,6 @@ class SearchFunctions {
     Function(T)? onSingleSelected,
     required Widget Function(T) buildDropdownItem,
     required T? currentItem,
-    required bool Function(T, String) onFilter,
     List<T>? items,
   }) {
     _openSearchDialog(
@@ -19,7 +18,6 @@ class SearchFunctions {
       buildDropdownItem: buildDropdownItem,
       currentItem: currentItem,
       items: items,
-      onFilter: onFilter,
       callbackItems: callbackItems,
     );
   }

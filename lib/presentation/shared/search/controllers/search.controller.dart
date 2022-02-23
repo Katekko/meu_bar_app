@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-import '../../loading/loading.interface.dart';
 import '../interfaces/searchable.interface.dart';
 
 class SearchController<T extends ISearchable> extends GetxController {
@@ -14,7 +13,6 @@ class SearchController<T extends ISearchable> extends GetxController {
   final Future<List<Map<String, List<T>>>> Function(String)?
       callbackCategoriesItems;
 
-  final _loading = Get.find<ILoadingController>();
   final Function(T)? onSingleSelected;
   final Function(List<T>)? onMultiSelected;
 
@@ -27,6 +25,8 @@ class SearchController<T extends ISearchable> extends GetxController {
   final chipsScrollController = ScrollController();
 
   late bool isMulti;
+
+  final isLoading = false.obs;
 
   bool get allSelected {
     return selectedItems.length == items.length;
@@ -78,7 +78,7 @@ class SearchController<T extends ISearchable> extends GetxController {
     debounce<String>(
       textTextFormField,
       searchItems,
-      time: const Duration(milliseconds: 100),
+      time: const Duration(milliseconds: 300),
     );
   }
 
@@ -88,7 +88,7 @@ class SearchController<T extends ISearchable> extends GetxController {
 
   Future<void> searchItems(String text) async {
     try {
-      _loading.isLoading = true;
+      isLoading.value = true;
       searchText.value = text;
       if (onFilter != null) {
         final items = _filterItems.call(text);
@@ -103,7 +103,7 @@ class SearchController<T extends ISearchable> extends GetxController {
     } catch (err) {
       rethrow;
     } finally {
-      _loading.isLoading = false;
+      isLoading.value = false;
     }
   }
 

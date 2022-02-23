@@ -118,13 +118,10 @@ class ProductController extends GetxController implements IProductController {
   @override
   Future<List<CategoryModel>> loadCategories(String term) async {
     try {
-      _loading.isLoading = true;
       final response = await _productRepository.getCategories(filter: term);
       return response;
     } catch (err) {
       rethrow;
-    } finally {
-      _loading.isLoading = false;
     }
   }
 

@@ -33,6 +33,13 @@ class ProductMockRepository implements IProductRepository {
   @override
   Future<List<CategoryModel>> getCategories({String? filter}) async {
     await Future.delayed(const Duration(milliseconds: 700));
+
+    if (filter != null) {
+      return listCategoriesModel
+          .where((e) => e.name.toLowerCase().contains(filter.toLowerCase()))
+          .toList();
+    }
+
     return listCategoriesModel;
   }
 

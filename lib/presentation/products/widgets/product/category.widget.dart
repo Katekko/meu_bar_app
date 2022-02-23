@@ -7,16 +7,11 @@ import '../../../shared/search/functions/search.functions.dart';
 import '../../../shared/search/widgets/search_item.widget.dart';
 
 class CategoryWidget extends ViewController<IProductController> {
-  bool filterCategories(CategoryModel item, String searchText) {
-    return item.desc.toLowerCase().contains(searchText.toLowerCase());
-  }
-
   void openCategoriesSearch() {
     SearchFunctions.openSingleSearchDialog<CategoryModel>(
       callbackItems: controller.loadCategories,
       onSingleSelected: (category) => controller.categoryField.value = category,
       currentItem: controller.categoryField.value,
-      onFilter: filterCategories,
       buildDropdownItem: (item) {
         return SearchItemWidget<CategoryModel>(
           item: item,
@@ -34,38 +29,62 @@ class CategoryWidget extends ViewController<IProductController> {
       builder: (_, snap) {
         return InkWell(
           onTap: openCategoriesSearch,
-          child: Row(
-            children: [
-              Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(3),
-                  ),
-                  child: Ink(
-                    height: 50,
-                    child: snap.hasData
-                        ? Icon(IconData(snap.data!.icon))
-                        : const SizedBox(),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                flex: 4,
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(3),
-                  ),
-                  child: Ink(
-                    height: 50,
-                    child:
-                        snap.hasData ? Text(snap.data!.name) : const SizedBox(),
+          child: SizedBox(
+            height: 50,
+            child: Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    height: double.infinity,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(3),
+                    ),
+                    child: Ink(
+                      child: snap.hasData
+                          ? Icon(
+                              IconData(
+                                snap.data!.icon,
+                                fontFamily: 'MaterialIcons',
+                              ),
+                            )
+                          : const SizedBox(),
+                    ),
                   ),
                 ),
-              ),
-            ],
+                const SizedBox(width: 10),
+                Expanded(
+                  flex: 4,
+                  child: Container(
+                    height: double.infinity,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(3),
+                    ),
+                    child: Ink(
+                      child: snap.hasData
+                          ? Align(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Text(
+                                  snap.data!.name,
+                                  textAlign: TextAlign.start,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .subtitle1!
+                                      .copyWith(
+                                          color: Colors.black87,
+                                          fontWeight: FontWeight.w400),
+                                ),
+                              ),
+                            )
+                          : const SizedBox(),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },

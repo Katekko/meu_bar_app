@@ -49,8 +49,14 @@ class SearchScreen<T extends ISearchable> extends GetView<SearchController<T>> {
                 ),
               ),
               Expanded(
-                child: _ListWidget(
-                  buildDropdownItem: buildDropdownItem,
+                child: Obx(
+                  () => Visibility(
+                    visible: !controller.isLoading.value,
+                    replacement: const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    child: _ListWidget(buildDropdownItem: buildDropdownItem),
+                  ),
                 ),
               ),
               Container(
