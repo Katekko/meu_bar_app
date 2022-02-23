@@ -19,7 +19,7 @@ class TextFieldWidget extends StatelessWidget {
       stream: field.errorStream,
       builder: (_, snapshot) {
         return TextFormField(
-          initialValue: field.value.toString(),
+          initialValue: field.value?.toString(),
           onChanged: field.onChange,
           textInputAction: TextInputAction.next,
           keyboardType: isCurrency ? TextInputType.number : TextInputType.text,
