@@ -56,6 +56,7 @@ void main() {
     expect(controller.descriptionField, descriptionField);
     expect(controller.priceField, priceField);
     expect(controller.categoryField, categoryField);
+    expect(controller.imageBytesField, imageBytesField);
   });
 
   group('Validate Fields', () {
@@ -71,6 +72,9 @@ void main() {
 
       when(categoryField.validate).thenReturn(true);
       when(() => categoryField.hasError).thenReturn(false);
+
+      when(imageBytesField.validate).thenReturn(true);
+      when(() => imageBytesField.hasError).thenReturn(false);
 
       final response = controller.validateFields();
 
@@ -90,6 +94,9 @@ void main() {
       when(categoryField.validate).thenReturn(true);
       when(() => categoryField.hasError).thenReturn(false);
 
+      when(imageBytesField.validate).thenReturn(true);
+      when(() => imageBytesField.hasError).thenReturn(false);
+
       final response = controller.validateFields();
 
       expect(response, false);
@@ -107,6 +114,9 @@ void main() {
 
       when(categoryField.validate).thenReturn(true);
       when(() => categoryField.hasError).thenReturn(false);
+
+      when(imageBytesField.validate).thenReturn(true);
+      when(() => imageBytesField.hasError).thenReturn(false);
 
       final response = controller.validateFields();
 
@@ -126,6 +136,9 @@ void main() {
       when(categoryField.validate).thenReturn(true);
       when(() => categoryField.hasError).thenReturn(false);
 
+      when(imageBytesField.validate).thenReturn(true);
+      when(() => imageBytesField.hasError).thenReturn(false);
+
       final response = controller.validateFields();
 
       expect(response, false);
@@ -143,6 +156,30 @@ void main() {
 
       when(categoryField.validate).thenReturn(false);
       when(() => categoryField.hasError).thenReturn(true);
+
+      when(imageBytesField.validate).thenReturn(true);
+      when(() => imageBytesField.hasError).thenReturn(false);
+
+      final response = controller.validateFields();
+
+      expect(response, false);
+    });
+
+    test('should return false when imageBytesField hasError', () {
+      when(nameField.validate).thenReturn(true);
+      when(() => nameField.hasError).thenReturn(false);
+
+      when(descriptionField.validate).thenReturn(true);
+      when(() => descriptionField.hasError).thenReturn(false);
+
+      when(priceField.validate).thenReturn(true);
+      when(() => priceField.hasError).thenReturn(false);
+
+      when(categoryField.validate).thenReturn(true);
+      when(() => categoryField.hasError).thenReturn(false);
+
+      when(imageBytesField.validate).thenReturn(false);
+      when(() => imageBytesField.hasError).thenReturn(true);
 
       final response = controller.validateFields();
 
