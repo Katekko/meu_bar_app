@@ -1,18 +1,27 @@
 import 'package:ekko/infrastructure/dal/services/data/category.data.dart';
+import 'package:ekko/presentation/shared/search/interfaces/searchable.interface.dart';
 import 'package:equatable/equatable.dart';
+import 'package:uuid/uuid.dart';
 
-class CategoryModel extends Equatable {
+class CategoryModel extends Equatable implements ISearchable {
   final int id;
   final String name;
-
-  /// Hexdecimal
   final int icon;
 
-  const CategoryModel({
+  /// Identificador para o search
+  final String _guid;
+
+  CategoryModel({
     required this.id,
     required this.name,
     required this.icon,
-  });
+  }) : _guid = const Uuid().v1();
+
+  @override
+  String get desc => name;
+
+  @override
+  String get guid => _guid;
 
   factory CategoryModel.fromData(CategoryData data) {
     return CategoryModel(id: data.id, name: data.name, icon: data.icon);

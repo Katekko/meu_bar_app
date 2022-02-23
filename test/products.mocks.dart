@@ -29,13 +29,13 @@ final listProductsData = [productData1, productData2];
 
 //-------------------------------------------------------------------------------//
 
-const categoryModel1 = CategoryModel(id: 1, name: 'Bebidas', icon: 0xff);
-const categoryModel2 = CategoryModel(id: 2, name: 'Comidas', icon: 0xff);
-const categoryModel3 = CategoryModel(id: 2, name: 'Outros', icon: 0xff);
+final categoryModel1 = CategoryModel(id: 1, name: 'Bebidas', icon: 0xff);
+final categoryModel2 = CategoryModel(id: 2, name: 'Comidas', icon: 0xff);
+final categoryModel3 = CategoryModel(id: 2, name: 'Outros', icon: 0xff);
 
-const listCategoriesModel = [categoryModel1, categoryModel2, categoryModel3];
+final listCategoriesModel = [categoryModel1, categoryModel2, categoryModel3];
 
-const productModel1 = ProductModel(
+final productModel1 = ProductModel(
   id: 1,
   name: 'Amstel 600',
   category: categoryModel1,
@@ -43,7 +43,7 @@ const productModel1 = ProductModel(
   price: 10,
 );
 
-const productModel2 = ProductModel(
+final productModel2 = ProductModel(
   id: 2,
   name: 'Petra 600',
   category: categoryModel2,

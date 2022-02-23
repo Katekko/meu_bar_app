@@ -10,6 +10,7 @@ import 'package:ekko/presentation/shared/loading/loading.interface.dart';
 import 'package:get/get.dart';
 
 import '../../../domain/core/abstractions/presentation/controllers/products/product_controller.interface.dart';
+import '../../shared/search/search.dart';
 
 class ProductController extends GetxController implements IProductController {
   final IProductRepository _productRepository;
@@ -63,7 +64,6 @@ class ProductController extends GetxController implements IProductController {
   IStreamField<Uint8List?> get imageBytesField => _imageBytesField;
 
   @override
-  // ignore: unnecessary_overrides
   void onInit() {
     super.onInit();
     if (_product != null) {
@@ -114,6 +114,10 @@ class ProductController extends GetxController implements IProductController {
     } finally {
       _loading.isLoading = false;
     }
+  }
+
+  bool filterCategories(CategoryModel item, String searchText) {
+    return item.desc.toLowerCase().contains(searchText.toLowerCase());
   }
 
   @override

@@ -3,6 +3,7 @@ import 'package:ekko/presentation/shared/view_controller.interface.dart';
 import 'package:flutter/material.dart';
 
 import '../../shared/text_field.widget.dart';
+import '../widgets/product/category.widget.dart';
 
 class ProductScreen extends ViewController<IProductController> {
   @override
@@ -32,6 +33,8 @@ class ProductScreen extends ViewController<IProductController> {
               field: controller.priceField,
               isCurrency: true,
             ),
+            const SizedBox(height: 20),
+            CategoryWidget(),
           ],
         ),
       ),

@@ -2,13 +2,13 @@ import 'package:ekko/domain/core/abstractions/domain/repositories/product_reposi
 import 'package:ekko/domain/product/models/product.model.dart';
 import 'package:ekko/domain/product/models/category.model.dart';
 
-const categoryModel1 = CategoryModel(id: 1, name: 'Bebidas', icon: 0xe6f1);
-const categoryModel2 = CategoryModel(id: 2, name: 'Comidas', icon: 0xe532);
-const categoryModel3 = CategoryModel(id: 3, name: 'Outros', icon: 0xe147);
+final categoryModel1 = CategoryModel(id: 1, name: 'Bebidas', icon: 0xe6f1);
+final categoryModel2 = CategoryModel(id: 2, name: 'Comidas', icon: 0xe532);
+final categoryModel3 = CategoryModel(id: 3, name: 'Outros', icon: 0xe147);
 
 final listCategoriesModel = [categoryModel1, categoryModel2, categoryModel3];
 
-const productModel1 = ProductModel(
+final productModel1 = ProductModel(
   id: 1,
   name: 'Amstel 600',
   category: categoryModel1,
@@ -16,7 +16,7 @@ const productModel1 = ProductModel(
   price: 10.56,
 );
 
-const productModel2 = ProductModel(
+final productModel2 = ProductModel(
   id: 2,
   name: 'Petra 600',
   category: categoryModel2,

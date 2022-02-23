@@ -22,6 +22,7 @@ dependencies:
   rxdart: ^0.26.0
   money2: ^3.1.2
   currency_text_input_formatter: ^2.1.5
+  uuid: ^3.0.6
 
 dev_dependencies:
   flutter_test:

@@ -79,7 +79,7 @@ void main() {
       when(() => iconField.value).thenReturn(icon);
       when(() => iconField.hasError).thenReturn(false);
 
-      const category = CategoryModel(id: 1, name: name, icon: icon);
+      final category = CategoryModel(id: 1, name: name, icon: icon);
 
       final controller = CategoryController(
         productRepository: productRepository,
