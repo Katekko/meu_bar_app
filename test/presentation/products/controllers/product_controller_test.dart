@@ -41,13 +41,14 @@ void main() {
 
     verify(nameField.dispose).called(1);
     verify(descriptionField.dispose).called(1);
-    verify(categoryField.dispose).called(1);
     verify(priceField.dispose).called(1);
+    verify(categoryField.dispose).called(1);
   });
 
   test('Ensure fields are the same as passed', () {
     expect(controller.nameField, nameField);
     expect(controller.descriptionField, descriptionField);
+    expect(controller.priceField, priceField);
     expect(controller.categoryField, categoryField);
   });
 
@@ -58,6 +59,9 @@ void main() {
 
       when(descriptionField.validate).thenReturn(true);
       when(() => descriptionField.hasError).thenReturn(false);
+
+      when(priceField.validate).thenReturn(true);
+      when(() => priceField.hasError).thenReturn(false);
 
       when(categoryField.validate).thenReturn(true);
       when(() => categoryField.hasError).thenReturn(false);
@@ -74,6 +78,9 @@ void main() {
       when(descriptionField.validate).thenReturn(true);
       when(() => descriptionField.hasError).thenReturn(false);
 
+      when(priceField.validate).thenReturn(true);
+      when(() => priceField.hasError).thenReturn(false);
+
       when(categoryField.validate).thenReturn(true);
       when(() => categoryField.hasError).thenReturn(false);
 
@@ -89,6 +96,27 @@ void main() {
       when(descriptionField.validate).thenReturn(false);
       when(() => descriptionField.hasError).thenReturn(true);
 
+      when(priceField.validate).thenReturn(true);
+      when(() => priceField.hasError).thenReturn(false);
+
+      when(categoryField.validate).thenReturn(true);
+      when(() => categoryField.hasError).thenReturn(false);
+
+      final response = controller.validateFields();
+
+      expect(response, false);
+    });
+
+    test('should return false when priceField hasError', () {
+      when(nameField.validate).thenReturn(true);
+      when(() => nameField.hasError).thenReturn(false);
+
+      when(descriptionField.validate).thenReturn(true);
+      when(() => descriptionField.hasError).thenReturn(false);
+
+      when(priceField.validate).thenReturn(false);
+      when(() => priceField.hasError).thenReturn(true);
+
       when(categoryField.validate).thenReturn(true);
       when(() => categoryField.hasError).thenReturn(false);
 
@@ -103,6 +131,9 @@ void main() {
 
       when(descriptionField.validate).thenReturn(true);
       when(() => descriptionField.hasError).thenReturn(false);
+
+      when(priceField.validate).thenReturn(true);
+      when(() => priceField.hasError).thenReturn(false);
 
       when(categoryField.validate).thenReturn(false);
       when(() => categoryField.hasError).thenReturn(true);

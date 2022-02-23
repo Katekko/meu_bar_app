@@ -71,10 +71,12 @@ class ProductController extends GetxController implements IProductController {
   bool validateFields() {
     _nameField.validate();
     _descriptionField.validate();
+    _priceField.validate();
     _categoryField.validate();
 
     return !_nameField.hasError &&
         !_descriptionField.hasError &&
+        !_priceField.hasError &&
         !_categoryField.hasError;
   }
 }
