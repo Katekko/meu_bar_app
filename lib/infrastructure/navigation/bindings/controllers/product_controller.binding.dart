@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:ekko/domain/core/abstractions/presentation/field.interface.dart';
 import 'package:ekko/domain/core/builders/field_validator.builder.dart';
 import 'package:ekko/domain/core/models/getx_field.model.dart';
@@ -30,15 +32,21 @@ IField<String> makeProductDescriptionField() {
   return GetxFieldModel();
 }
 
+IField<double> makeProductPriceField() {
+  return GetxFieldModel<double>(
+    validators: FieldValidatorBuilder<double>().required().build(),
+  );
+}
+
 RxFieldModel<CategoryModel> makeProductCategoryField() {
   return RxFieldModel<CategoryModel>(
     validators: FieldValidatorBuilder<CategoryModel>().required().build(),
   );
 }
 
-IField<double> makeProductPriceField() {
-  return GetxFieldModel<double>(
-    validators: FieldValidatorBuilder<double>().required().build(),
+RxFieldModel<Uint8List> makeProductImageBytesField() {
+  return RxFieldModel<Uint8List>(
+    validators: FieldValidatorBuilder<Uint8List>().build(),
   );
 }
 
@@ -49,5 +57,6 @@ IProductController makeProductController({required bool isEdit}) {
     descriptionField: makeProductDescriptionField(),
     categoryField: makeProductCategoryField(),
     priceField: makeProductPriceField(),
+    imageBytesField: makeProductImageBytesField(),
   );
 }

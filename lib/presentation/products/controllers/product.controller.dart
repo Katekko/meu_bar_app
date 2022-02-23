@@ -14,6 +14,7 @@ class ProductController extends GetxController implements IProductController {
   final IField<String> _descriptionField;
   final IField<double> _priceField;
   final IStreamField<CategoryModel?> _categoryField;
+  final IStreamField<Uint8List?> _imageBytesField;
 
   ProductController({
     required bool isEdit,
@@ -21,11 +22,13 @@ class ProductController extends GetxController implements IProductController {
     required IField<String> descriptionField,
     required IField<double> priceField,
     required IStreamField<CategoryModel?> categoryField,
+    required IStreamField<Uint8List?> imageBytesField,
   })  : _isEdit = isEdit,
         _nameField = nameField,
         _descriptionField = descriptionField,
         _priceField = priceField,
-        _categoryField = categoryField;
+        _categoryField = categoryField,
+        _imageBytesField = imageBytesField;
 
   @override
   bool get isEdit => _isEdit;
@@ -37,10 +40,13 @@ class ProductController extends GetxController implements IProductController {
   IField<String> get descriptionField => _descriptionField;
 
   @override
+  IField<double> get priceField => _priceField;
+
+  @override
   IStreamField<CategoryModel?> get categoryField => _categoryField;
 
   @override
-  IField<double> get priceField => _priceField;
+  IStreamField<Uint8List?> get imageBytesField => _imageBytesField;
 
   @override
   // ignore: unnecessary_overrides
@@ -52,14 +58,11 @@ class ProductController extends GetxController implements IProductController {
   void onClose() {
     _nameField.dispose();
     _descriptionField.dispose();
-    _categoryField.dispose();
     _priceField.dispose();
+    _categoryField.dispose();
+    _imageBytesField.dispose();
     super.onClose();
   }
-
-  @override
-  // TODO: implement imageBytesField
-  IStreamField<Uint8List?> get imageBytesField => throw UnimplementedError();
 
   @override
   Future<void> saveProduct({required void Function() backScreen}) {

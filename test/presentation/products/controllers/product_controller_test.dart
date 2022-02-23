@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:ekko/domain/core/abstractions/domain/repositories/product_repository.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/controllers/products/product_controller.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/field.interface.dart';
@@ -17,6 +19,7 @@ void main() {
   late final IField<String> descriptionField;
   late final IField<double> priceField;
   late final IStreamField<CategoryModel?> categoryField;
+  late final IStreamField<Uint8List?> imageBytesField;
 
   setUpAll(() {
     productRepository = ProductRepositoryMock();
@@ -24,6 +27,7 @@ void main() {
     descriptionField = FieldMock<String>();
     priceField = FieldMock<double>();
     categoryField = FieldStreamMock<CategoryModel?>();
+    imageBytesField = FieldStreamMock<Uint8List?>();
   });
 
   setUp(() {
@@ -33,6 +37,7 @@ void main() {
       descriptionField: descriptionField,
       categoryField: categoryField,
       priceField: priceField,
+      imageBytesField: imageBytesField,
     );
   });
 
@@ -43,6 +48,7 @@ void main() {
     verify(descriptionField.dispose).called(1);
     verify(priceField.dispose).called(1);
     verify(categoryField.dispose).called(1);
+    verify(imageBytesField.dispose).called(1);
   });
 
   test('Ensure fields are the same as passed', () {
