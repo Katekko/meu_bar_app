@@ -56,7 +56,7 @@ void main() {
       controller.nameField.value = name;
       final category = CategoryModel(
         id: -1,
-        name: controller.nameField.value,
+        name: controller.nameField.value!,
         icon: controller.iconField.value!,
       );
 
@@ -95,7 +95,7 @@ void main() {
 
       final categoryToSave = CategoryModel(
         id: 1,
-        name: controller.nameField.value,
+        name: controller.nameField.value!,
         icon: controller.iconField.value!,
       );
 

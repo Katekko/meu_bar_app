@@ -12,16 +12,19 @@ class ProductController extends GetxController implements IProductController {
   final bool _isEdit;
   final IField<String> _nameField;
   final IField<String> _descriptionField;
+  final IField<double> _priceField;
   final IStreamField<CategoryModel?> _categoryField;
 
   ProductController({
     required bool isEdit,
     required IField<String> nameField,
     required IField<String> descriptionField,
+    required IField<double> priceField,
     required IStreamField<CategoryModel?> categoryField,
   })  : _isEdit = isEdit,
         _nameField = nameField,
         _descriptionField = descriptionField,
+        _priceField = priceField,
         _categoryField = categoryField;
 
   @override
@@ -37,6 +40,9 @@ class ProductController extends GetxController implements IProductController {
   IStreamField<CategoryModel?> get categoryField => _categoryField;
 
   @override
+  IField<double> get priceField => _priceField;
+
+  @override
   // ignore: unnecessary_overrides
   void onInit() {
     super.onInit();
@@ -47,16 +53,13 @@ class ProductController extends GetxController implements IProductController {
     _nameField.dispose();
     _descriptionField.dispose();
     _categoryField.dispose();
+    _priceField.dispose();
     super.onClose();
   }
 
   @override
   // TODO: implement imageBytesField
   IStreamField<Uint8List?> get imageBytesField => throw UnimplementedError();
-
-  @override
-  // TODO: implement priceField
-  IField<double> get priceField => throw UnimplementedError();
 
   @override
   Future<void> saveProduct({required void Function() backScreen}) {

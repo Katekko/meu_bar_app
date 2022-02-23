@@ -2,22 +2,24 @@ import 'package:ekko/domain/core/abstractions/domain/validators/field_validator.
 import 'package:ekko/domain/core/abstractions/presentation/field.interface.dart';
 import 'package:get/get.dart';
 
-class GetxFieldModel extends IField<String> {
-  var _value = '';
+/// Passar apenas valores primitivos
+/// double, int, float, num, string
+class GetxFieldModel<T> extends IField<T> {
+  T? _value;
   final _error = Rxn<String>();
 
   GetxFieldModel({
-    String? value,
-    List<IFieldValidator<String>>? validators,
-  })  : _value = value ?? '',
+    T? value,
+    List<IFieldValidator<T>>? validators,
+  })  : _value = value,
         super(validators: validators ?? []);
 
   @override
-  String get value => _value;
+  T? get value => _value;
 
   @override
-  set value(String val) {
-    onChange(val);
+  set value(T? val) {
+    onChange(val?.toString() ?? '');
   }
 
   @override
@@ -28,9 +30,10 @@ class GetxFieldModel extends IField<String> {
 
   @override
   void onChange(String val) {
-    _value = val;
+    dynamic parse = num.tryParse(val);
+    _value = parse;
     validate();
-    onChangeCallback?.call(val);
+    onChangeCallback?.call(parse);
   }
 
   @override

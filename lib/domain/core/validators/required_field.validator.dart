@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 class RequiredFieldValidator<T> extends Equatable
     implements IFieldValidator<T> {
   @override
-  String? validate(T value) {
+  String? validate(T? value) {
     if (value == null) return ValidatorsTranslate.requiredField;
 
     if (value is String) {

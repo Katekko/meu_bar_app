@@ -7,7 +7,7 @@ import '../../../../mocks.dart';
 void main() {
   test('Should return the correct login field', () {
     final field = makeLoginField();
-    expect(field.value, '');
+    expect(field.value, null);
     expect(
       field.validators,
       FieldValidatorBuilder<String>().required().build(),
@@ -17,7 +17,7 @@ void main() {
 
   test('Should return the correct password field', () {
     final field = makePasswordField();
-    expect(field.value, '');
+    expect(field.value, null);
     expect(
       field.validators,
       FieldValidatorBuilder<String>().required().password().build(),

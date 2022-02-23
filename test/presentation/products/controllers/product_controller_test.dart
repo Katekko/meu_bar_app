@@ -15,12 +15,14 @@ void main() {
   late final IProductRepository productRepository;
   late final IField<String> nameField;
   late final IField<String> descriptionField;
+  late final IField<double> priceField;
   late final IStreamField<CategoryModel?> categoryField;
 
   setUpAll(() {
     productRepository = ProductRepositoryMock();
     nameField = FieldMock<String>();
     descriptionField = FieldMock<String>();
+    priceField = FieldMock<double>();
     categoryField = FieldStreamMock<CategoryModel?>();
   });
 
@@ -30,6 +32,7 @@ void main() {
       nameField: nameField,
       descriptionField: descriptionField,
       categoryField: categoryField,
+      priceField: priceField,
     );
   });
 
@@ -39,6 +42,7 @@ void main() {
     verify(nameField.dispose).called(1);
     verify(descriptionField.dispose).called(1);
     verify(categoryField.dispose).called(1);
+    verify(priceField.dispose).called(1);
   });
 
   test('Ensure fields are the same as passed', () {

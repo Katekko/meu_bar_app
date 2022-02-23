@@ -20,7 +20,7 @@ void main() {
 
   test('Should return correct name field', () {
     final field = makeCategoryNameField();
-    expect(field.value, '');
+    expect(field.value, null);
     expect(
       field.validators,
       FieldValidatorBuilder<String>().required().build(),

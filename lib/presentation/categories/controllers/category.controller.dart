@@ -62,7 +62,7 @@ class CategoryController extends GetxController implements ICategoryController {
       if (validateFields()) {
         final category = CategoryModel(
           id: isEdit ? _category!.id : -1,
-          name: _nameField.value,
+          name: _nameField.value!,
           icon: _iconField.value!,
         );
 

@@ -8,7 +8,7 @@ class CompareFieldValidator<T> extends Equatable implements IFieldValidator<T> {
   const CompareFieldValidator(this.fieldToCompare);
 
   @override
-  String? validate(T value) {
+  String? validate(T? value) {
     if (value is String) {
       return value == fieldToCompare.value
           ? null

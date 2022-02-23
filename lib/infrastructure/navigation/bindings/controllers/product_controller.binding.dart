@@ -31,7 +31,15 @@ IField<String> makeProductDescriptionField() {
 }
 
 RxFieldModel<CategoryModel> makeProductCategoryField() {
-  return RxFieldModel<CategoryModel>();
+  return RxFieldModel<CategoryModel>(
+    validators: FieldValidatorBuilder<CategoryModel>().required().build(),
+  );
+}
+
+IField<double> makeProductPriceField() {
+  return GetxFieldModel<double>(
+    validators: FieldValidatorBuilder<double>().required().build(),
+  );
 }
 
 IProductController makeProductController({required bool isEdit}) {
@@ -40,5 +48,6 @@ IProductController makeProductController({required bool isEdit}) {
     nameField: makeProductNameField(),
     descriptionField: makeProductDescriptionField(),
     categoryField: makeProductCategoryField(),
+    priceField: makeProductPriceField(),
   );
 }

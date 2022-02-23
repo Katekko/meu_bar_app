@@ -15,7 +15,7 @@ abstract class IValidator<T> {
   /// Função utilizada para validar um valor e retornar um erro em forma de string
   ///
   /// Quando não existe erro, é retornado null
-  String? validateValue(T value) {
+  String? validateValue(T? value) {
     for (final validator in validators) {
       final error = validator.validate(value);
       if (error != null) {

@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 
 class EmailValidator<T> extends Equatable implements IFieldValidator<T> {
   @override
-  String? validate(T value) {
+  String? validate(T? value) {
     if (value is String) {
       String? error;
 
