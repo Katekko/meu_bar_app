@@ -89,7 +89,7 @@ class _TextFieldWidget<T extends ISearchable>
         onChanged: controller.setTextTextFormField,
         onFieldSubmitted: controller.searchText,
         textInputAction: TextInputAction.search,
-        style: Theme.of(context).textTheme.headline4!.copyWith(
+        style: Theme.of(context).textTheme.bodyText1!.copyWith(
               color: Colors.black45,
               fontWeight: FontWeight.w600,
             ),
@@ -101,7 +101,6 @@ class _TextFieldWidget<T extends ISearchable>
           hintText: 'Pesquise aqui',
           suffixIcon: const Icon(Icons.search, color: Colors.black45),
           filled: true,
-          fillColor: Colors.black12,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide.none,
