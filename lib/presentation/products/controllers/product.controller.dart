@@ -8,6 +8,7 @@ import 'package:ekko/domain/product/models/category.model.dart';
 import 'package:ekko/domain/product/models/product.model.dart';
 import 'package:ekko/presentation/shared/loading/loading.interface.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../domain/core/abstractions/presentation/controllers/products/product_controller.interface.dart';
 
@@ -127,6 +128,18 @@ class ProductController extends GetxController implements IProductController {
     try {
       final response = await _productRepository.getCategories(filter: term);
       return response;
+    } catch (err) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> pickImage() async {
+    try {
+      final picker = ImagePicker();
+      final photo = await picker.pickImage(source: ImageSource.camera);
+      final bytes = await photo?.readAsBytes();
+      imageBytesField.value = bytes;
     } catch (err) {
       rethrow;
     }

@@ -25,5 +25,7 @@ abstract class IProductController {
 
   Future<List<CategoryModel>> loadCategories(String term);
 
+  Future<void> pickImage();
+
   bool validateFields();
 }
