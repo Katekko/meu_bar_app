@@ -5,6 +5,7 @@ import 'package:ekko/domain/core/builders/field_validator.builder.dart';
 import 'package:ekko/domain/core/models/getx_field.model.dart';
 import 'package:ekko/domain/core/models/rx_field.model.dart';
 import 'package:ekko/domain/product/models/category.model.dart';
+import 'package:ekko/domain/product/models/product.model.dart';
 import 'package:ekko/infrastructure/navigation/bindings/domains/product.repository.binding.dart';
 import 'package:get/get.dart';
 
@@ -54,6 +55,13 @@ RxFieldModel<Uint8List> makeProductImageBytesField() {
 }
 
 IProductController makeProductController({required bool isEdit}) {
+  final arguments = Get.arguments as Map<String, dynamic>?;
+
+  ProductModel? product;
+  if (arguments != null) {
+    product = arguments['product'];
+  }
+
   return ProductController(
     productRepository: ProductRepositoryBinding().repository,
     loading: Inject.find<ILoadingController>(),
@@ -63,5 +71,6 @@ IProductController makeProductController({required bool isEdit}) {
     categoryField: makeProductCategoryField(),
     priceField: makeProductPriceField(),
     imageBytesField: makeProductImageBytesField(),
+    product: product,
   );
 }

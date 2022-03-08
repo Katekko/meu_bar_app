@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:ekko/domain/product/models/category.model.dart';
 import 'package:ekko/infrastructure/dal/services/data/product.data.dart';
 import 'package:equatable/equatable.dart';
@@ -10,12 +12,14 @@ class ProductModel extends Equatable {
   final CategoryModel category;
 
   final String? urlImage;
+  final Uint8List? imageBytes;
 
   const ProductModel({
     required this.id,
     required this.name,
     required this.price,
     required this.category,
+    this.imageBytes,
     this.urlImage,
     this.description,
   });
