@@ -72,10 +72,6 @@ class ProductController extends GetxController implements IProductController {
   @override
   void onInit() {
     super.onInit();
-    assert(
-      _isEdit && _product != null,
-      'Necessário passar o produto para entrar em modo de edição',
-    );
     if (_product != null) {
       _nameField.value = _product!.name;
       _descriptionField.value = _product!.description;

@@ -56,12 +56,39 @@ void main() {
     );
   });
 
-  test('Ensure fields are the same as passed', () {
-    expect(controller.nameField, nameField);
-    expect(controller.descriptionField, descriptionField);
-    expect(controller.priceField, priceField);
-    expect(controller.categoryField, categoryField);
-    expect(controller.imageBytesField, imageBytesField);
+  group('On Init', () {
+    test('should initiate fields when a category is passed', () {
+      final controller = ProductController(
+        productRepository: productRepository,
+        imagePicker: imagePicker,
+        loading: loading,
+        isEdit: true,
+        nameField: nameField,
+        categoryField: categoryField,
+        descriptionField: descriptionField,
+        imageBytesField: imageBytesField,
+        priceField: priceField,
+        product: productModel2,
+      );
+
+      controller.onInit();
+
+      expect(controller.nameField.value, productModel2.name);
+      expect(controller.descriptionField.value, productModel2.description);
+      expect(controller.priceField.value, productModel2.price);
+      expect(controller.categoryField.value, productModel2.category);
+      expect(controller.imageBytesField.value, productModel2.imageBytes);
+    });
+
+    test('should never initiate fields when a category is not passed', () {
+      controller.onInit();
+
+      expect(controller.nameField.value, null);
+      expect(controller.descriptionField.value, null);
+      expect(controller.priceField.value, null);
+      expect(controller.categoryField.value, null);
+      expect(controller.imageBytesField.value, null);
+    });
   });
 
   group('Validate Fields', () {
