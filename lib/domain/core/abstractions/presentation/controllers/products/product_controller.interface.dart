@@ -12,6 +12,7 @@ abstract class IProductController {
   IField<String> get descriptionField;
   IField<double> get priceField;
   IStreamField<Uint8List?> get imageBytesField;
+  String? get urlImage;
   IStreamField<CategoryModel?> get categoryField;
 
   FutureOr onInit();

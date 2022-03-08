@@ -63,6 +63,9 @@ class ProductController extends GetxController implements IProductController {
   IStreamField<Uint8List?> get imageBytesField => _imageBytesField;
 
   @override
+  String? get urlImage => _product?.urlImage;
+
+  @override
   void onInit() {
     super.onInit();
     assert(
