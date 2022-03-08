@@ -4,6 +4,7 @@ import 'package:ekko/domain/core/abstractions/presentation/field.interface.dart'
 import 'package:ekko/domain/core/abstractions/presentation/stream_field.interface.dart';
 import 'package:ekko/domain/product/models/category.model.dart';
 import 'package:ekko/domain/product/product_mock.repository.dart';
+import 'package:ekko/infrastructure/navigation/bindings/controllers/category_controller.binding.dart';
 import 'package:ekko/presentation/categories/controllers/category.controller.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
@@ -18,8 +19,8 @@ void main() {
 
   setUpAll(() {
     productRepository = ProductRepositoryMock();
-    nameField = FieldMock<String>();
-    iconField = FieldStreamMock<int?>();
+    nameField = makeCategoryNameField();
+    iconField = makeCategoryIconField();
   });
 
   setUp(() {
@@ -34,8 +35,6 @@ void main() {
 
   test('pickAnIcon should pick correct icon', () {
     const value = 1;
-    when(() => iconField.onChange(value)).thenReturn(null);
-    when(() => iconField.value).thenReturn(value);
     controller.iconField.value = value;
     expect(controller.iconField.value, value);
   });
@@ -44,13 +43,6 @@ void main() {
     test('should create a category with success', () async {
       const name = 'katekko';
       const icon = 1;
-      when(() => nameField.validate()).thenReturn(true);
-      when(() => nameField.value).thenReturn(name);
-      when(() => nameField.hasError).thenReturn(false);
-
-      when(() => iconField.validate()).thenReturn(true);
-      when(() => iconField.value).thenReturn(icon);
-      when(() => iconField.hasError).thenReturn(false);
 
       controller.iconField.value = icon;
       controller.nameField.value = name;
@@ -71,13 +63,6 @@ void main() {
     test('should update a category with success', () async {
       const name = 'katekko';
       const icon = 1;
-      when(() => nameField.validate()).thenReturn(true);
-      when(() => nameField.value).thenReturn(name);
-      when(() => nameField.hasError).thenReturn(false);
-
-      when(() => iconField.validate()).thenReturn(true);
-      when(() => iconField.value).thenReturn(icon);
-      when(() => iconField.hasError).thenReturn(false);
 
       final category = CategoryModel(id: 1, name: name, icon: icon);
 
@@ -148,41 +133,36 @@ void main() {
     });
   });
 
-  test('onInit should initiate fields when a category is passed', () {
-    controller = CategoryController(
-      productRepository: productRepository,
-      loading: LoadingControllerMock(),
-      isEdit: false,
-      nameField: nameField,
-      iconField: iconField,
-      category: categoryModel1,
-    );
+  group('On Init', () {
+    test('should initiate fields when a category is passed', () {
+      controller = CategoryController(
+        productRepository: productRepository,
+        loading: LoadingControllerMock(),
+        isEdit: false,
+        nameField: nameField,
+        iconField: iconField,
+        category: categoryModel1,
+      );
 
-    controller.onInit();
+      controller.onInit();
 
-    verify(() => nameField.value = categoryModel1.name);
-    verify(() => iconField.value = categoryModel1.icon);
-  });
+      expect(nameField.value, categoryModel1.name);
+      expect(iconField.value, categoryModel1.icon);
+    });
 
-  test('onInit should never initiate fields when a category is not passed', () {
-    controller = CategoryController(
-      productRepository: productRepository,
-      loading: LoadingControllerMock(),
-      isEdit: false,
-      nameField: nameField,
-      iconField: iconField,
-    );
+    test('should never initiate fields when a category is not passed', () {
+      controller = CategoryController(
+        productRepository: productRepository,
+        loading: LoadingControllerMock(),
+        isEdit: false,
+        nameField: nameField,
+        iconField: iconField,
+      );
 
-    controller.onInit();
+      controller.onInit();
 
-    verifyNever(() => nameField.value = categoryModel1.name);
-    verifyNever(() => iconField.value = categoryModel1.icon);
-  });
-
-  test('onClose should call all field disposes', () {
-    controller.onClose();
-
-    verify(nameField.dispose);
-    verify(iconField.dispose);
+      expect(nameField.value, null);
+      expect(iconField.value, null);
+    });
   });
 }
