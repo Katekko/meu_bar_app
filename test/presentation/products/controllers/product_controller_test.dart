@@ -228,7 +228,6 @@ void main() {
         description: controller.descriptionField.value,
         category: controller.categoryField.value!,
         price: controller.priceField.value!,
-        urlImage: '',
       );
 
       when(() => productRepository.registerProduct(product))
@@ -282,7 +281,6 @@ void main() {
         category: controller.categoryField.value!,
         price: controller.priceField.value!,
         description: controller.descriptionField.value,
-        urlImage: '',
       );
 
       when(() => productRepository.updateProduct(productToSave))
