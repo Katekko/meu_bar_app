@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:ekko/domain/core/abstractions/presentation/field.interface.dart';
+import 'package:ekko/domain/core/abstractions/presentation/image_picker.interface.dart';
 import 'package:ekko/domain/core/builders/field_validator.builder.dart';
 import 'package:ekko/domain/core/models/getx_field.model.dart';
 import 'package:ekko/domain/core/models/rx_field.model.dart';
@@ -62,8 +63,11 @@ IProductController makeProductController({required bool isEdit}) {
     product = arguments['product'];
   }
 
+  final imagePicker = Inject.find<IImagePicker>();
+
   return ProductController(
     productRepository: ProductRepositoryBinding().repository,
+    imagePicker: imagePicker,
     loading: Inject.find<ILoadingController>(),
     isEdit: isEdit,
     nameField: makeProductNameField(),

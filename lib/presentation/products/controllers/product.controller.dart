@@ -3,17 +3,18 @@ import 'dart:typed_data';
 
 import 'package:ekko/domain/core/abstractions/domain/repositories/product_repository.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/field.interface.dart';
+import 'package:ekko/domain/core/abstractions/presentation/image_picker.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/stream_field.interface.dart';
 import 'package:ekko/domain/product/models/category.model.dart';
 import 'package:ekko/domain/product/models/product.model.dart';
 import 'package:ekko/presentation/shared/loading/loading.interface.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 
 import '../../../domain/core/abstractions/presentation/controllers/products/product_controller.interface.dart';
 
 class ProductController extends GetxController implements IProductController {
   final IProductRepository _productRepository;
+  final IImagePicker _imagePicker;
   final ILoadingController _loading;
 
   final bool _isEdit;
@@ -27,6 +28,7 @@ class ProductController extends GetxController implements IProductController {
 
   ProductController({
     required IProductRepository productRepository,
+    required IImagePicker imagePicker,
     required ILoadingController loading,
     required bool isEdit,
     required IField<String> nameField,
@@ -36,6 +38,7 @@ class ProductController extends GetxController implements IProductController {
     required IStreamField<Uint8List?> imageBytesField,
     ProductModel? product,
   })  : _productRepository = productRepository,
+        _imagePicker = imagePicker,
         _loading = loading,
         _isEdit = isEdit,
         _nameField = nameField,
@@ -136,9 +139,7 @@ class ProductController extends GetxController implements IProductController {
   @override
   Future<void> pickImage() async {
     try {
-      final picker = ImagePicker();
-      final photo = await picker.pickImage(source: ImageSource.camera);
-      final bytes = await photo?.readAsBytes();
+      final bytes = await _imagePicker.pickCameraImage();
       imageBytesField.value = bytes;
     } catch (err) {
       rethrow;

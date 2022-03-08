@@ -6,6 +6,7 @@ import 'package:ekko/domain/core/abstractions/infrastructure/services/categories
 import 'package:ekko/domain/core/abstractions/infrastructure/services/products_service.interface.dart';
 import 'package:ekko/domain/core/abstractions/infrastructure/storage.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/field.interface.dart';
+import 'package:ekko/domain/core/abstractions/presentation/image_picker.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/stream_field.interface.dart';
 import 'package:ekko/domain/product/models/category.model.dart';
 import 'package:ekko/presentation/shared/loading/loading.interface.dart';
@@ -21,6 +22,8 @@ class ProductsServiceMock extends Mock implements IProductsService {}
 class CategoriesServiceMock extends Mock implements ICategoriesService {}
 
 class ProductRepositoryMock extends Mock implements IProductRepository {}
+
+class ImagePickerMock extends Mock implements IImagePicker {}
 
 class LoadingControllerMock extends Mock implements ILoadingController {}
 

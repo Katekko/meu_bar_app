@@ -1,3 +1,5 @@
+import 'package:ekko/domain/core/abstractions/presentation/image_picker.interface.dart';
+import 'package:ekko/domain/core/models/image_picker.model.dart';
 import 'package:ekko/domain/core/utils/snackbar.util.dart';
 import 'package:ekko/infrastructure/dal/getx_connect.dart';
 import 'package:ekko/infrastructure/dal/inject.dart';
@@ -27,6 +29,7 @@ class Initializer {
       _initConnect();
       _initGlobalLoading();
       _initScreenPreference();
+      _initImagePicker();
     } catch (err) {
       rethrow;
     }
@@ -89,5 +92,9 @@ class Initializer {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+  }
+
+  static void _initImagePicker() {
+    Inject.put<IImagePicker>(() => ImagePickerModel());
   }
 }
