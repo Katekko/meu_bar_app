@@ -6,6 +6,7 @@ import 'package:ekko/domain/product/models/category.model.dart';
 import 'package:ekko/domain/product/product_mock.repository.dart';
 import 'package:ekko/infrastructure/navigation/bindings/controllers/category_controller.binding.dart';
 import 'package:ekko/presentation/categories/controllers/category.controller.dart';
+import 'package:faker/faker.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
@@ -14,16 +15,17 @@ import '../../../mocks.dart';
 void main() {
   late ICategoryController controller;
   late final IProductRepository productRepository;
-  late final IField<String> nameField;
-  late final IStreamField<int?> iconField;
+  late IField<String> nameField;
+  late IStreamField<int?> iconField;
 
   setUpAll(() {
     productRepository = ProductRepositoryMock();
-    nameField = makeCategoryNameField();
-    iconField = makeCategoryIconField();
   });
 
   setUp(() {
+    nameField = makeCategoryNameField();
+    iconField = makeCategoryIconField();
+
     controller = CategoryController(
       productRepository: productRepository,
       loading: LoadingControllerMock(),
@@ -95,13 +97,9 @@ void main() {
 
   group('Validate Fields', () {
     test('should return true', () {
-      when(nameField.validate).thenReturn(true);
-      when(() => nameField.hasError).thenReturn(false);
-
-      when(iconField.validate).thenReturn(true);
-      when(() => iconField.hasError).thenReturn(false);
-
-      controller.iconField.value = 1;
+      final faker = Faker();
+      controller.nameField.value = faker.job.random.string(5);
+      controller.iconField.value = faker.randomGenerator.integer(5);
 
       final response = controller.validateFields();
 
@@ -109,11 +107,8 @@ void main() {
     });
 
     test('should return false when icon is null', () {
-      when(nameField.validate).thenReturn(true);
-      when(() => nameField.hasError).thenReturn(false);
-
-      when(iconField.validate).thenReturn(false);
-      when(() => iconField.hasError).thenReturn(true);
+      controller.nameField.value = 'Category';
+      controller.iconField.value = null;
 
       final response = controller.validateFields();
 
@@ -121,11 +116,8 @@ void main() {
     });
 
     test('should return false when nameField is invalid', () {
-      when(nameField.validate).thenReturn(false);
-      when(() => nameField.hasError).thenReturn(true);
-
-      when(iconField.validate).thenReturn(true);
-      when(() => iconField.hasError).thenReturn(false);
+      controller.nameField.value = null;
+      controller.iconField.value = 32;
 
       final response = controller.validateFields();
 
@@ -135,7 +127,7 @@ void main() {
 
   group('On Init', () {
     test('should initiate fields when a category is passed', () {
-      controller = CategoryController(
+      final controller = CategoryController(
         productRepository: productRepository,
         loading: LoadingControllerMock(),
         isEdit: false,
@@ -151,7 +143,7 @@ void main() {
     });
 
     test('should never initiate fields when a category is not passed', () {
-      controller = CategoryController(
+      final controller = CategoryController(
         productRepository: productRepository,
         loading: LoadingControllerMock(),
         isEdit: false,

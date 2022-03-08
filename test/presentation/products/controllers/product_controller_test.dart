@@ -24,25 +24,25 @@ void main() {
   late final IImagePicker imagePicker;
   late final ILoadingController loading;
 
-  late final IField<String> nameField;
-  late final IField<String> descriptionField;
-  late final IField<double> priceField;
-  late final IStreamField<CategoryModel?> categoryField;
-  late final IStreamField<Uint8List?> imageBytesField;
+  late IField<String> nameField;
+  late IField<String> descriptionField;
+  late IField<double> priceField;
+  late IStreamField<CategoryModel?> categoryField;
+  late IStreamField<Uint8List?> imageBytesField;
 
   setUpAll(() {
     productRepository = ProductRepositoryMock();
     imagePicker = ImagePickerMock();
     loading = LoadingControllerMock();
+  });
 
+  setUp(() {
     nameField = makeProductNameField();
     descriptionField = makeProductDescriptionField();
     priceField = makeProductPriceField();
     categoryField = makeProductCategoryField();
     imageBytesField = makeProductImageBytesField();
-  });
 
-  setUp(() {
     controller = ProductController(
       productRepository: productRepository,
       imagePicker: imagePicker,
@@ -57,7 +57,7 @@ void main() {
   });
 
   group('On Init', () {
-    test('should initiate fields when a category is passed', () {
+    test('should initiate fields when a product is passed', () {
       final controller = ProductController(
         productRepository: productRepository,
         imagePicker: imagePicker,
@@ -80,7 +80,19 @@ void main() {
       expect(controller.imageBytesField.value, productModel2.imageBytes);
     });
 
-    test('should never initiate fields when a category is not passed', () {
+    test('should never initiate fields when a product is not passed', () {
+      final controller = ProductController(
+        productRepository: productRepository,
+        imagePicker: imagePicker,
+        loading: loading,
+        isEdit: false,
+        nameField: nameField,
+        categoryField: categoryField,
+        descriptionField: descriptionField,
+        imageBytesField: imageBytesField,
+        priceField: priceField,
+      );
+
       controller.onInit();
 
       expect(controller.nameField.value, null);
