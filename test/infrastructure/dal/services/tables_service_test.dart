@@ -1,5 +1,6 @@
 import 'package:ekko/domain/core/abstractions/infrastructure/http_connect.interface.dart';
 import 'package:ekko/domain/core/abstractions/infrastructure/services/table_service.interface.dart';
+import 'package:ekko/domain/core/exceptions/default.exception.dart';
 import 'package:ekko/infrastructure/dal/services/tables/tables.service.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
@@ -33,6 +34,30 @@ void main() {
 
         // assert
         expect(response, getTablesWithSuccessResponse.payload!.data);
+      },
+    );
+
+    test(
+      'Should throw default exception when erorr',
+      () async {
+        when(() => connect.get(urlBase, decoder: any(named: 'decoder')))
+            .thenAnswer(
+          (_) async => getTablesWithDefaultExceptionResponse,
+        );
+
+        final future = tablesService.getTables();
+
+        expect(
+          future,
+          throwsA(
+            equals(
+              DefaultException(
+                message: getTablesWithDefaultExceptionResponse
+                    .payload!.errors!.first.desc,
+              ),
+            ),
+          ),
+        );
       },
     );
   });

@@ -1,5 +1,6 @@
 import '../../../../domain/core/abstractions/infrastructure/http_connect.interface.dart';
 import '../../../../domain/core/abstractions/infrastructure/services/table_service.interface.dart';
+import '../../../../domain/core/exceptions/default.exception.dart';
 import '../data/table.data.dart';
 import 'dto/get_tables.response.dart';
 
@@ -11,15 +12,15 @@ class TablesService implements ITablesService {
 
   @override
   Future<List<TableData>> getTables() async {
-    try {
-      final response = await _connect.get(
-        urlBase,
-        decoder: GetTablesResponse.fromJson,
-      );
+    final response = await _connect.get(
+      urlBase,
+      decoder: GetTablesResponse.fromJson,
+    );
 
+    if (response.success) {
       return response.payload!.data!;
-    } catch (err) {
-      rethrow;
+    } else {
+      throw DefaultException(message: response.payload!.errors!.first.desc);
     }
   }
 }
