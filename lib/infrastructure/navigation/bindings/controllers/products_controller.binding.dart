@@ -11,7 +11,7 @@ class ProductsControllerBinding extends Bindings {
   @override
   void dependencies() {
     final productBinding = ProductRepositoryBinding();
-    Inject.put<IProductsController>(
+    Inject.lazyPut<IProductsController>(
       () => makeProductsController(
         productRepository: productBinding.repository,
         loading: Inject.find<ILoadingController>(),

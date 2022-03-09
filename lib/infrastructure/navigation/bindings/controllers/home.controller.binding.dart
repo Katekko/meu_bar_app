@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 class HomeControllerBinding extends Bindings {
   @override
   void dependencies() {
-    Inject.put<IHomeController>(
+    Inject.lazyPut<IHomeController>(
       () => makeHomeController(),
     );
   }

@@ -105,6 +105,8 @@ class ProductController extends GetxController implements IProductController {
           price: _priceField.value!,
           category: _categoryField.value!,
           description: _descriptionField.value,
+          urlImage: urlImage,
+          imageBytes: imageBytesField.value,
         );
 
         if (_isEdit) {

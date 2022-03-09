@@ -10,7 +10,7 @@ class CategoriesControllerBinding extends Bindings {
   @override
   void dependencies() {
     final productBinding = ProductRepositoryBinding();
-    Inject.put<ICategoriesController>(
+    Inject.lazyPut<ICategoriesController>(
       () => makeCategoriesController(
         productRepository: productBinding.repository,
         loading: Inject.find<ILoadingController>(),

@@ -11,8 +11,8 @@ import '../../../../mocks.dart';
 
 void main() {
   setUpAll(() {
-    Inject.put<ILoadingController>(() => LoadingControllerMock());
-    Inject.put<IImagePicker>(() => ImagePickerModel());
+    Inject.lazyPut<ILoadingController>(() => LoadingControllerMock());
+    Inject.lazyPut<IImagePicker>(() => ImagePickerModel());
   });
 
   test('Should return the correct controller', () {

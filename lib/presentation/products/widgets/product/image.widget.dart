@@ -22,10 +22,13 @@ class ImageWidget extends ViewController<IProductController> {
                 return Image.memory(snap.data!);
               } else {
                 return urlImage != null
-                    ? Image.network(
-                        urlImage!,
-                        width: MediaQuery.of(context).size.width,
-                        fit: BoxFit.fitWidth,
+                    ? Hero(
+                        tag: urlImage!,
+                        child: Image.network(
+                          urlImage!,
+                          width: MediaQuery.of(context).size.width,
+                          fit: BoxFit.fitWidth,
+                        ),
                       )
                     : const Align(
                         alignment: Alignment.topCenter,

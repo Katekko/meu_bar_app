@@ -23,7 +23,7 @@ void main() {
 
     authRepository = AuthRepository(authService: authService, storage: storage);
 
-    Inject.put<IStorage>(() => storage);
+    Inject.lazyPut<IStorage>(() => storage);
   });
 
   test('Authenticate user with success', () async {

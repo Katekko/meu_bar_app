@@ -200,6 +200,8 @@ void main() {
         category: productModel2.category,
         price: controller.priceField.value!,
         description: productModel2.description,
+        imageBytes: productModel2.imageBytes,
+        urlImage: productModel2.urlImage,
       );
 
       when(() => productRepository.updateProduct(productToSave))

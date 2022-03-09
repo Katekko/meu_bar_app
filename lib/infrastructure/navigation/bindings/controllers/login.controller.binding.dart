@@ -15,7 +15,7 @@ class LoginControllerBinding extends Bindings {
     final authBinding = AuthRepositoryBinding();
     final loading = Inject.find<ILoadingController>();
 
-    Inject.put<ILoginController>(
+    Inject.lazyPut<ILoginController>(
       () => makeLoginController(
         authRepository: authBinding.repository,
         loading: loading,

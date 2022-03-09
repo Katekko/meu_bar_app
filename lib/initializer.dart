@@ -95,6 +95,6 @@ class Initializer {
   }
 
   static void _initImagePicker() {
-    Inject.put<IImagePicker>(() => ImagePickerModel());
+    Inject.putForEver<IImagePicker>(ImagePickerModel());
   }
 }
