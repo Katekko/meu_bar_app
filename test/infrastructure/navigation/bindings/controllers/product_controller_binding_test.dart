@@ -1,4 +1,3 @@
-import 'package:ekko/domain/core/abstractions/infrastructure/http_connect.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/image_picker.interface.dart';
 import 'package:ekko/domain/core/models/image_picker.model.dart';
 import 'package:ekko/domain/core/validators/required_field.validator.dart';
@@ -12,7 +11,6 @@ import '../../../../mocks.dart';
 
 void main() {
   setUpAll(() {
-    Inject.lazyPut<IHttpConnect>(() => ConnectMock());
     Inject.lazyPut<ILoadingController>(() => LoadingControllerMock());
     Inject.lazyPut<IImagePicker>(() => ImagePickerModel());
   });
