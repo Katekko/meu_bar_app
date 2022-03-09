@@ -2,12 +2,12 @@ import 'package:ekko/domain/core/abstractions/infrastructure/http_connect.interf
 import 'package:ekko/domain/core/abstractions/infrastructure/services/categories_service.interface.dart';
 import 'package:ekko/domain/core/exceptions/default.exception.dart';
 import 'package:ekko/domain/core/exceptions/nonexistent.exception.dart';
+import 'package:ekko/domain/table/models/category.mock.dart';
 import 'package:ekko/infrastructure/dal/services/categories/categories.service.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 import '../../../mocks.dart';
-import '../../../products.mocks.dart';
 import 'mocks/categories/get_categories.mock.dart';
 import 'mocks/categories/get_category_by_id.mock.dart';
 import 'mocks/error_response.mock.dart';

@@ -1,11 +1,11 @@
 import 'package:ekko/domain/core/abstractions/domain/repositories/category_repository.interface.dart';
 import 'package:ekko/domain/core/abstractions/infrastructure/services/categories_service.interface.dart';
 import 'package:ekko/domain/table/category.repository.dart';
+import 'package:ekko/domain/table/models/category.mock.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 import '../../mocks.dart';
-import '../../products.mocks.dart';
 
 void main() {
   late final ICategoryRepository categoryRepository;

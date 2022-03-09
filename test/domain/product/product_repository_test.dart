@@ -1,11 +1,12 @@
 import 'package:ekko/domain/core/abstractions/domain/repositories/product_repository.interface.dart';
 import 'package:ekko/domain/core/abstractions/infrastructure/services/products_service.interface.dart';
+import 'package:ekko/domain/table/models/category.mock.dart';
+import 'package:ekko/domain/table/models/product.mock.dart';
 import 'package:ekko/domain/table/product.repository.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 import '../../mocks.dart';
-import '../../products.mocks.dart';
 
 void main() {
   late final IProductRepository productRepository;

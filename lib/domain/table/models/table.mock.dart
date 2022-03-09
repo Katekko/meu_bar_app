@@ -1,6 +1,6 @@
 import 'package:ekko/infrastructure/dal/services/data/table.data.dart';
 
-import 'products.mocks.dart';
+import 'product.mock.dart';
 
 final tablesData1 = TableData(
   id: 1,

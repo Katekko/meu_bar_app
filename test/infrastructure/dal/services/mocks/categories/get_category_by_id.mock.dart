@@ -1,9 +1,8 @@
 import 'package:ekko/domain/core/abstractions/infrastructure/response.model.dart';
 import 'package:ekko/domain/core/constants/errors.constants.dart';
+import 'package:ekko/domain/table/models/category.mock.dart';
 import 'package:ekko/infrastructure/dal/services/categories/dto/category.response.dart';
 import 'package:ekko/infrastructure/dal/services/data/error.data.dart';
-
-import '../../../../../products.mocks.dart';
 
 const getCategoryByIdWithSuccessResponse = Response(
   statusCode: 200,

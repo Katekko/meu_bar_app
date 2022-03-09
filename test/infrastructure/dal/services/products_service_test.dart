@@ -2,6 +2,7 @@ import 'package:ekko/domain/core/abstractions/infrastructure/http_connect.interf
 import 'package:ekko/domain/core/abstractions/infrastructure/services/products_service.interface.dart';
 import 'package:ekko/domain/core/exceptions/default.exception.dart';
 import 'package:ekko/domain/core/exceptions/nonexistent.exception.dart';
+import 'package:ekko/domain/table/models/product.mock.dart';
 import 'package:ekko/infrastructure/dal/services/data/category.data.dart';
 import 'package:ekko/infrastructure/dal/services/data/product.data.dart';
 import 'package:ekko/infrastructure/dal/services/products/products.service.dart';
@@ -9,7 +10,6 @@ import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 import '../../../mocks.dart';
-import '../../../products.mocks.dart';
 import 'mocks/products_service/create_product.mock.dart';
 import 'mocks/products_service/delete_product.mock.dart';
 import 'mocks/products_service/get_product_by_id.mock.dart';
