@@ -1,4 +1,5 @@
-import 'infrastructure/dal/services/tables_service_test.dart';
+import 'package:ekko/infrastructure/dal/services/data/table.data.dart';
+
 import 'products.mocks.dart';
 
 final tablesData1 = TableData(
@@ -13,6 +14,6 @@ final tablesData2 = TableData(
   products: listProductsData,
 );
 
-final tablesData3 = TableData(id: 3, name: 'Table 3', products: []);
+const tablesData3 = TableData(id: 3, name: 'Table 3', products: []);
 
 final listTablesData = [tablesData1, tablesData2, tablesData3];
