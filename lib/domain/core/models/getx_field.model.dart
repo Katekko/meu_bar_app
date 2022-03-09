@@ -19,7 +19,7 @@ class GetxFieldModel<T> extends IField<T> {
 
   @override
   set value(T? val) {
-    onChange(val?.toString() ?? '');
+    onChange(val?.toString());
   }
 
   @override
@@ -29,15 +29,17 @@ class GetxFieldModel<T> extends IField<T> {
   bool get hasError => _error.value != null;
 
   @override
-  void onChange(String val) {
-    if ((runtimeType == GetxFieldModel<double>) ||
-        runtimeType == GetxFieldModel<int>) {
-      dynamic parse;
-      final onlyNumber = val.replaceAll(RegExp('[^0-9.]'), '');
-      parse = num.tryParse(onlyNumber);
-      _value = parse;
-    } else if (runtimeType == GetxFieldModel<String>) {
-      _value = val as T;
+  void onChange(String? val) {
+    if (val != null) {
+      if ((runtimeType == GetxFieldModel<double>) ||
+          runtimeType == GetxFieldModel<int>) {
+        dynamic parse;
+        final onlyNumber = val.replaceAll(RegExp('[^0-9.]'), '');
+        parse = num.tryParse(onlyNumber);
+        _value = parse;
+      } else if (runtimeType == GetxFieldModel<String>) {
+        _value = val as T;
+      }
     }
 
     validate();
