@@ -1,6 +1,6 @@
 import 'package:ekko/domain/core/abstractions/domain/repositories/category_repository.interface.dart';
 import 'package:ekko/domain/core/abstractions/infrastructure/services/categories_service.interface.dart';
-import 'package:ekko/domain/product/category.repository.dart';
+import 'package:ekko/domain/table/category.repository.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 

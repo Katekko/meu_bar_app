@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:ekko/domain/product/models/category.model.dart';
+import 'package:ekko/domain/table/models/category.model.dart';
 
 import '../../field.interface.dart';
 import '../../stream_field.interface.dart';

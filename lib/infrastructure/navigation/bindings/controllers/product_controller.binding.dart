@@ -5,8 +5,8 @@ import 'package:ekko/domain/core/abstractions/presentation/image_picker.interfac
 import 'package:ekko/domain/core/builders/field_validator.builder.dart';
 import 'package:ekko/domain/core/models/getx_field.model.dart';
 import 'package:ekko/domain/core/models/rx_field.model.dart';
-import 'package:ekko/domain/product/models/category.model.dart';
-import 'package:ekko/domain/product/models/product.model.dart';
+import 'package:ekko/domain/table/models/category.model.dart';
+import 'package:ekko/domain/table/models/product.model.dart';
 import 'package:ekko/infrastructure/navigation/bindings/domains/product.repository.binding.dart';
 import 'package:get/get.dart';
 

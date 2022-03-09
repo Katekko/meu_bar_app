@@ -1,4 +1,4 @@
-import 'package:ekko/domain/product/models/product.model.dart';
+import 'package:ekko/domain/table/models/product.model.dart';
 import 'package:get/get.dart';
 import 'package:rxdart/rxdart.dart';
 

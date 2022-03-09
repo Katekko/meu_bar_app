@@ -2,7 +2,7 @@ import 'package:ekko/domain/core/abstractions/presentation/controllers/categorie
 import 'package:ekko/presentation/shared/view_controller.interface.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../domain/product/models/category.model.dart';
+import '../../../../domain/table/models/category.model.dart';
 import '../../../../infrastructure/navigation/routes.dart';
 
 class CategoryItemListWidget extends ViewController<ICategoriesController> {

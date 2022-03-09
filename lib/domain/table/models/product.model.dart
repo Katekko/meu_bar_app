@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:ekko/domain/product/models/category.model.dart';
+import 'package:ekko/domain/table/models/category.model.dart';
 import 'package:ekko/infrastructure/dal/services/data/product.data.dart';
 import 'package:equatable/equatable.dart';
 

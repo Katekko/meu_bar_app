@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:ekko/domain/core/abstractions/presentation/controllers/categories/categories_controller.interface.dart';
-import 'package:ekko/domain/product/models/category.model.dart';
+import 'package:ekko/domain/table/models/category.model.dart';
 import 'package:ekko/presentation/shared/loading/loading.interface.dart';
 import 'package:get/get.dart';
 import 'package:rxdart/rxdart.dart';

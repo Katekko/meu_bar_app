@@ -1,5 +1,5 @@
 import '../../../../domain/core/abstractions/domain/repositories/product_repository.interface.dart';
-import '../../../../domain/product/product_mock.repository.dart';
+import '../../../../domain/table/product_mock.repository.dart';
 
 class ProductRepositoryBinding {
   late IProductRepository _productRepository;

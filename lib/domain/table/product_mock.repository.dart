@@ -1,6 +1,6 @@
 import 'package:ekko/domain/core/abstractions/domain/repositories/product_repository.interface.dart';
-import 'package:ekko/domain/product/models/product.model.dart';
-import 'package:ekko/domain/product/models/category.model.dart';
+import 'package:ekko/domain/table/models/product.model.dart';
+import 'package:ekko/domain/table/models/category.model.dart';
 
 final categoryModel1 = CategoryModel(id: 1, name: 'Bebidas', icon: 0xe6f1);
 final categoryModel2 = CategoryModel(id: 2, name: 'Comidas', icon: 0xe532);

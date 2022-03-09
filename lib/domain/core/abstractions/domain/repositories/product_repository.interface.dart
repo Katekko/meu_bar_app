@@ -1,5 +1,5 @@
-import 'package:ekko/domain/product/models/category.model.dart';
-import 'package:ekko/domain/product/models/product.model.dart';
+import 'package:ekko/domain/table/models/category.model.dart';
+import 'package:ekko/domain/table/models/product.model.dart';
 
 abstract class IProductRepository {
   /// Pegar os produtos existentes com a possibilidade de filtrar

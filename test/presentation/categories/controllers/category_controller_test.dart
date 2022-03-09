@@ -2,8 +2,8 @@ import 'package:ekko/domain/core/abstractions/domain/repositories/category_repos
 import 'package:ekko/domain/core/abstractions/presentation/controllers/categories/category_controller.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/field.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/stream_field.interface.dart';
-import 'package:ekko/domain/product/models/category.model.dart';
-import 'package:ekko/domain/product/product_mock.repository.dart';
+import 'package:ekko/domain/table/models/category.model.dart';
+import 'package:ekko/domain/table/product_mock.repository.dart';
 import 'package:ekko/infrastructure/navigation/bindings/controllers/category_controller.binding.dart';
 import 'package:ekko/presentation/categories/controllers/category.controller.dart';
 import 'package:faker/faker.dart';

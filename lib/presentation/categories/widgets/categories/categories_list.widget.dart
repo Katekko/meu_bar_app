@@ -1,5 +1,5 @@
 import 'package:ekko/domain/core/abstractions/presentation/controllers/categories/categories_controller.interface.dart';
-import 'package:ekko/domain/product/models/category.model.dart';
+import 'package:ekko/domain/table/models/category.model.dart';
 import 'package:ekko/presentation/categories/widgets/categories/category_item_list.widget.dart';
 import 'package:ekko/presentation/shared/view_controller.interface.dart';
 import 'package:flutter/material.dart';

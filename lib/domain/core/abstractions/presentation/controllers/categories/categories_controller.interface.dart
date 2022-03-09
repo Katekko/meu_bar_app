@@ -1,4 +1,4 @@
-import 'package:ekko/domain/product/models/category.model.dart';
+import 'package:ekko/domain/table/models/category.model.dart';
 
 abstract class ICategoriesController {
   Stream<List<CategoryModel>> get categoriesStream;

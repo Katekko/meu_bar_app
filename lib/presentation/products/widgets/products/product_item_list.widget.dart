@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../domain/core/abstractions/presentation/controllers/products/products_controller.interface.dart';
 import '../../../../domain/core/utils/money.util.dart';
-import '../../../../domain/product/models/product.model.dart';
+import '../../../../domain/table/models/product.model.dart';
 import '../../../../infrastructure/navigation/routes.dart';
 
 class ProductItemListWidget extends ViewController<IProductsController> {

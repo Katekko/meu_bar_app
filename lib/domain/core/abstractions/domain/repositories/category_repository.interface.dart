@@ -1,4 +1,4 @@
-import 'package:ekko/domain/product/models/category.model.dart';
+import 'package:ekko/domain/table/models/category.model.dart';
 
 abstract class ICategoryRepository {
   /// Pegar as categorias existentes com a possibilidade de filtrar

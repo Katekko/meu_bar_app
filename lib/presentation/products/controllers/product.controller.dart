@@ -5,8 +5,8 @@ import 'package:ekko/domain/core/abstractions/domain/repositories/product_reposi
 import 'package:ekko/domain/core/abstractions/presentation/field.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/image_picker.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/stream_field.interface.dart';
-import 'package:ekko/domain/product/models/category.model.dart';
-import 'package:ekko/domain/product/models/product.model.dart';
+import 'package:ekko/domain/table/models/category.model.dart';
+import 'package:ekko/domain/table/models/product.model.dart';
 import 'package:ekko/presentation/shared/loading/loading.interface.dart';
 import 'package:get/get.dart';
 
