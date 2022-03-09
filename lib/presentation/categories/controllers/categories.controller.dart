@@ -1,21 +1,22 @@
 import 'dart:async';
 
-import 'package:ekko/domain/core/abstractions/domain/repositories/product_repository.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/controllers/categories/categories_controller.interface.dart';
 import 'package:ekko/domain/product/models/category.model.dart';
 import 'package:ekko/presentation/shared/loading/loading.interface.dart';
 import 'package:get/get.dart';
 import 'package:rxdart/rxdart.dart';
 
+import '../../../domain/core/abstractions/domain/repositories/category_repository.interface.dart';
+
 class CategoriesController extends GetxController
     implements ICategoriesController {
-  final IProductRepository _productRepository;
+  final ICategoryRepository _categoryRepository;
   final ILoadingController _loading;
 
   CategoriesController({
-    required IProductRepository productRepository,
+    required ICategoryRepository categoryRepository,
     required ILoadingController loading,
-  })  : _productRepository = productRepository,
+  })  : _categoryRepository = categoryRepository,
         _loading = loading;
 
   final _categoriesStream = BehaviorSubject<List<CategoryModel>>();
@@ -42,7 +43,7 @@ class CategoriesController extends GetxController
   Future<void> loadCategories({bool withLoad = true}) async {
     try {
       if (withLoad) _loading.isLoading = true;
-      final response = await _productRepository.getCategories();
+      final response = await _categoryRepository.getCategories();
       _categoriesStream.add(response);
     } catch (err) {
       _categoriesStream.addError(err);

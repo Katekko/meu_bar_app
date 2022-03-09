@@ -1,5 +1,3 @@
-import 'package:ekko/domain/core/abstractions/infrastructure/services/categories_service.interface.dart';
-
 import '../core/abstractions/domain/repositories/product_repository.interface.dart';
 import '../core/abstractions/infrastructure/services/products_service.interface.dart';
 import 'models/category.model.dart';
@@ -7,12 +5,9 @@ import 'models/product.model.dart';
 
 class ProductRepository implements IProductRepository {
   final IProductsService _productsService;
-  final ICategoriesService _categoriesService;
   const ProductRepository({
     required IProductsService productsService,
-    required ICategoriesService categoriesService,
-  })  : _productsService = productsService,
-        _categoriesService = categoriesService;
+  }) : _productsService = productsService;
 
   @override
   Future<List<ProductModel>> getProducts({
@@ -69,58 +64,6 @@ class ProductRepository implements IProductRepository {
     try {
       final response = await _productsService.getProductById(id);
       final model = ProductModel.fromData(response);
-      return model;
-    } catch (err) {
-      rethrow;
-    }
-  }
-
-  @override
-  Future<List<CategoryModel>> getCategories({String? filter}) async {
-    try {
-      final response = await _categoriesService.getCategories(filter: filter);
-      final models = response.map((e) => CategoryModel.fromData(e)).toList();
-      return models;
-    } catch (err) {
-      rethrow;
-    }
-  }
-
-  @override
-  Future<void> registerCategory(CategoryModel category) async {
-    try {
-      final data = category.toData();
-      await _categoriesService.createCategory(data);
-    } catch (err) {
-      rethrow;
-    }
-  }
-
-  @override
-  Future<void> updateCategory(CategoryModel category) async {
-    try {
-      final data = category.toData();
-      await _categoriesService.updateCategory(data);
-    } catch (err) {
-      rethrow;
-    }
-  }
-
-  @override
-  Future<void> deleteCategory(CategoryModel category) async {
-    try {
-      final data = category.toData();
-      await _categoriesService.deleteCategory(data);
-    } catch (err) {
-      rethrow;
-    }
-  }
-
-  @override
-  Future<CategoryModel> getCategoryById(int id) async {
-    try {
-      final response = await _categoriesService.getCategoryById(id);
-      final model = CategoryModel.fromData(response);
       return model;
     } catch (err) {
       rethrow;

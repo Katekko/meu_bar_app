@@ -1,4 +1,4 @@
-import 'package:ekko/domain/core/abstractions/domain/repositories/product_repository.interface.dart';
+import 'package:ekko/domain/core/abstractions/domain/repositories/category_repository.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/controllers/categories/categories_controller.interface.dart';
 import 'package:ekko/domain/product/product_mock.repository.dart';
 import 'package:ekko/presentation/controllers.dart';
@@ -9,26 +9,26 @@ import '../../../mocks.dart';
 
 void main() {
   late ICategoriesController controller;
-  late final IProductRepository productRepository;
+  late final ICategoryRepository categoryRepository;
 
   setUpAll(() {
-    productRepository = ProductRepositoryMock();
+    categoryRepository = CategoryRepositoryMock();
   });
 
   setUp(() {
     controller = CategoriesController(
       loading: LoadingControllerMock(),
-      productRepository: productRepository,
+      categoryRepository: categoryRepository,
     );
   });
 
   test('onInit should emit categories to stream', () async {
-    when(productRepository.getCategories)
+    when(categoryRepository.getCategories)
         .thenAnswer((_) async => List.from(listCategoriesModel));
 
     await controller.onReady();
 
-    verify(() => productRepository.getCategories()).called(1);
+    verify(() => categoryRepository.getCategories()).called(1);
     expectLater(
       controller.categoriesStream,
       emits(equals(List.from(listCategoriesModel))),
@@ -43,12 +43,12 @@ void main() {
 
   group('loadCategories', () {
     test('should emit the categories with success', () async {
-      when(productRepository.getCategories)
+      when(categoryRepository.getCategories)
           .thenAnswer((_) async => List.from(listCategoriesModel));
 
       await controller.loadCategories();
 
-      verify(() => productRepository.getCategories()).called(1);
+      verify(() => categoryRepository.getCategories()).called(1);
       expectLater(
         controller.categoriesStream,
         emits(equals(List.from(listCategoriesModel))),
@@ -57,23 +57,23 @@ void main() {
 
     test('should emit the categories with error', () async {
       final exception = Exception();
-      when(productRepository.getCategories).thenThrow(exception);
+      when(categoryRepository.getCategories).thenThrow(exception);
 
       await controller.loadCategories();
 
-      verify(() => productRepository.getCategories());
+      verify(() => categoryRepository.getCategories());
       expectLater(controller.categoriesStream, emitsError(isA<Exception>()));
     });
   });
 
   test('create category should reload the page (calling again loadCategories)',
       () async {
-    when(productRepository.getCategories)
+    when(categoryRepository.getCategories)
         .thenAnswer((_) async => List.from(listCategoriesModel));
 
     await controller.createCategory(openScreen: () async {});
 
-    verify(() => productRepository.getCategories()).called(1);
+    verify(() => categoryRepository.getCategories()).called(1);
 
     expectLater(
       controller.categoriesStream,
@@ -83,7 +83,7 @@ void main() {
 
   test('edit category should reload the page (calling again loadCategories)',
       () async {
-    when(productRepository.getCategories)
+    when(categoryRepository.getCategories)
         .thenAnswer((_) async => List.from(listCategoriesModel));
 
     await controller.editCategory(
@@ -91,7 +91,7 @@ void main() {
       category: categoryModel1,
     );
 
-    verify(() => productRepository.getCategories()).called(1);
+    verify(() => categoryRepository.getCategories()).called(1);
 
     expectLater(
       controller.categoriesStream,

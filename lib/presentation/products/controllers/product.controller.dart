@@ -10,10 +10,12 @@ import 'package:ekko/domain/product/models/product.model.dart';
 import 'package:ekko/presentation/shared/loading/loading.interface.dart';
 import 'package:get/get.dart';
 
+import '../../../domain/core/abstractions/domain/repositories/category_repository.interface.dart';
 import '../../../domain/core/abstractions/presentation/controllers/products/product_controller.interface.dart';
 
 class ProductController extends GetxController implements IProductController {
   final IProductRepository _productRepository;
+  final ICategoryRepository _categoryRepository;
   final IImagePicker _imagePicker;
   final ILoadingController _loading;
 
@@ -28,6 +30,7 @@ class ProductController extends GetxController implements IProductController {
 
   ProductController({
     required IProductRepository productRepository,
+    required ICategoryRepository categoryRepository,
     required IImagePicker imagePicker,
     required ILoadingController loading,
     required bool isEdit,
@@ -38,6 +41,7 @@ class ProductController extends GetxController implements IProductController {
     required IStreamField<Uint8List?> imageBytesField,
     ProductModel? product,
   })  : _productRepository = productRepository,
+        _categoryRepository = categoryRepository,
         _imagePicker = imagePicker,
         _loading = loading,
         _isEdit = isEdit,
@@ -127,7 +131,7 @@ class ProductController extends GetxController implements IProductController {
   @override
   Future<List<CategoryModel>> loadCategories(String term) async {
     try {
-      final response = await _productRepository.getCategories(filter: term);
+      final response = await _categoryRepository.getCategories(filter: term);
       return response;
     } catch (err) {
       rethrow;

@@ -14,6 +14,7 @@ import '../../../../domain/core/abstractions/presentation/controllers/products/p
 import '../../../../presentation/products/controllers/controllers.dart';
 import '../../../../presentation/shared/loading/loading.interface.dart';
 import '../../../dal/inject.dart';
+import '../domains/category.repository.binding.dart';
 
 class ProductControllerBinding extends Bindings {
   final bool isEdit;
@@ -67,6 +68,7 @@ IProductController makeProductController({required bool isEdit}) {
 
   return ProductController(
     productRepository: ProductRepositoryBinding().repository,
+    categoryRepository: CategoryRepositoryBinding().repository,
     imagePicker: imagePicker,
     loading: Inject.find<ILoadingController>(),
     isEdit: isEdit,

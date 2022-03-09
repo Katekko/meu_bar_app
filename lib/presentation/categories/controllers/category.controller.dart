@@ -1,14 +1,14 @@
-import 'package:ekko/domain/core/abstractions/domain/repositories/product_repository.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/field.interface.dart';
 import 'package:ekko/domain/product/models/category.model.dart';
 import 'package:ekko/presentation/shared/loading/loading.interface.dart';
 import 'package:get/get.dart';
 
+import '../../../domain/core/abstractions/domain/repositories/category_repository.interface.dart';
 import '../../../domain/core/abstractions/presentation/controllers/categories/category_controller.interface.dart';
 import '../../../domain/core/abstractions/presentation/stream_field.interface.dart';
 
 class CategoryController extends GetxController implements ICategoryController {
-  late final IProductRepository _productRepository;
+  late final ICategoryRepository _categoryRepository;
   late final bool _isEdit;
   late final IField<String> _nameField;
   late final IStreamField<int?> _iconField;
@@ -16,13 +16,13 @@ class CategoryController extends GetxController implements ICategoryController {
   late final CategoryModel? _category;
 
   CategoryController({
-    required IProductRepository productRepository,
+    required ICategoryRepository categoryRepository,
     required ILoadingController loading,
     required bool isEdit,
     required IField<String> nameField,
     required IStreamField<int?> iconField,
     CategoryModel? category,
-  })  : _productRepository = productRepository,
+  })  : _categoryRepository = categoryRepository,
         _loading = loading,
         _isEdit = isEdit,
         _nameField = nameField,
@@ -67,9 +67,9 @@ class CategoryController extends GetxController implements ICategoryController {
         );
 
         if (isEdit) {
-          await _productRepository.updateCategory(category);
+          await _categoryRepository.updateCategory(category);
         } else {
-          await _productRepository.registerCategory(category);
+          await _categoryRepository.registerCategory(category);
         }
 
         backScreen();

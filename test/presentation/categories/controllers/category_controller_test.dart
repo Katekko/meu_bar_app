@@ -1,4 +1,4 @@
-import 'package:ekko/domain/core/abstractions/domain/repositories/product_repository.interface.dart';
+import 'package:ekko/domain/core/abstractions/domain/repositories/category_repository.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/controllers/categories/category_controller.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/field.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/stream_field.interface.dart';
@@ -14,12 +14,12 @@ import '../../../mocks.dart';
 
 void main() {
   late ICategoryController controller;
-  late final IProductRepository productRepository;
+  late final ICategoryRepository categoryRepository;
   late IField<String> nameField;
   late IStreamField<int?> iconField;
 
   setUpAll(() {
-    productRepository = ProductRepositoryMock();
+    categoryRepository = CategoryRepositoryMock();
   });
 
   setUp(() {
@@ -27,7 +27,7 @@ void main() {
     iconField = makeCategoryIconField();
 
     controller = CategoryController(
-      productRepository: productRepository,
+      categoryRepository: categoryRepository,
       loading: LoadingControllerMock(),
       isEdit: false,
       nameField: nameField,
@@ -54,12 +54,12 @@ void main() {
         icon: controller.iconField.value!,
       );
 
-      when(() => productRepository.registerCategory(category))
+      when(() => categoryRepository.registerCategory(category))
           .thenAnswer((_) async {});
 
       await controller.saveCategory(backScreen: () {});
 
-      verify(() => productRepository.registerCategory(category));
+      verify(() => categoryRepository.registerCategory(category));
     });
 
     test('should update a category with success', () async {
@@ -69,7 +69,7 @@ void main() {
       final category = CategoryModel(id: 1, name: name, icon: icon);
 
       final controller = CategoryController(
-        productRepository: productRepository,
+        categoryRepository: categoryRepository,
         loading: LoadingControllerMock(),
         isEdit: true,
         nameField: nameField,
@@ -86,12 +86,12 @@ void main() {
         icon: controller.iconField.value!,
       );
 
-      when(() => productRepository.updateCategory(categoryToSave))
+      when(() => categoryRepository.updateCategory(categoryToSave))
           .thenAnswer((_) async {});
 
       await controller.saveCategory(backScreen: () {});
 
-      verify(() => productRepository.updateCategory(categoryToSave));
+      verify(() => categoryRepository.updateCategory(categoryToSave));
     });
   });
 
@@ -128,7 +128,7 @@ void main() {
   group('On Init', () {
     test('should initiate fields when a category is passed', () {
       final controller = CategoryController(
-        productRepository: productRepository,
+        categoryRepository: categoryRepository,
         loading: LoadingControllerMock(),
         isEdit: false,
         nameField: nameField,
@@ -144,7 +144,7 @@ void main() {
 
     test('should never initiate fields when a category is not passed', () {
       final controller = CategoryController(
-        productRepository: productRepository,
+        categoryRepository: categoryRepository,
         loading: LoadingControllerMock(),
         isEdit: false,
         nameField: nameField,

@@ -31,34 +31,9 @@ final listProductsModel = [productModel1, productModel2];
 
 class ProductMockRepository implements IProductRepository {
   @override
-  Future<List<CategoryModel>> getCategories({String? filter}) async {
-    await Future.delayed(const Duration(milliseconds: 700));
-
-    if (filter != null) {
-      return listCategoriesModel
-          .where((e) => e.name.toLowerCase().contains(filter.toLowerCase()))
-          .toList();
-    }
-
-    return listCategoriesModel;
-  }
-
-  @override
-  Future<void> deleteCategory(CategoryModel category) async {
-    await Future.delayed(const Duration(milliseconds: 700));
-    listCategoriesModel.removeWhere((e) => category.id == e.id);
-  }
-
-  @override
   Future<void> deleteProduct(ProductModel product) async {
     await Future.delayed(const Duration(milliseconds: 700));
     listProductsModel.removeWhere((e) => product.id == e.id);
-  }
-
-  @override
-  Future<CategoryModel> getCategoryById(int id) async {
-    await Future.delayed(const Duration(milliseconds: 700));
-    return listCategoriesModel.firstWhere((e) => e.id == id);
   }
 
   @override
@@ -77,22 +52,9 @@ class ProductMockRepository implements IProductRepository {
   }
 
   @override
-  Future<void> registerCategory(CategoryModel category) async {
-    await Future.delayed(const Duration(milliseconds: 700));
-    listCategoriesModel.add(category);
-  }
-
-  @override
   Future<void> registerProduct(ProductModel product) async {
     await Future.delayed(const Duration(milliseconds: 700));
     listProductsModel.add(product);
-  }
-
-  @override
-  Future<void> updateCategory(CategoryModel category) async {
-    await Future.delayed(const Duration(milliseconds: 700));
-    final index = listCategoriesModel.indexWhere((e) => e.id == category.id);
-    listCategoriesModel[index] = category;
   }
 
   @override

@@ -16,16 +16,4 @@ abstract class IProductRepository {
   Future<void> updateProduct(ProductModel product);
 
   Future<void> deleteProduct(ProductModel product);
-
-  /// Pegar as categorias existentes com a possibilidade de filtrar
-  /// usando o atributo [filter]
-  Future<List<CategoryModel>> getCategories({String? filter});
-
-  Future<CategoryModel> getCategoryById(int id);
-
-  Future<void> registerCategory(CategoryModel category);
-
-  Future<void> updateCategory(CategoryModel category);
-
-  Future<void> deleteCategory(CategoryModel category);
 }

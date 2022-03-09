@@ -1,4 +1,4 @@
-import 'package:ekko/domain/core/abstractions/domain/repositories/product_repository.interface.dart';
+import 'package:ekko/domain/core/abstractions/domain/repositories/category_repository.interface.dart';
 import 'package:ekko/domain/core/builders/field_validator.builder.dart';
 import 'package:ekko/infrastructure/navigation/bindings/controllers/controllers_bindings.dart';
 import 'package:ekko/presentation/controllers.dart';
@@ -10,11 +10,11 @@ import '../../../../mocks.dart';
 // TODO: Criar teste para categories controller binding
 
 void main() {
-  late IProductRepository productRepository;
+  late ICategoryRepository categoryRepository;
   late ILoadingController loading;
 
   setUpAll(() {
-    productRepository = ProductRepositoryMock();
+    categoryRepository = CategoryRepositoryMock();
     loading = LoadingControllerMock();
   });
 
@@ -30,7 +30,7 @@ void main() {
 
   test('Should return the correct controller with isEdit true', () {
     final controller = makeCategoryController(
-      productRepository: productRepository,
+      categoryRepository: categoryRepository,
       loading: loading,
       isEdit: true,
       nameField: makeCategoryNameField(),
@@ -43,7 +43,7 @@ void main() {
 
   test('Should return the correct controller with isEdit false', () {
     final controller = makeCategoryController(
-      productRepository: productRepository,
+      categoryRepository: categoryRepository,
       loading: loading,
       isEdit: false,
       nameField: makeCategoryNameField(),

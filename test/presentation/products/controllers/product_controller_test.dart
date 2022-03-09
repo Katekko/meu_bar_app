@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:ekko/domain/core/abstractions/domain/repositories/category_repository.interface.dart';
 import 'package:ekko/domain/core/abstractions/domain/repositories/product_repository.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/controllers/products/product_controller.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/field.interface.dart';
@@ -21,6 +22,7 @@ void main() {
   late IProductController controller;
 
   late final IProductRepository productRepository;
+  late final ICategoryRepository categoryRepository;
   late final IImagePicker imagePicker;
   late final ILoadingController loading;
 
@@ -32,6 +34,7 @@ void main() {
 
   setUpAll(() {
     productRepository = ProductRepositoryMock();
+    categoryRepository = CategoryRepositoryMock();
     imagePicker = ImagePickerMock();
     loading = LoadingControllerMock();
   });
@@ -45,6 +48,7 @@ void main() {
 
     controller = ProductController(
       productRepository: productRepository,
+      categoryRepository: categoryRepository,
       imagePicker: imagePicker,
       loading: loading,
       isEdit: false,
@@ -60,6 +64,7 @@ void main() {
     test('should initiate fields when a product is passed', () {
       final controller = ProductController(
         productRepository: productRepository,
+        categoryRepository: categoryRepository,
         imagePicker: imagePicker,
         loading: loading,
         isEdit: true,
@@ -83,6 +88,7 @@ void main() {
     test('should never initiate fields when a product is not passed', () {
       final controller = ProductController(
         productRepository: productRepository,
+        categoryRepository: categoryRepository,
         imagePicker: imagePicker,
         loading: loading,
         isEdit: false,
@@ -178,6 +184,7 @@ void main() {
 
       final controller = ProductController(
         productRepository: productRepository,
+        categoryRepository: categoryRepository,
         imagePicker: imagePicker,
         loading: loading,
         isEdit: true,
