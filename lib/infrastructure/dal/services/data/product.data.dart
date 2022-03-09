@@ -13,6 +13,7 @@ class ProductData extends Equatable {
   final CategoryData category;
 
   final String? urlImage;
+  final String? base64Image;
 
   const ProductData({
     required this.id,
@@ -20,6 +21,7 @@ class ProductData extends Equatable {
     required this.price,
     required this.category,
     this.urlImage,
+    this.base64Image,
   });
 
   factory ProductData.fromJson(json) => _$ProductDataFromJson(json);

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:ekko/domain/product/models/category.model.dart';
@@ -11,7 +12,10 @@ class ProductModel extends Equatable {
   final double price;
   final CategoryModel category;
 
+  /// Utilizado para receber a imagem do backend
   final String? urlImage;
+
+  /// Utilizado para enviar a imagem para o backend
   final Uint8List? imageBytes;
 
   const ProductModel({
@@ -35,11 +39,15 @@ class ProductModel extends Equatable {
   }
 
   ProductData toData() {
+    String? base64Image;
+    if (imageBytes != null) base64Image = base64Encode(imageBytes!);
+
     return ProductData(
       id: id,
       name: name,
       price: price,
       category: category.toData(),
+      base64Image: base64Image,
     );
   }
 

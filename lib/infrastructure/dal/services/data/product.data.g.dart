@@ -12,6 +12,7 @@ ProductData _$ProductDataFromJson(Map<String, dynamic> json) => ProductData(
       price: (json['price'] as num).toDouble(),
       category: CategoryData.fromJson(json['category']),
       urlImage: json['urlImage'] as String?,
+      base64Image: json['base64Image'] as String?,
     );
 
 Map<String, dynamic> _$ProductDataToJson(ProductData instance) =>
@@ -21,4 +22,5 @@ Map<String, dynamic> _$ProductDataToJson(ProductData instance) =>
       'price': instance.price,
       'category': instance.category,
       'urlImage': instance.urlImage,
+      'base64Image': instance.base64Image,
     };

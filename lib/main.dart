@@ -9,6 +9,7 @@ import 'infrastructure/theme/theme.dart';
 import 'infrastructure/translate/translate.dart';
 import 'initializer.dart';
 
+// TODO: Testar todos os models
 Future<void> main() async {
   await Initializer.init();
   final initialRoute = await Routes.initialRoute;
