@@ -1,6 +1,7 @@
 import '../../data/error.data.dart';
 import '../../data/table.data.dart';
 
+// TODO: Fazer o json serializable
 class GetTablesResponse {
   final bool success;
   final List<TableData>? data;

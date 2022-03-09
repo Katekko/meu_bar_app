@@ -5,6 +5,7 @@ import 'package:ekko/domain/core/abstractions/infrastructure/http_connect.interf
 import 'package:ekko/domain/core/abstractions/infrastructure/services/auth_service.interface.dart';
 import 'package:ekko/domain/core/abstractions/infrastructure/services/categories_service.interface.dart';
 import 'package:ekko/domain/core/abstractions/infrastructure/services/products_service.interface.dart';
+import 'package:ekko/domain/core/abstractions/infrastructure/services/table_service.interface.dart';
 import 'package:ekko/domain/core/abstractions/infrastructure/storage.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/field.interface.dart';
 import 'package:ekko/domain/core/abstractions/presentation/image_picker.interface.dart';
@@ -18,9 +19,11 @@ class AuthServiceMock extends Mock implements IAuthService {}
 
 class AuthRepositoryMock extends Mock implements IAuthRepository {}
 
+class CategoriesServiceMock extends Mock implements ICategoriesService {}
+
 class ProductsServiceMock extends Mock implements IProductsService {}
 
-class CategoriesServiceMock extends Mock implements ICategoriesService {}
+class TablesServiceMock extends Mock implements ITablesService {}
 
 class ProductRepositoryMock extends Mock implements IProductRepository {}
 
