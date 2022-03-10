@@ -26,7 +26,7 @@ const userOrPasswordExceptionResponse = Response(
     success: false,
     errors: [
       ErrorData(
-        id: ErrosConstants.userOrPasswordWrong,
+        id: ErrorsConstants.userOrPasswordWrong,
         desc: 'User or password wrong',
       )
     ],
@@ -38,7 +38,7 @@ const defaultExceptionResponse = Response(
   statusCode: 400,
   payload: AuthenticateUserResponse(
     success: false,
-    errors: [ErrorData(id: ErrosConstants.unknow, desc: 'Unknow error')],
+    errors: [ErrorData(id: ErrorsConstants.unknow, desc: 'Unknow error')],
     data: null,
   ),
 );

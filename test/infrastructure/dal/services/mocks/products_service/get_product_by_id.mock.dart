@@ -15,7 +15,7 @@ const getProductByIdWithNonexistentError = Response<ProductResponse>(
     success: false,
     data: null,
     errors: [
-      ErrorData(id: ErrosConstants.nonexistent, desc: 'Nonexistent product')
+      ErrorData(id: ErrorsConstants.nonexistent, desc: 'Nonexistent product')
     ],
   ),
 );
@@ -25,6 +25,6 @@ const getProductByIdWithUnknowError = Response<ProductResponse>(
   payload: ProductResponse(
     success: false,
     data: null,
-    errors: [ErrorData(id: ErrosConstants.unknow, desc: 'Unknow error')],
+    errors: [ErrorData(id: ErrorsConstants.unknow, desc: 'Unknow error')],
   ),
 );

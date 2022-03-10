@@ -97,7 +97,7 @@ class CategoriesService implements ICategoriesService {
     } else {
       final error = response.payload!.errors!.first;
       switch (error.id) {
-        case ErrosConstants.nonexistent:
+        case ErrorsConstants.nonexistent:
           throw NonexistentException(message: error.desc);
         default:
           throw DefaultException(message: error.desc);

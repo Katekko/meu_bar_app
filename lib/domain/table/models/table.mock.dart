@@ -3,34 +3,34 @@ import 'package:ekko/infrastructure/dal/services/data/table.data.dart';
 
 import 'product.mock.dart';
 
-final tablesData1 = TableData(
+final tableData1 = TableData(
   id: 1,
   name: 'Table 1',
   products: listProductsData,
 );
 
-final tablesData2 = TableData(
+final tableData2 = TableData(
   id: 2,
   name: 'Table 2',
   products: listProductsData,
 );
 
-const tablesData3 = TableData(id: 3, name: 'Table 3', products: []);
+const tableData3 = TableData(id: 3, name: 'Table 3', products: []);
 
-final listTablesData = [tablesData1, tablesData2, tablesData3];
+final listTablesData = [tableData1, tableData2, tableData3];
 
-final tablesModel1 = TableModel(
+final tableModel1 = TableModel(
   id: 1,
   name: 'Table 1',
   products: listProductsModel,
 );
 
-final tablesModel2 = TableModel(
+final tableModel2 = TableModel(
   id: 2,
   name: 'Table 2',
   products: listProductsModel,
 );
 
-const tablesModel3 = TableModel(id: 3, name: 'Table 3', products: []);
+const tableModel3 = TableModel(id: 3, name: 'Table 3', products: []);
 
-final listTablesModel = [tablesModel1, tablesModel2, tablesModel3];
+final listTablesModel = [tableModel1, tableModel2, tableModel3];

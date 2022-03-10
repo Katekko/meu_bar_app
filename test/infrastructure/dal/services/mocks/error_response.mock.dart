@@ -12,6 +12,6 @@ const responseWithUnknowError = Response<ErrorResponse>(
   statusCode: 400,
   payload: ErrorResponse(
     success: false,
-    errors: [ErrorData(id: ErrosConstants.unknow, desc: 'Unknow error')],
+    errors: [ErrorData(id: ErrorsConstants.unknow, desc: 'Unknow error')],
   ),
 );

@@ -1,7 +1,11 @@
 import '../../data/error.data.dart';
 import '../../data/table.data.dart';
 
-// TODO: Fazer o json serializable
+import 'package:json_annotation/json_annotation.dart';
+
+part 'get_tables.response.g.dart';
+
+@JsonSerializable()
 class GetTablesResponse {
   final bool success;
   final List<TableData>? data;
@@ -13,9 +17,5 @@ class GetTablesResponse {
     required this.errors,
   });
 
-  factory GetTablesResponse.fromJson(json) => const GetTablesResponse(
-        data: [],
-        errors: null,
-        success: true,
-      );
+  factory GetTablesResponse.fromJson(json) => _$GetTablesResponseFromJson(json);
 }

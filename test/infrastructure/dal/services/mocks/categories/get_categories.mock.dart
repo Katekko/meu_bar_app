@@ -18,6 +18,6 @@ const getCategoriesWithUnknowErrorResponse = Response(
   payload: GetCategoriesResponse(
     success: true,
     data: null,
-    errors: [ErrorData(id: ErrosConstants.unknow, desc: 'Unknow error')],
+    errors: [ErrorData(id: ErrorsConstants.unknow, desc: 'Unknow error')],
   ),
 );
