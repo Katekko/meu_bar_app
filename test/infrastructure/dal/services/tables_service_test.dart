@@ -4,6 +4,7 @@ import 'package:ekko/domain/core/exceptions/default.exception.dart';
 import 'package:ekko/domain/core/exceptions/table_name_already_exists.exception.dart';
 import 'package:ekko/domain/table/models/product.mock.dart';
 import 'package:ekko/domain/table/models/table.mock.dart';
+import 'package:ekko/infrastructure/dal/services/tables/dto/add_products.body.dart';
 import 'package:ekko/infrastructure/dal/services/tables/tables.service.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
@@ -242,50 +243,47 @@ void main() {
 
   group('Add products', () {
     test('with success', () async {
-      final body = {'products': listProductsData.map((e) => e.toJson())};
+      final body = AddProductsBody(products: listProductsData);
 
       when(
         () => connect.post(
           '$urlBase/${tableData1.id}',
-          body,
+          body.toJson(),
           decoder: any(named: 'decoder'),
         ),
       ).thenAnswer((_) async => addProductsTableWithSuccessResponse);
 
-      await tablesService.addProducts(
-        tableId: tableData1.id,
-        products: listProductsData,
-      );
+      await tablesService.addProducts(tableId: tableData1.id, body: body);
 
       verify(
         () => connect.post(
           '$urlBase/${tableData1.id}',
-          body,
+          body.toJson(),
           decoder: any(named: 'decoder'),
         ),
       );
     });
 
     test('should throw DefaultException', () async {
-      final body = {'products': listProductsData.map((e) => e.toJson())};
+      final body = AddProductsBody(products: listProductsData);
 
       when(
         () => connect.post(
           '$urlBase/${tableData1.id}',
-          body,
+          body.toJson(),
           decoder: any(named: 'decoder'),
         ),
       ).thenAnswer((_) async => addProductsTableWithDefaultExceptionResponse);
 
       final future = tablesService.addProducts(
         tableId: tableData1.id,
-        products: listProductsData,
+        body: body,
       );
 
       verify(
         () => connect.post(
           '$urlBase/${tableData1.id}',
-          body,
+          body.toJson(),
           decoder: any(named: 'decoder'),
         ),
       );
