@@ -45,4 +45,22 @@ class TablesService implements ITablesService {
       }
     }
   }
+
+  @override
+  Future<void> putTable(TableData body) async {
+    final response = await _connect.put(
+      '$urlBase/${body.id}',
+      body.toJson(),
+      decoder: ErrorResponse.fromJson,
+    );
+
+    if (!response.success) {
+      switch (response.payload!.errors!.first.id) {
+        case ErrorsConstants.tableNameAlreadyExists:
+          throw TableNameAlreadyExistsException();
+        default:
+          throw DefaultException(message: response.payload!.errors!.first.desc);
+      }
+    }
+  }
 }

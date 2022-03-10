@@ -4,4 +4,6 @@ abstract class ITablesService {
   Future<List<TableData>> getTables();
 
   Future<void> postTable(TableData body);
+
+  Future<void> putTable(TableData body);
 }

@@ -10,6 +10,7 @@ import 'package:test/test.dart';
 import '../../../mocks.dart';
 import 'mocks/tables_service/get_tables.mock.dart';
 import 'mocks/tables_service/post_table.mock.dart';
+import 'mocks/tables_service/put_table.mock.dart';
 
 void main() {
   late ITablesService tablesService;
@@ -127,140 +128,69 @@ void main() {
     });
   });
 
-  // group('Update category', () {
-  //   test('with success', () async {
-  //     when(
-  //       () => connect.put(
-  //         '$urlBase/${categoryData1.id}',
-  //         categoryData1.toJson(),
-  //         decoder: any(named: 'decoder'),
-  //       ),
-  //     ).thenAnswer((_) async => responseWithSuccess);
+  group('Update category', () {
+    test('with success', () async {
+      when(
+        () => connect.put(
+          '$urlBase/${tableData1.id}',
+          tableData1.toJson(),
+          decoder: any(named: 'decoder'),
+        ),
+      ).thenAnswer((_) async => putTableWithSuccessResponse);
 
-  //     await categoriesService.updateCategory(categoryData1);
+      await tablesService.putTable(tableData1);
 
-  //     verify(
-  //       () => connect.put(
-  //         '$urlBase/${categoryData1.id}',
-  //         categoryData1.toJson(),
-  //         decoder: any(named: 'decoder'),
-  //       ),
-  //     );
-  //   });
+      verify(
+        () => connect.put(
+          '$urlBase/${tableData1.id}',
+          tableData1.toJson(),
+          decoder: any(named: 'decoder'),
+        ),
+      );
+    });
 
-  //   test('should throw DefaultException', () async {
-  //     when(
-  //       () => connect.put(
-  //         '$urlBase/${categoryData1.id}',
-  //         categoryData1.toJson(),
-  //         decoder: any(named: 'decoder'),
-  //       ),
-  //     ).thenAnswer((_) async => responseWithUnknowError);
+    test('should throw TableNameAlreadyUsedException', () async {
+      when(
+        () => connect.put(
+          '$urlBase/${tableData1.id}',
+          tableData1.toJson(),
+          decoder: any(named: 'decoder'),
+        ),
+      ).thenAnswer((_) async => putTableWithNameAlreadyUsedExceptionResponse);
 
-  //     final future = categoriesService.updateCategory(categoryData1);
+      final future = tablesService.putTable(tableData1);
 
-  //     verify(
-  //       () => connect.put(
-  //         '$urlBase/${categoryData1.id}',
-  //         categoryData1.toJson(),
-  //         decoder: any(named: 'decoder'),
-  //       ),
-  //     );
+      verify(
+        () => connect.put(
+          '$urlBase/${tableData1.id}',
+          tableData1.toJson(),
+          decoder: any(named: 'decoder'),
+        ),
+      );
 
-  //     expect(future, throwsA(isA<DefaultException>()));
-  //   });
-  // });
+      expect(future, throwsA(isA<TableNameAlreadyExistsException>()));
+    });
 
-  // group('Delete category', () {
-  //   test('with success', () async {
-  //     when(
-  //       () => connect.delete(
-  //         '$urlBase/${categoryData1.id}',
-  //         decoder: any(named: 'decoder'),
-  //       ),
-  //     ).thenAnswer((_) async => responseWithSuccess);
+    test('should throw DefaultException', () async {
+      when(
+        () => connect.put(
+          '$urlBase/${tableData1.id}',
+          tableData1.toJson(),
+          decoder: any(named: 'decoder'),
+        ),
+      ).thenAnswer((_) async => putTableWithDefaultExceptionResponse);
 
-  //     await categoriesService.deleteCategory(categoryData1);
+      final future = tablesService.putTable(tableData1);
 
-  //     verify(
-  //       () => connect.delete(
-  //         '$urlBase/${categoryData1.id}',
-  //         decoder: any(named: 'decoder'),
-  //       ),
-  //     );
-  //   });
+      verify(
+        () => connect.put(
+          '$urlBase/${tableData1.id}',
+          tableData1.toJson(),
+          decoder: any(named: 'decoder'),
+        ),
+      );
 
-  //   test('should throw DefaultException', () async {
-  //     when(
-  //       () => connect.delete(
-  //         '$urlBase/${categoryData1.id}',
-  //         decoder: any(named: 'decoder'),
-  //       ),
-  //     ).thenAnswer((_) async => responseWithUnknowError);
-
-  //     final future = categoriesService.deleteCategory(categoryData1);
-
-  //     verify(
-  //       () => connect.delete(
-  //         '$urlBase/${categoryData1.id}',
-  //         decoder: any(named: 'decoder'),
-  //       ),
-  //     );
-
-  //     expect(future, throwsA(isA<DefaultException>()));
-  //   });
-  // });
-
-  // group('Get product by id', () {
-  //   test(
-  //     'should get with success',
-  //     () async {
-  //       const id = 1;
-
-  //       when(
-  //         () => connect.get('$urlBase/$id', decoder: any(named: 'decoder')),
-  //       ).thenAnswer((_) async => getCategoryByIdWithSuccessResponse);
-
-  //       final response = await categoriesService.getCategoryById(id);
-
-  //       expect(response, categoryData1);
-  //     },
-  //   );
-
-  //   test(
-  //     'should throw nonexistent exception',
-  //     () async {
-  //       const id = 1;
-
-  //       when(
-  //         () => connect.get(
-  //           'categories/$id',
-  //           decoder: any(named: 'decoder'),
-  //         ),
-  //       ).thenAnswer((_) async => getCategoryByIdWithNonexistentError);
-
-  //       final future = categoriesService.getCategoryById(id);
-
-  //       expect(future, throwsA(isA<NonexistentException>()));
-  //     },
-  //   );
-
-  //   test(
-  //     'should throw default exception',
-  //     () async {
-  //       const id = 1;
-
-  //       when(
-  //         () => connect.get(
-  //           'categories/$id',
-  //           decoder: any(named: 'decoder'),
-  //         ),
-  //       ).thenAnswer((_) async => getCategoryByIdUnknowError);
-
-  //       final future = categoriesService.getCategoryById(id);
-
-  //       expect(future, throwsA(isA<DefaultException>()));
-  //     },
-  //   );
-  // });
+      expect(future, throwsA(isA<DefaultException>()));
+    });
+  });
 }
