@@ -1,6 +1,8 @@
 import 'package:ekko/domain/core/constants/errors.constants.dart';
 import 'package:ekko/domain/core/exceptions/table_name_already_exists.exception.dart';
 import 'package:ekko/infrastructure/dal/services/data/error.response.dart';
+import 'package:ekko/infrastructure/dal/services/data/table_history.data.dart';
+import 'package:ekko/infrastructure/dal/services/data/product.data.dart';
 
 import '../../../../domain/core/abstractions/infrastructure/http_connect.interface.dart';
 import '../../../../domain/core/abstractions/infrastructure/services/table_service.interface.dart';
@@ -62,5 +64,52 @@ class TablesService implements ITablesService {
           throw DefaultException(message: response.payload!.errors!.first.desc);
       }
     }
+  }
+
+  @override
+  Future<void> closeTable(TableData body) async {
+    final response = await _connect.post(
+      '$urlBase/${body.id}',
+      body.toJson(),
+      decoder: ErrorResponse.fromJson,
+    );
+
+    if (!response.success) {
+      throw DefaultException(message: response.payload!.errors!.first.desc);
+    }
+  }
+
+  @override
+  Future<void> addProducts({
+    required int tableId,
+    required List<ProductData> products,
+  }) async {
+    final response = await _connect.post(
+      '$urlBase/$tableId',
+      {'products': products.map((e) => e.toJson())},
+      decoder: ErrorResponse.fromJson,
+    );
+
+    if (!response.success) {
+      throw DefaultException(message: response.payload!.errors!.first.desc);
+    }
+  }
+
+  @override
+  Future<void> editProduct({required int tableId, required ProductData body}) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> removeProduct({
+    required int tableId,
+    required ProductData body,
+  }) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<TableHistoryData>> getTableHistory(int tableId) {
+    throw UnimplementedError();
   }
 }

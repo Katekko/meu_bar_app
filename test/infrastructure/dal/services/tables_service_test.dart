@@ -2,12 +2,14 @@ import 'package:ekko/domain/core/abstractions/infrastructure/http_connect.interf
 import 'package:ekko/domain/core/abstractions/infrastructure/services/table_service.interface.dart';
 import 'package:ekko/domain/core/exceptions/default.exception.dart';
 import 'package:ekko/domain/core/exceptions/table_name_already_exists.exception.dart';
+import 'package:ekko/domain/table/models/product.mock.dart';
 import 'package:ekko/domain/table/models/table.mock.dart';
 import 'package:ekko/infrastructure/dal/services/tables/tables.service.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 import '../../../mocks.dart';
+import 'mocks/tables_service/add_products.mock.dart';
 import 'mocks/tables_service/get_tables.mock.dart';
 import 'mocks/tables_service/post_table.mock.dart';
 import 'mocks/tables_service/put_table.mock.dart';
@@ -63,7 +65,7 @@ void main() {
     );
   });
 
-  group('Create category', () {
+  group('Create table', () {
     test('with success', () async {
       when(
         () => connect.post(
@@ -128,7 +130,7 @@ void main() {
     });
   });
 
-  group('Update category', () {
+  group('Update table', () {
     test('with success', () async {
       when(
         () => connect.put(
@@ -186,6 +188,104 @@ void main() {
         () => connect.put(
           '$urlBase/${tableData1.id}',
           tableData1.toJson(),
+          decoder: any(named: 'decoder'),
+        ),
+      );
+
+      expect(future, throwsA(isA<DefaultException>()));
+    });
+  });
+
+  group('Close table', () {
+    test('with success', () async {
+      when(
+        () => connect.post(
+          '$urlBase/${tableData1.id}',
+          tableData1.toJson(),
+          decoder: any(named: 'decoder'),
+        ),
+      ).thenAnswer((_) async => postTableWithSuccessResponse);
+
+      await tablesService.postTable(tableData1);
+
+      verify(
+        () => connect.post(
+          '$urlBase/${tableData1.id}',
+          tableData1.toJson(),
+          decoder: any(named: 'decoder'),
+        ),
+      );
+    });
+
+    test('should throw DefaultException', () async {
+      when(
+        () => connect.post(
+          '$urlBase/${tableData1.id}',
+          tableData1.toJson(),
+          decoder: any(named: 'decoder'),
+        ),
+      ).thenAnswer((_) async => postTableWithDefaultExceptionResponse);
+
+      final future = tablesService.postTable(tableData1);
+
+      verify(
+        () => connect.post(
+          '$urlBase/${tableData1.id}',
+          tableData1.toJson(),
+          decoder: any(named: 'decoder'),
+        ),
+      );
+
+      expect(future, throwsA(isA<DefaultException>()));
+    });
+  });
+
+  group('Add products', () {
+    test('with success', () async {
+      final body = {'products': listProductsData.map((e) => e.toJson())};
+
+      when(
+        () => connect.post(
+          '$urlBase/${tableData1.id}',
+          body,
+          decoder: any(named: 'decoder'),
+        ),
+      ).thenAnswer((_) async => addProductsTableWithSuccessResponse);
+
+      await tablesService.addProducts(
+        tableId: tableData1.id,
+        products: listProductsData,
+      );
+
+      verify(
+        () => connect.post(
+          '$urlBase/${tableData1.id}',
+          body,
+          decoder: any(named: 'decoder'),
+        ),
+      );
+    });
+
+    test('should throw DefaultException', () async {
+      final body = {'products': listProductsData.map((e) => e.toJson())};
+
+      when(
+        () => connect.post(
+          '$urlBase/${tableData1.id}',
+          body,
+          decoder: any(named: 'decoder'),
+        ),
+      ).thenAnswer((_) async => addProductsTableWithDefaultExceptionResponse);
+
+      final future = tablesService.addProducts(
+        tableId: tableData1.id,
+        products: listProductsData,
+      );
+
+      verify(
+        () => connect.post(
+          '$urlBase/${tableData1.id}',
+          body,
           decoder: any(named: 'decoder'),
         ),
       );

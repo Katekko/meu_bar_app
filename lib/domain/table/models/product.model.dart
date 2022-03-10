@@ -18,11 +18,14 @@ class ProductModel extends Equatable {
   /// Utilizado para enviar a imagem para o backend
   final Uint8List? imageBytes;
 
+  final int amount;
+
   const ProductModel({
     required this.id,
     required this.name,
     required this.price,
     required this.category,
+    this.amount = 0,
     this.imageBytes,
     this.urlImage,
     this.description,

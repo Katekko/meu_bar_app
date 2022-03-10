@@ -15,11 +15,14 @@ class ProductData extends Equatable {
   final String? urlImage;
   final String? base64Image;
 
+  final int amount;
+
   const ProductData({
     required this.id,
     required this.name,
     required this.price,
     required this.category,
+    this.amount = 0,
     this.urlImage,
     this.base64Image,
   });
