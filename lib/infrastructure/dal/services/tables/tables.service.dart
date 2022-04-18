@@ -8,6 +8,8 @@ import '../../../../domain/core/abstractions/infrastructure/http_connect.interfa
 import '../../../../domain/core/abstractions/infrastructure/services/table_service.interface.dart';
 import '../../../../domain/core/exceptions/default.exception.dart';
 import '../data/table.data.dart';
+import 'dto/add_products.body.dart';
+import 'dto/edit_product_amount.body.dart';
 import 'dto/get_tables.response.dart';
 
 class TablesService implements ITablesService {
@@ -82,11 +84,11 @@ class TablesService implements ITablesService {
   @override
   Future<void> addProducts({
     required int tableId,
-    required List<ProductData> products,
+    required AddProductsBody body,
   }) async {
     final response = await _connect.post(
       '$urlBase/$tableId',
-      {'products': products.map((e) => e.toJson())},
+      body.toJson(),
       decoder: ErrorResponse.fromJson,
     );
 
@@ -96,8 +98,19 @@ class TablesService implements ITablesService {
   }
 
   @override
-  Future<void> editProduct({required int tableId, required ProductData body}) {
-    throw UnimplementedError();
+  Future<void> editProductAmount({
+    required int tableId,
+    required EditProductAmountBody body,
+  }) async {
+    final response = await _connect.patch(
+      '$urlBase/$tableId',
+      body.toJson(),
+      decoder: ErrorResponse.fromJson,
+    );
+
+    if (!response.success) {
+      throw DefaultException(message: response.payload!.errors!.first.desc);
+    }
   }
 
   @override
