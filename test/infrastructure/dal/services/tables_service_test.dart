@@ -201,7 +201,7 @@ void main() {
     test('with success', () async {
       when(
         () => connect.post(
-          '$urlBase/${tableData1.id}',
+          urlBase,
           tableData1.toJson(),
           decoder: any(named: 'decoder'),
         ),
@@ -211,7 +211,7 @@ void main() {
 
       verify(
         () => connect.post(
-          '$urlBase/${tableData1.id}',
+          urlBase,
           tableData1.toJson(),
           decoder: any(named: 'decoder'),
         ),
@@ -221,7 +221,7 @@ void main() {
     test('should throw DefaultException', () async {
       when(
         () => connect.post(
-          '$urlBase/${tableData1.id}',
+          urlBase,
           tableData1.toJson(),
           decoder: any(named: 'decoder'),
         ),
@@ -231,7 +231,7 @@ void main() {
 
       verify(
         () => connect.post(
-          '$urlBase/${tableData1.id}',
+          urlBase,
           tableData1.toJson(),
           decoder: any(named: 'decoder'),
         ),
