@@ -3,7 +3,7 @@ import 'package:ekko/domain/core/abstractions/presentation/controllers/products/
 import 'package:ekko/domain/table/models/product.mock.dart';
 import 'package:ekko/presentation/controllers.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import '../../../mocks.dart';
 

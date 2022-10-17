@@ -3,7 +3,7 @@ import 'package:ekko/domain/core/builders/field_validator.builder.dart';
 import 'package:ekko/infrastructure/navigation/bindings/controllers/controllers_bindings.dart';
 import 'package:ekko/presentation/controllers.dart';
 import 'package:ekko/presentation/shared/loading/loading.interface.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import '../../../../mocks.dart';
 

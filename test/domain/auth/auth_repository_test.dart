@@ -6,8 +6,8 @@ import 'package:ekko/domain/core/abstractions/infrastructure/storage.interface.d
 import 'package:ekko/domain/core/constants/storage.constants.dart';
 import 'package:ekko/infrastructure/dal/inject.dart';
 import 'package:ekko/infrastructure/dal/services/auth/dto/authenticate_user.body.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:test/test.dart';
 
 import '../../mocks.dart';
 import 'mocks/authenticate_user.mock.dart';

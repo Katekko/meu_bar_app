@@ -14,28 +14,27 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   
-  get: ^4.6.1
+  get: ^4.6.5
   get_storage: ^2.0.3
   logger: ^1.1.0
-  equatable: ^2.0.3
-  flutter_iconpicker: ^3.1.2
-  rxdart: ^0.26.0
-  money2: ^3.1.2
-  currency_text_input_formatter: ^2.1.5
+  equatable: ^2.0.5
+  flutter_iconpicker: ^3.2.1
+  rxdart: 0.26.0
+  money2: ^3.3.0
+  currency_text_input_formatter: ^2.1.7
   uuid: ^3.0.6
-  image_picker: ^0.8.4+10
+  image_picker: ^0.8.6
+  json_annotation: ^4.7.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  test:
-
-  flutter_lints: ^1.0.4
-  build_runner: ^2.1.4
-  json_serializable: ^5.0.2
+  flutter_lints: ^2.0.1
+  build_runner: ^2.3.0
   faker: ^2.0.0
-  mocktail: ^0.2.0
+  mocktail: ^0.3.0
+  json_serializable: ^6.5.1
 
 flutter:
   uses-material-design: true

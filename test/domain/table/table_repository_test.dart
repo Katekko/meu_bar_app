@@ -3,7 +3,7 @@ import 'package:ekko/domain/core/abstractions/infrastructure/services/table_serv
 import 'package:ekko/domain/table/models/table.mock.dart';
 import 'package:ekko/domain/table/table.repository.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import '../../mocks.dart';
 

@@ -4,7 +4,7 @@ import 'package:ekko/domain/table/models/category.mock.dart';
 import 'package:ekko/domain/table/models/product.mock.dart';
 import 'package:ekko/domain/table/product.repository.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import '../../mocks.dart';
 

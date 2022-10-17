@@ -6,7 +6,7 @@ import 'package:ekko/infrastructure/dal/services/auth/auth.service.dart';
 import 'package:ekko/infrastructure/dal/services/auth/dto/authenticate_user.body.dart';
 import 'package:ekko/infrastructure/dal/services/auth/dto/authenticate_user.response.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import '../../../mocks.dart';
 import 'mocks/auth_mocks/authenticate_user.mocks.dart';

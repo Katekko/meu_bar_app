@@ -15,7 +15,7 @@ import 'package:ekko/presentation/controllers.dart';
 import 'package:ekko/presentation/shared/loading/loading.interface.dart';
 import 'package:faker/faker.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import '../../../mocks.dart';
 

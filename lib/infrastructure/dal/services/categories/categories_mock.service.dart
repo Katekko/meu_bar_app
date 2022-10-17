@@ -2,8 +2,6 @@ import 'package:ekko/domain/core/abstractions/infrastructure/services/categories
 import 'package:ekko/domain/table/models/Category.mock.dart';
 import 'package:ekko/infrastructure/dal/services/data/category.data.dart';
 
-import '../data/category.data.dart';
-
 class CategoriesMockService implements ICategoriesService {
   @override
   Future<List<CategoryData>> getCategories({

@@ -8,7 +8,7 @@ import 'package:ekko/infrastructure/navigation/bindings/controllers/category_con
 import 'package:ekko/presentation/categories/controllers/category.controller.dart';
 import 'package:faker/faker.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import '../../../mocks.dart';
 

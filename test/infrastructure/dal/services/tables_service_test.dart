@@ -7,7 +7,7 @@ import 'package:ekko/domain/table/models/table.mock.dart';
 import 'package:ekko/infrastructure/dal/services/tables/dto/add_products.body.dart';
 import 'package:ekko/infrastructure/dal/services/tables/tables.service.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import '../../../mocks.dart';
 import 'mocks/tables_service/add_products.mock.dart';

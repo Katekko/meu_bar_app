@@ -1,6 +1,6 @@
 import 'package:ekko/domain/core/builders/field_validator.builder.dart';
 import 'package:ekko/infrastructure/navigation/bindings/controllers/login.controller.binding.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import '../../../../mocks.dart';
 

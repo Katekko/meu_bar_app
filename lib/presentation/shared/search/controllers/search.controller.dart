@@ -72,7 +72,7 @@ class SearchController<T extends ISearchable> extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    WidgetsBinding.instance?.addPostFrameCallback(
+    WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) async => searchItems(''),
     );
     debounce<String>(

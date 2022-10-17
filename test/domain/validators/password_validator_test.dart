@@ -1,6 +1,6 @@
 import 'package:ekko/domain/core/validators/password.validator.dart';
 import 'package:ekko/infrastructure/translate/validators.translate.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   late PasswordValidator sut;

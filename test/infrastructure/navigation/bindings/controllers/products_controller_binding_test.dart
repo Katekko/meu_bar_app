@@ -2,7 +2,7 @@ import 'package:ekko/domain/core/abstractions/domain/repositories/product_reposi
 import 'package:ekko/infrastructure/navigation/bindings/controllers/controllers_bindings.dart';
 import 'package:ekko/presentation/products/controllers/controllers.dart';
 import 'package:ekko/presentation/shared/loading/loading.interface.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import '../../../../mocks.dart';
 

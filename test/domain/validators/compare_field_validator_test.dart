@@ -1,7 +1,7 @@
 import 'package:ekko/domain/core/validators/compare_field.validator.dart';
 import 'package:ekko/infrastructure/translate/validators.translate.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import '../../mocks.dart';
 

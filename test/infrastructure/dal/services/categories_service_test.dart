@@ -5,7 +5,7 @@ import 'package:ekko/domain/core/exceptions/nonexistent.exception.dart';
 import 'package:ekko/domain/table/models/category.mock.dart';
 import 'package:ekko/infrastructure/dal/services/categories/categories.service.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import '../../../mocks.dart';
 import 'mocks/categories/get_categories.mock.dart';

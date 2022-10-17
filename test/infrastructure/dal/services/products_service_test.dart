@@ -7,7 +7,7 @@ import 'package:ekko/infrastructure/dal/services/data/category.data.dart';
 import 'package:ekko/infrastructure/dal/services/data/product.data.dart';
 import 'package:ekko/infrastructure/dal/services/products/products.service.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import '../../../mocks.dart';
 import 'mocks/products_service/create_product.mock.dart';
